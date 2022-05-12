@@ -14,7 +14,7 @@ export default function Footer() {
             <Box >
                 <Typography variant="body2" color="primary" align="left" sx={{pt: 1}}>
                     {'© '}
-                    MCR-Digital 2022
+                    Merchant 2022
                     {'.'}
                 </Typography>
                 <Typography variant="body2" color="primary" align="left" sx={{pt: 1}}>
@@ -30,7 +30,7 @@ export default function Footer() {
                     </Button>
                 </Typography>
             </Box>
-            <Box>
+            {/* <Box>
                 <Button variant="text" href="mailto:digitalmcr@hotmail.com?subject=MCR Digital enquiry" >
                     Email
                 </Button>
@@ -40,7 +40,7 @@ export default function Footer() {
                 <IconButton href="https://www.linkedin.com/in/d%E2%80%99arcy-o%E2%80%99connor-b730a9152/" target="_blank" rel="noreferrer" color="primary" >
                     <LinkedInIcon  />
                 </IconButton> 
-            </Box>
+            </Box> */}
 
         </Box>
     </Container>

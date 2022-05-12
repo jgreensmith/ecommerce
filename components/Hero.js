@@ -47,14 +47,14 @@ const Hero = ({ heroData }) => {
                             <NextLink href="/services">
                                 <SvgButton sx={{mr: '9px', mb: 3}} >
                                     <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
-                                        About MCR Digital
+                                        About Merchant
                                     </Typography>
                                 </SvgButton>
                             </NextLink>
                             <NextLink href="/portfolio">
                                 <SvgButton sx={{mr: '9px', mb: 3}} >
                                     <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
-                                        Partnered Companies
+                                        Shop
                                     </Typography>
                                 </SvgButton>
                             </NextLink>

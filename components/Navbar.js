@@ -58,8 +58,8 @@ const Navbar = (props) => {
     
 
     const links = {
-        services: "Services",
-        portfolio: "Portfolio",
+        about: "About",
+        products: "Products",
     }
 
     const drawer = (
@@ -98,7 +98,7 @@ const Navbar = (props) => {
                         </IconButton>
                         <NextLink href="/">
                             <MainButton >
-                                <LogoImg src='/images/logo.jpeg'/>
+                                Merchant
                                 
                             </MainButton>
                         </NextLink>
