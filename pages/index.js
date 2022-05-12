@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
-import { sanityClient } from "../sanity";
+import { client } from "../lib/client";
 
 
 const Home = ({heroData}) => {
@@ -15,7 +15,7 @@ const Home = ({heroData}) => {
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "hero"]'
-  const heroData = await sanityClient.fetch(query)
+  const heroData = await client.fetch(query)
 
   if (!heroData.length) {
       return {

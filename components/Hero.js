@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 import { HeroBox, HeroSlide } from '../utils/styles';
-import { urlFor } from '../sanity';
+import { urlFor } from '../lib/client';
 import SvgButton from './svg/ButtonSvg';
 import { Typography, Link, Slide } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';

@@ -11,6 +11,13 @@ export default {
                 hotspot: true
             },
             validation: Rule => Rule.required()
-        }
+        },
+        {
+            name: 'alt',
+            title: 'Alt tag',
+            type: 'string',
+            description: 'brief description of the image, important for SEO',
+            validation: Rule => Rule.required()
+        },
     ]
 }
