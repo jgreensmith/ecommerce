@@ -13,7 +13,6 @@ const Layout = ({ children, title }) => {
             <Head>
                 <meta charSet="utf-8" />
                 <title>{`${title} | MCR Digitass`}</title>
-                <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"

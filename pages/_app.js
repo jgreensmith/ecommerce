@@ -1,26 +1,30 @@
-import '../styles/globals.css';
-import NProgress from 'nprogress';
-import Router from 'next/router';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { CacheProvider } from '@emotion/react';
+import createEmotionCache from '../utils/createEmotionCache';
 
-import 'nprogress/nprogress.css';
-import { useEffect } from 'react';
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
-Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', () => NProgress.done());
+export default function MyApp(props) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    //remove default server side injected css to allow MUI SSR CSS
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
   return (
-      <Component {...pageProps} />
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <React.Fragment>
+        <Component {...pageProps} />
+      </React.Fragment>
+      
+    </CacheProvider>
   );
 }
 
-export default MyApp
-
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
+  pageProps: PropTypes.object.isRequired,
+};
