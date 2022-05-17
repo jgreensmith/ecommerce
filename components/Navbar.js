@@ -59,7 +59,7 @@ const Navbar = (props) => {
 
     const links = {
         about: "About",
-        products: "Products",
+        products: "Shop",
     }
 
     const drawer = (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Container, Slide, Tooltip, Typography } from '@mui/material';
+import { Button, Container, Link, Slide, Tooltip, Typography } from '@mui/material';
 
 import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
 
@@ -9,7 +9,6 @@ import Layout from '../../components/Layout';
 import { client, urlFor } from '../../lib/client';
 
 import styles from '../../styles/Product.module.css';
-import Link from 'next/link';
 
 const Products = ({products}) => {
   console.log(products)
@@ -57,7 +56,7 @@ const Products = ({products}) => {
                                         
                                         
                                         <Tooltip title="Visit website">
-                                            <Link href={'#'} target="_blank" rel="noreferrer"  color="primary.light" >
+                                            <Link href={`/products/${product.slug.current}`} target="_blank" rel="noreferrer"  color="primary.light" >
                                                 <Button variant='contained'>View Product</Button>
                                             </Link>
                                         </Tooltip>
