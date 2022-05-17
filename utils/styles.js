@@ -1,4 +1,4 @@
-import { Button, Card, ImageListItemBar } from '@mui/material';
+import { Button, Card, ImageListItemBar, Grid } from '@mui/material';
 import { createTheme, styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
 
@@ -114,6 +114,38 @@ export const CartImg = styled("img")({
 });
 
 //containers
+
+export const CenteredGrid = styled(Grid)({
+  display: 'flex', 
+  justifyContent: 'center', 
+  alignItems: 'center'
+});
+
+export const PortfolioCard = styled('div')(({theme}) => ({
+  width: '300px',
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'center',
+  margin: '10px',
+
+}));
+export const PortfolioCardBody = styled('div')(({theme}) => ({
+  width: '300px'
+}));
+export const CardBanner = styled('div')(({theme}) => ({
+  width: '95%',
+  position: 'absolute',
+  marginBottom:  '5px',
+  padding: '7px 10px',
+  display: 'flex',
+  alignItems: 'center',
+  background: theme.palette.background.dark,
+  backdropFilter: 'blur(10px)',
+  borderRadius: '10px',
+  
+  opacity: 0,
+  transition: 'all 0.4s'
+}));
 
 export const FooterBox = styled('div')({
   
