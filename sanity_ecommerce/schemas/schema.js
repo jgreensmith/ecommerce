@@ -6,6 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import product from './product'
 import hero from './hero'
 import banner from './banner'
+import blockContent from './blockContent'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -16,6 +17,7 @@ export default createSchema({
   types: schemaTypes.concat([
     product,
     hero,
-    banner
+    banner,
+    blockContent
   ]),
 })

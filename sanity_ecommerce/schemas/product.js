@@ -31,10 +31,10 @@ export default {
             title: 'Price',
             type: 'number',
         },
-        { 
-            name: 'details',
-            title: 'Details',
-            type: 'string',
-        }
+        {
+            name: 'body',
+            title: 'Body',
+            type: 'blockContent',
+        },
     ]
 }
