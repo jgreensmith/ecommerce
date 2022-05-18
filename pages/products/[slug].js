@@ -9,7 +9,7 @@ import { StyledImg, ThumbnailButton } from '../../utils/styles';
 const Product = ({ product }) => {
 
   console.log(product);
-  const { image, name, details, price } = product;
+  const { image, name, body, price } = product;
 
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -54,7 +54,7 @@ const Product = ({ product }) => {
           <Grid item xs={12} sm={4}>
             <ProductDescription 
               name={name} 
-              description={details}
+              body={body}
               price={price} 
             /> 
           </Grid>

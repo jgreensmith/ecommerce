@@ -1,7 +1,9 @@
-import { Paper, Typography } from '@mui/material';
 import React from 'react';
+import { PortableText } from '@portabletext/react';
 
-const ProductDescription = ({name, details, price}) => {
+import { Paper, Typography } from '@mui/material';
+
+const ProductDescription = ({name, body, price}) => {
   return (
     <Paper>
         <div>
@@ -28,7 +30,9 @@ const ProductDescription = ({name, details, price}) => {
                 gutterBottom
                 variant='body2'
             >
-                {details}
+                <PortableText
+                    value={body}
+                />
             </Typography>
         </div>
 
