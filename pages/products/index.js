@@ -29,13 +29,13 @@ const Products = ({products}) => {
                                                 opacity: 0.8
                                             }}
                                         >
-                                            {product.title}
+                                            {product.name}
                                         </Typography>
                                     </CardBanner>
                                     <PortfolioCardBody>
                                         <PortfolioImg
                                             src={urlFor(product.image && product.image[0]).size(600, 600).quality(90).fit("min").url()}
-                                            alt={product.title}
+                                            alt={product.name}
                                             loading="lazy"
                                             />
                                     </PortfolioCardBody>

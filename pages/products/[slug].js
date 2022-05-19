@@ -53,9 +53,7 @@ const Product = ({ product }) => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <ProductDescription 
-              name={name} 
-              body={body}
-              price={price} 
+              product={product}
             /> 
           </Grid>
         </Grid>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../utils/createEmotionCache';
+import StateContextProvider from '../utils/context/StateContext';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -15,9 +16,9 @@ export default function MyApp(props) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <React.Fragment>
+      <StateContextProvider>
         <Component {...pageProps} />
-      </React.Fragment>
+      </StateContextProvider>
       
     </CacheProvider>
   );
