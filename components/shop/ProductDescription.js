@@ -5,7 +5,7 @@ import { Paper, Typography } from '@mui/material';
 
 const ProductDescription = ({name, body, price}) => {
   return (
-    <Paper>
+    <Paper elevation={3} sx={{ p: 3 }}>
         <div>
             <Typography
                 gutterBottom
