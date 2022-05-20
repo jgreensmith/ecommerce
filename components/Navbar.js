@@ -24,6 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from '@mui/system';
 import { LogoImg, MainButton } from '../utils/styles';
+import Cart from './shop/Cart';
 
 
 
@@ -55,7 +56,9 @@ const Navbar = (props) => {
         setMobileOpen(!mobileOpen);
     };
     
-    
+    const handleCartToggle = () => {
+        setCartOpen(!cartOpen)
+    }
 
     const links = {
         about: "About",
@@ -98,7 +101,7 @@ const Navbar = (props) => {
                         </IconButton>
                         <NextLink href="/">
                             <MainButton >
-                                Merchant
+                                Merchant X
                                 
                             </MainButton>
                         </NextLink>
@@ -122,9 +125,15 @@ const Navbar = (props) => {
                                 </NextLink>
                             ))}
                         </List>
-                       
+                        <Tooltip title="View Cart">
+                            <IconButton                         
+                                onClick={handleCartToggle}
+                            >
+                                <ShoppingCartIcon sx={{ color: 'primary.text' }} />
+                            </IconButton>
+                        </Tooltip>
 
-                    </Toolbar>
+                        </Toolbar>
                 </AppBar>
             </HideOnScroll>
             <Box
@@ -148,6 +157,31 @@ const Navbar = (props) => {
                     }}
                 >
                     {drawer}
+                </Drawer>
+            </Box>
+            <Box
+                component="nav"
+                sx={{ width: { xs: '80%', sm: cartWidth }, flexShrink: { sm: 0 } }}
+                aria-label="mailbox folders"
+            >
+                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                <Drawer
+                    anchor='right'
+                    variant="temporary"
+                    open={cartOpen}
+                    onClose={handleCartToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                        disableScrollLock: true,
+                    }}
+                    sx={{
+                        display: { xs: 'block'},
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: { xs: '100%', vs: '80%', sm: cartWidth } },
+                    }}
+                >
+                    <Cart 
+                        handleCartToggle={handleCartToggle}
+                    />
                 </Drawer>
             </Box>
         </React.Fragment>

@@ -56,7 +56,7 @@ const Products = ({products}) => {
                                         
                                         
                                         <Tooltip title="Visit website">
-                                            <Link href={`/products/${product.slug.current}`} target="_blank" rel="noreferrer"  color="primary.light" >
+                                            <Link href={`/products/${product.slug.current}`} color="primary.light" >
                                                 <Button variant='contained'>View Product</Button>
                                             </Link>
                                         </Tooltip>

@@ -12,7 +12,7 @@ const Layout = ({ children, title }) => {
         <React.Fragment>
             <Head>
                 <meta charSet="utf-8" />
-                <title>{`${title} | MCR Digitass`}</title>
+                <title>{`${title} | DefaultCommerce`}</title>
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"

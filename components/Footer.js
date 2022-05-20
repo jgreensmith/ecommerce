@@ -26,7 +26,7 @@ export default function Footer() {
                     target="_blank" 
                     rel="noreferrer"
                     >
-                        James Greensmith
+                        DefaultCommerce
                     </Button>
                 </Typography>
             </Box>
