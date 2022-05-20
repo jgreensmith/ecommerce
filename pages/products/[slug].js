@@ -26,7 +26,7 @@ const Product = ({ product }) => {
                     background: `url("${urlFor(item)}") center center/cover`,
                     display: { xs: 'none', sm: 'block' },
                 }}
-                onMouseEnter={ () => setImageIndex(i)} 
+                onClick={ () => setImageIndex(i)} 
               />
             ))}
           </Grid>

@@ -34,7 +34,7 @@ function Cart(props) {
             <TableContainer component={Paper} sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto', paddingBottom: 1 }}>
                 <Table >
                     <TableBody >
-                        {cartItems.map((cartItem) => (
+                        {cartItems.length >= 1 && cartItems.map((cartItem) => (
                             <TableRow key={cartItem._id}>
                                 <TableCell 
                                     align='left' 
@@ -48,7 +48,7 @@ function Cart(props) {
                                             <Typography>{cartItem.name}</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography align='right'>{cartItem.price.formatted_with_symbol}</Typography>
+                                            <Typography align='right'>£{cartItem.price}</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography>Quantity: {cartItem.quantity}</Typography>
@@ -56,7 +56,7 @@ function Cart(props) {
                                         <Grid item xs={6}>
                                             <Typography align='right'>
                                                 <Button
-                                                    onClick={() => removeFromCartHandler(cartItem)}
+                                                    onClick={() => onRemove(cartItem)}
                                                     variant="text"
                                                     color="secondary"
                                                     sx={{padding: 0}}
