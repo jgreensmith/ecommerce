@@ -7,8 +7,6 @@ const Home = ({heroData}) => {
   return (
     <Layout title="Home">
       <Hero heroData={heroData} />
-      
-
     </Layout>
   )
 }

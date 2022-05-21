@@ -18,7 +18,7 @@ export default function Footer() {
                     {'.'}
                 </Typography>
                 <Typography variant="body2" color="primary" align="left" sx={{pt: 1}}>
-                    Web design by 
+                    Powered by 
                     <Button 
                     variant="text" 
                     sx={{textTransform: 'capitalize'}}

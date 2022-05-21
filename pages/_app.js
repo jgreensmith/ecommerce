@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../utils/createEmotionCache';
 import StateContextProvider from '../utils/context/StateContext';
+import { Toaster } from 'react-hot-toast';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -17,6 +18,7 @@ export default function MyApp(props) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <StateContextProvider>
+        <Toaster />
         <Component {...pageProps} />
       </StateContextProvider>
       
