@@ -61,24 +61,35 @@ const Product = ({ product }) => {
     </Layout>
   )
 }
-
-export const getServerSideProps = async (pageContext) => {
-  const pageSlug = pageContext.query.slug;
-
-  const query = `*[ _type == "product" && slug.current == $pageSlug ][0]`;
-  const product = await client.fetch(query, { pageSlug });
-
-  if (!product) {
-    return {
-      props: null,
-      notFound: true
+//adds path to params
+export const getStaticPaths = async () => {
+  const query = `*[_type == "product"] {
+    slug {
+      current
     }
-  } else {
-    return {
-      props: {
-        product
-      }
+  }`;
+  const products = await client.fetch(query);
+
+  const paths = products.map((product) => ({
+    params: {
+      slug: product.slug.current
     }
+  }));
+  return {
+    paths,
+    fallback: 'blocking'
+  }
+
+}
+
+export const getStaticProps = async ({ params: { slug } }) => {
+  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
+  const product = await client.fetch(query);
+
+  console.log(product);
+
+  return {
+    props: { product }
   }
 }
 
