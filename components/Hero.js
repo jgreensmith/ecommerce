@@ -29,7 +29,7 @@ const params = {
 };
 
 const Hero = ({ heroData }) => {
-    console.log(heroData);
+    //console.log(heroData);
     return (
         <HeroBox>
 

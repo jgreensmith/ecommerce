@@ -9,7 +9,7 @@ import { StyledImg, ThumbnailButton } from '../../utils/styles';
 const Product = ({ product }) => {
 
   console.log(product);
-  const { image, name, body, price } = product;
+  const { image, name } = product;
 
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -86,7 +86,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
   const product = await client.fetch(query);
 
-  console.log(product);
+  //console.log(product);
 
   return {
     props: { product }

@@ -41,6 +41,7 @@ export const StateContextProvider = (props) => {
         }
       
       toast.success(`${qty} ${product.name} added to the cart.`);
+      console.log(cartItems)
     }
     const onRemove = (product) => {
       foundProduct = cartItems.find((item) => item._id === product._id);

@@ -1,11 +1,12 @@
+import React, { useContext, useRef } from 'react';
 import { Button, Container, Divider, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Toolbar, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import React, { useContext, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { CartImg } from '../../utils/styles';
 import NextLink from 'next/link';
 import { Box } from '@mui/system';
 import Router from 'next/router';
+
 import { StateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/client';
 
@@ -13,6 +14,7 @@ import { urlFor } from '../../lib/client';
 function Cart(props) {
     const { handleCartToggle } = props;
     const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useContext(StateContext);
+    const cartRef = useRef();
 
     const removeFromCartHandler = async () => {
         
@@ -23,7 +25,7 @@ function Cart(props) {
 
     return (
         
-        <Container fixed disableGutters={true} >
+        <Container fixed disableGutters={true} ref={cartRef} >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography>Shopping Cart</Typography>
                 <IconButton onClick={handleCartToggle} >
@@ -35,7 +37,7 @@ function Cart(props) {
                 <Table >
                     <TableBody >
                         {cartItems.length >= 1 && cartItems.map((cartItem) => (
-                            <TableRow key={cartItem._id}>
+                            <TableRow key={cartItem}>
                                 <TableCell 
                                     align='left' 
                                     sx={{ width: '80px', padding: '5px' }} 
@@ -118,6 +120,4 @@ function Cart(props) {
     )
 }
 
-export default dynamic(() => Promise.resolve(Cart), {
-    ssr: false,
-});
+export default Cart;

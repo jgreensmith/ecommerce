@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 
-import { Button, Container, Link, Slide, Tooltip, Typography } from '@mui/material';
+import { Button, Container, Slide, Tooltip, Typography } from '@mui/material';
 
 import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
 
@@ -16,8 +17,8 @@ const Products = ({products}) => {
     <Layout title='products'>
         <Container maxWidth='lg'>
         <CenteredGrid container spacing={5} sx={{pt: 6}} >
-                    {products.map((product, index) => (
-                        <CenteredGrid item key={index} xs={12} sm={6} md={4} >
+                    {products.map((product) => (
+                        <CenteredGrid item key={product._id} xs={12} sm={6} md={4} >
                             <Slide direction="up" in={true}>
                                
                                 <PortfolioCard className={styles.card}>

@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { PortableText } from '@portabletext/react';
-import { StateContext } from '../../utils/context/StateContext';
 
 import { Alert, Button, FormControl, Grid, InputLabel, ListItem, MenuItem, Paper, Select, Typography } from '@mui/material';
+
+import { StateContext } from '../../utils/context/StateContext';
 
 
 const ProductDescription = ({ product }) => {
