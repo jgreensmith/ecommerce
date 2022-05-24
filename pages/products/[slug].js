@@ -8,7 +8,7 @@ import { StyledImg, ThumbnailButton } from '../../utils/styles';
 
 const Product = ({ product }) => {
 
-  console.log(product);
+  //console.log(product);
   const { image, name } = product;
 
   const [imageIndex, setImageIndex] = useState(0);

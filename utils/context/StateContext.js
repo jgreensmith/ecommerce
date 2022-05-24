@@ -19,18 +19,23 @@ export const StateContextProvider = (props) => {
         //check if product is already in cart
         const checkProductInCart = cartItems.find((item) => item._id === product._id)
 
-        //set new price and quantity
-        setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-
         //if product is in cart, re organise cart items so that one item but increase quantity
         if(checkProductInCart) {
-            const updatedCartItems = cartItems.map((cartProduct) => {
-              if(cartProduct._id === product._id) return {
-                ...cartProduct,
-                quantity: cartProduct.quantity + quantity
-              }
-            })
+            const updatedCartItems = cartItems.map((item) => {
+              if(item._id === product._id){
+                const newQty = item.quantity + quantity;
+                return {
+                
+                  ...item,
+                  quantity: newQty,
+                  
+                };
+              } else {
+                return {
+                  ...item,
+                };
+              } 
+            });
       
             setCartItems(updatedCartItems);
         } else {
@@ -38,10 +43,12 @@ export const StateContextProvider = (props) => {
             product.quantity = quantity;
             
             setCartItems([...cartItems, { ...product }]);
+            console.log([...cartItems, { ...product }])
         }
-      
+       //set new price and quantity
+       setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+       setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
       toast.success(`${qty} ${product.name} added to the cart.`);
-      console.log(cartItems)
     }
     const onRemove = (product) => {
       foundProduct = cartItems.find((item) => item._id === product._id);
