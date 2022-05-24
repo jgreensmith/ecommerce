@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import NextLink from 'next/link';
+
 import {
     AppBar,
     Badge,
@@ -23,8 +24,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from '@mui/system';
+
 import { LogoImg, MainButton } from '../utils/styles';
 import Cart from './shop/Cart';
+import { StateContext } from '../utils/context/StateContext';
 
 
 
@@ -51,6 +54,9 @@ const Navbar = (props) => {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
+    const { totalQuantities } = useContext(StateContext);
+
+    console.log(totalQuantities);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -64,6 +70,7 @@ const Navbar = (props) => {
         about: "About",
         products: "Shop",
     }
+
 
     const drawer = (
         <div>
@@ -125,13 +132,25 @@ const Navbar = (props) => {
                                 </NextLink>
                             ))}
                         </List>
-                        <Tooltip title="View Cart">
-                            <IconButton                         
-                                onClick={handleCartToggle}
-                            >
-                                <ShoppingCartIcon sx={{ color: 'primary.text' }} />
-                            </IconButton>
-                        </Tooltip>
+                        { totalQuantities > 0 ? (
+                            <Badge badgeContent={totalQuantities} >
+                                <Tooltip title="View Cart">
+                                    <IconButton                         
+                                        onClick={handleCartToggle}
+                                    >
+                                        <ShoppingCartIcon sx={{ color: 'primary.text' }} />
+                                    </IconButton>
+                                </Tooltip>
+                            </Badge>   
+                        ) : (
+                            <Tooltip title="View Cart">
+                                <IconButton                         
+                                    onClick={handleCartToggle}
+                                >
+                                    <ShoppingCartIcon sx={{ color: 'primary.text' }} />
+                                </IconButton>
+                            </Tooltip>
+                        )}
 
                         </Toolbar>
                 </AppBar>

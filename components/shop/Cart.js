@@ -37,7 +37,7 @@ function Cart(props) {
                 <Table >
                     <TableBody >
                         {cartItems.length >= 1 && cartItems.map((cartItem) => (
-                            <TableRow key={cartItem}>
+                            <TableRow key={cartItem._id}>
                                 <TableCell 
                                     align='left' 
                                     sx={{ width: '80px', padding: '5px' }} 

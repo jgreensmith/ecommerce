@@ -8,7 +8,7 @@ import { StateContext } from '../../utils/context/StateContext';
 
 const ProductDescription = ({ product }) => {
     const { onAdd, qty, setQty } = useContext(StateContext);
-    const inventory = 3
+    const inventory = 13
   return (
     <Paper elevation={3} sx={{ p: 3 }}>
         <ListItem>
