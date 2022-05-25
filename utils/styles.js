@@ -96,6 +96,8 @@ export const LogoImg = styled("img")({
 
 export const StyledImg = styled("img")({
   width: '100%',
+  borderRadius: '15px',
+  backgroundColor: '#ebebeb',
 });
 
 export const PortfolioImg = styled("img")({

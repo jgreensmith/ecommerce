@@ -84,6 +84,7 @@ const ProductDescription = ({ product }) => {
             <Typography
                 gutterBottom
                 variant='body2'
+                sx={{overflowWrap: 'normal', width: '100%', overflow: 'hidden'}}
             >
                 <PortableText
                     value={product.body}

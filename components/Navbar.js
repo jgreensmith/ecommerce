@@ -56,7 +56,7 @@ const Navbar = (props) => {
     const [cartOpen, setCartOpen] = useState(false);
     const { totalQuantities } = useContext(StateContext);
 
-    console.log(totalQuantities);
+    //console.log(totalQuantities);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);

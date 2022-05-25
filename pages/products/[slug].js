@@ -23,7 +23,7 @@ const Product = ({ product }) => {
               <ThumbnailButton 
                 key={i}
                 sx={{
-                    background: `url("${urlFor(item)}") center center/cover`,
+                    background: `url("${urlFor(item).size(100, 100).quality(90).fit("min").url()}") center center/cover`,
                     display: { xs: 'none', sm: 'block' },
                 }}
                 onClick={ () => setImageIndex(i)} 
@@ -34,7 +34,7 @@ const Product = ({ product }) => {
             <Grow in>
               <Container maxWidth="sm">
                 <StyledImg 
-                  src={urlFor(image && image[imageIndex])}
+                  src={urlFor(image && image[imageIndex]).size(600, 600).quality(90).fit("min").url()}
                   alt={name}
                   sx={{ display: { xs: 'none', sm: 'block' } }}
                 />
@@ -42,7 +42,7 @@ const Product = ({ product }) => {
                     {image?.map((item, i) => (
                         <StyledImg
                           key={i}
-                          src={urlFor(item)}
+                          src={urlFor(item).size(600, 600).quality(90).fit("min").url()}
                           alt={name}
                           sx={{ marginRight: 5 }}
                         />  
