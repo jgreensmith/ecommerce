@@ -11,6 +11,8 @@ import Router from 'next/router';
 
 import { StateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/client';
+import getStripe from '../../lib/getStripe';
+import toast from 'react-hot-toast';
 
 
 function Cart(props) {
@@ -19,8 +21,26 @@ function Cart(props) {
     const cartRef = useRef();
 
 
-    const procceedToCheckoutHandler = () => {
+    const checkoutHandler = async () => {
+        const stripe = await getStripe();
+
+        const response = await fetch('/api/stripe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(cartItems),
+        });
+
+        if(response.statusCode === 500) return;
+
+        const data = await response.json();
+
+        toast.loading('Redirecting...');
+
+        stripe.redirectToCheckout({ sessionId: data.id });
     }
+
     const calcItems = (items) => {
         if(items === 1) {
             return `(${items} Item)`;
@@ -120,7 +140,7 @@ function Cart(props) {
                                 fullWidth
                                 variant="contained"
                                 color="secondary"
-                                onClick={procceedToCheckoutHandler}
+                                onClick={checkoutHandler}
                                 >
                                     Proceed to checkout
                                 </Button>
