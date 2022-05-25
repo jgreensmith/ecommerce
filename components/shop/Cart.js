@@ -1,9 +1,11 @@
 import React, { useContext, useRef } from 'react';
 import { Button, Container, Divider, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Toolbar, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import dynamic from 'next/dynamic';
-import { CartImg } from '../../utils/styles';
-import NextLink from 'next/link';
+import { CartImg, CenteredDiv, FlexStart } from '../../utils/styles';
+import Link from 'next/link';
 import { Box } from '@mui/system';
 import Router from 'next/router';
 
@@ -16,24 +18,45 @@ function Cart(props) {
     const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useContext(StateContext);
     const cartRef = useRef();
 
-    const removeFromCartHandler = async () => {
-        
-    };
 
     const procceedToCheckoutHandler = () => {
     }
+    const calcItems = (items) => {
+        if(items === 1) {
+            return `${items} Item`;
+        } else {
+            return `${items} Items`;
+        } 
+          
+      }
 
     return (
         
         <Container fixed disableGutters={true} ref={cartRef} >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography>Shopping Cart</Typography>
+                <div>
+                    <Typography variant='h3' >Shopping Cart</Typography>
+                    { cartItems.length >= 1 &&<Typography sx={{pl: 1}} variant='subtitle2' gutterBottom >{calcItems(totalQuantities)}</Typography> }
+                </div>
                 <IconButton onClick={handleCartToggle} >
                     <CloseIcon />
                 </IconButton>
             </Toolbar>
             <Divider />
-            <TableContainer component={Paper} sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto', paddingBottom: 1 }}>
+            { cartItems.length < 1 && 
+                <CenteredDiv sx={{m: 10}}>
+                    <Typography variant='h6' gutterBottom>Your shopping cart is empty</Typography>
+                    <Link href="/">
+                        <Button
+                            variant='contained'
+                            onClick={() => setShowCart(false)}
+                        >
+                            Continue Shopping
+                        </Button>
+                    </Link>
+               </CenteredDiv>
+            }
+            <TableContainer component={Paper} square sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto' }}>
                 <Table >
                     <TableBody >
                         {cartItems.length >= 1 && cartItems.map((cartItem) => (
@@ -47,13 +70,20 @@ function Cart(props) {
                                 <TableCell>
                                     <Grid container>
                                         <Grid item xs={6}>
-                                            <Typography>{cartItem.name}</Typography>
+                                            <Typography variant='subtitle1' gutterBottom>{cartItem.name}</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography align='right'>£{cartItem.price}</Typography>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography>Quantity: {cartItem.quantity}</Typography>
+                                            <Typography align='left'>
+                                                <FlexStart >
+                                                    <span onClick={() => toggleCartItemQuanitity(cartItem._id, 'dec') }><RemoveIcon /></span>
+                                                    <span>{cartItem.quantity}</span>
+                                                    <span onClick={() => toggleCartItemQuanitity(cartItem._id, 'inc') }><AddIcon /></span>
+                                                </FlexStart>
+                                               
+                                            </Typography>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography align='right'>
@@ -82,7 +112,7 @@ function Cart(props) {
                     
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography>Subtotal: </Typography>
+                            <Typography>Subtotal: £{totalPrice}</Typography>
                         </Grid>
                         <Grid item xs={6}>
                                 <Button
@@ -96,7 +126,7 @@ function Cart(props) {
                                 </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <NextLink href='/shop'>
+                            <Link href='/shop'>
                                 <Button
                                     type="button"
                                     fullWidth
@@ -106,7 +136,7 @@ function Cart(props) {
                                     >
                                     Continue Shopping
                                 </Button> 
-                            </NextLink>
+                            </Link>
                             
                         </Grid>
 

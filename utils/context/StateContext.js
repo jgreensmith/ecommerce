@@ -20,6 +20,7 @@ export const StateContextProvider = (props) => {
         const checkProductInCart = cartItems.find((item) => item._id === product._id)
 
         //if product is in cart, re organise cart items so that one item but increase quantity
+        //when using map in this way, use const and return
         if(checkProductInCart) {
             const updatedCartItems = cartItems.map((item) => {
               if(item._id === product._id){

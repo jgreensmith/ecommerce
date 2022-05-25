@@ -114,6 +114,17 @@ export const CartImg = styled("img")({
 });
 
 //containers
+export const CenteredDiv = styled('div')({
+  display: 'flex', 
+  justifyContent: 'center', 
+  alignItems: 'center',
+  flexDirection: 'column'
+});
+export const FlexStart = styled('div')({
+  display: 'flex', 
+  justifyContent: 'start'
+});
+
 
 export const CenteredGrid = styled(Grid)({
   display: 'flex', 
