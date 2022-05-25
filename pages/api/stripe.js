@@ -4,7 +4,7 @@ import { countryCodesArray } from "../../utils/countryCodes";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+    if (req.method === 'POST') {
     try {
         const params = {
             submit_type: "pay",
@@ -23,7 +23,9 @@ export default async function handler(req, res) {
                 const newImage = img.replace('image-', `https://cdn.sanity.io/images/${process.env.SANITY_STUDIO_API_PROJECT_ID}/production/`)
                 .replace("-webp", ".webp")
                 .replace("-png", ".png")
-                .replace("-jpg", ".jpg");  
+                .replace("-jpg", ".jpg"); 
+                 
+                console.log(newImage);
 
                 return {
                   price_data: { 
@@ -45,7 +47,6 @@ export default async function handler(req, res) {
               success_url: `${req.headers.origin}/success`,
               cancel_url: `${req.headers.origin}/canceled`,
             }
-      
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
       res.redirect(303, session.url);
