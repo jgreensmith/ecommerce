@@ -23,9 +23,9 @@ function Cart(props) {
     }
     const calcItems = (items) => {
         if(items === 1) {
-            return `${items} Item`;
+            return `(${items} Item)`;
         } else {
-            return `${items} Items`;
+            return `(${items} Items)`;
         } 
           
       }
@@ -34,10 +34,10 @@ function Cart(props) {
         
         <Container fixed disableGutters={true} ref={cartRef} >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div>
-                    <Typography variant='h3' >Shopping Cart</Typography>
-                    { cartItems.length >= 1 &&<Typography sx={{pl: 1}} variant='subtitle2' gutterBottom >{calcItems(totalQuantities)}</Typography> }
-                </div>
+                <FlexStart >
+                    <Typography variant='h3' >Your Cart</Typography>
+                    { cartItems.length >= 1 &&<Typography sx={{pl: 2, mt: 2, pt: '3px'}} color='secondary.main' variant='subtitle2' gutterBottom >{calcItems(totalQuantities)}</Typography> }
+                </FlexStart>
                 <IconButton onClick={handleCartToggle} >
                     <CloseIcon />
                 </IconButton>
@@ -46,7 +46,7 @@ function Cart(props) {
             { cartItems.length < 1 && 
                 <CenteredDiv sx={{m: 10}}>
                     <Typography variant='h6' gutterBottom>Your shopping cart is empty</Typography>
-                    <Link href="/">
+                    <Link href="/products">
                         <Button
                             variant='contained'
                             onClick={() => setShowCart(false)}
@@ -126,7 +126,7 @@ function Cart(props) {
                                 </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Link href='/shop'>
+                            <Link href='/products'>
                                 <Button
                                     type="button"
                                     fullWidth
