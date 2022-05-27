@@ -51,7 +51,7 @@ const Hero = ({ heroData }) => {
                                     </Typography>
                                 </SvgButton>
                             </NextLink>
-                            <NextLink href="/portfolio">
+                            <NextLink href="/products">
                                 <SvgButton sx={{mr: '9px', mb: 3}} >
                                     <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         Shop

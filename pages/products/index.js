@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 
-import { Button, Container, Slide, Tooltip, Typography } from '@mui/material';
+import { Button, Container, IconButton, Slide, Tooltip, Typography } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
 
@@ -10,9 +11,17 @@ import Layout from '../../components/Layout';
 import { client, urlFor } from '../../lib/client';
 
 import styles from '../../styles/Product.module.css';
+import { StateContext } from '../../utils/context/StateContext';
 
 const Products = ({products}) => {
-  console.log(products)
+    const { onAdd, setQty, qty } = useContext(StateContext);
+
+    const addOne = (x) => {
+        setQty(1);
+        onAdd(x, qty);
+    };
+
+    //console.log(products)
   return (
     <Layout title='products'>
         <Container maxWidth='lg'>
@@ -51,8 +60,10 @@ const Products = ({products}) => {
                                         }}
                                     >
                                         
-                                        <Tooltip title="Project summary">  
-                                            <p>blah blah blah</p>
+                                        <Tooltip title="Add to Basket">  
+                                            <IconButton color='secondary' onClick={() => addOne(product)}>
+                                                <AddShoppingCartIcon />
+                                            </IconButton>
                                         </Tooltip>
                                         
                                         
