@@ -25,7 +25,7 @@ export default async function handler(req, res) {
                 .replace("-png", ".png")
                 .replace("-jpg", ".jpg"); 
                  
-                console.log(newImage);
+                //console.log(newImage);
 
                 return {
                   price_data: { 
@@ -45,11 +45,11 @@ export default async function handler(req, res) {
               }),
               allow_promotion_codes: true,
               success_url: `${req.headers.origin}/success`,
-              cancel_url: `${req.headers.origin}/canceled`,
+              cancel_url: `${req.headers.origin}/cancelled`,
             }
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
-      res.redirect(303, session.url);
+      res.status(200).json(session);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
