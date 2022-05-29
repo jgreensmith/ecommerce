@@ -14,7 +14,7 @@ const Cancelled = () => {
           <Typography variant='body1' align='center' gutterBottom>Your basket items would still be available if I had added to them to local storage but i havent yet so get off my back. In my defense you're a moron for going to checkout when you're not ready</Typography>
           <Link href="/products" passHref>
             <Button variant='contained' sx={{m:3}}>
-              back to shop
+              continue shopping
             </Button>
           </Link>
         </CenteredDiv>

@@ -44,7 +44,7 @@ export default async function handler(req, res) {
                 }
               }),
               allow_promotion_codes: true,
-              success_url: `${req.headers.origin}/success`,
+              success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
               cancel_url: `${req.headers.origin}/cancelled`,
             }
       // Create Checkout Sessions from body params.
