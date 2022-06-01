@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from "next/router";
 
+import { Alert, Button, Dialog, Typography, useMediaQuery, useTheme } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import Layout from "../components/Layout";
 import { CenteredDiv } from '../utils/styles';
-import { Alert, Button, Dialog, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Order from '../components/shop/Order';
-import { display } from '@mui/system';
 
 const Success = () => {
     const [order, setOrder] = useState(null);
@@ -53,10 +53,10 @@ const Success = () => {
 
       <React.Fragment>
         <CenteredDiv sx={{m: 10}}>
-          <Alert sx={{ display: 'flex', justifyContent: 'center', border: '1px solid green', p: {vs: '0 40px', sm: '0 70px'}}} icon={false} severity='success'>
+          <Alert sx={{ display: 'flex', justifyContent: 'center', border: '1px solid green', p: {vs: '0 40px', sm: '0 70px'}}} icon={<CheckCircleOutlineIcon sx={{m: 'auto'}} />} severity='success'>
             <Typography variant='h2' align='center' sx={{width: '100%'}} >Payment Successful</Typography>
           </Alert>
-          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thanks for ordering! You will recive an email confirmation soon</Typography>
+          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thankyou {order.customer.name} for ordering! You will recive an email confirmation soon.</Typography>
           <Button variant='contained' sx={{m:3}} onClick={() => setModalOpen(true)}>
               view order details
           </Button>
