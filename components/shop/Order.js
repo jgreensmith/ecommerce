@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { CenteredDiv, Div, Flex, FlexEnd, FlexStart } from '../../utils/styles';
 
 const Order = ({order, setModalOpen}) => {
-    //console.log(order)
+    console.log(order)
   return (
       <Container  >
           <Toolbar disableGutters >

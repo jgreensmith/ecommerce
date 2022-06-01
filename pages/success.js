@@ -56,7 +56,7 @@ const Success = () => {
           <Alert sx={{ display: 'flex', justifyContent: 'center', border: '1px solid green', p: {vs: '0 40px', sm: '0 70px'}}} icon={<CheckCircleOutlineIcon sx={{m: 'auto'}} />} severity='success'>
             <Typography variant='h2' align='center' sx={{width: '100%'}} >Payment Successful</Typography>
           </Alert>
-          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thankyou {order.customer.name} for ordering! You will recive an email confirmation soon.</Typography>
+          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thankyou {order.customer.name} for your order! You will recive an email confirmation soon.</Typography>
           <Button variant='contained' sx={{m:3}} onClick={() => setModalOpen(true)}>
               view order details
           </Button>
