@@ -122,6 +122,9 @@ export const CenteredDiv = styled('div')({
   alignItems: 'center',
   flexDirection: 'column'
 });
+export const Flex = styled('div')({
+  display: 'flex'
+});
 export const FlexStart = styled('div')({
   display: 'flex', 
   justifyContent: 'start'
