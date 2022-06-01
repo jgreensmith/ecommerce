@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { CenteredDiv, Div, Flex, FlexEnd } from '../../utils/styles';
+import { CenteredDiv, Div, Flex, FlexEnd, FlexStart } from '../../utils/styles';
 
 const Order = ({order, setModalOpen}) => {
     console.log(order)
@@ -24,6 +24,24 @@ const Order = ({order, setModalOpen}) => {
               </FlexEnd>
           </Toolbar>
 
+        <Div sx={{pl: 2, mb: 2}}>
+            <FlexStart>
+                <Typography variant='subtitle1' align='left' gutterBottom>Shipping Address</Typography>
+            </FlexStart>
+            <FlexStart>
+                <Typography variant='body1'>{order.session.shipping.address.line1},</Typography>
+            </FlexStart>
+            <FlexStart>
+                <Typography variant='body1'>{order.session.shipping.address.city},</Typography>
+            </FlexStart>
+            <FlexStart>
+                <Typography variant='body1'>{order.session.shipping.address.state}</Typography>
+            </FlexStart>     
+            <FlexStart>
+                <Typography variant='body1'>{order.session.shipping.address.postal_code}</Typography>
+            </FlexStart>    
+        </Div>
+        <hr />
         <TableContainer >
             <Table sx={{ minWidth: { vs: 450 } }} >
                 <TableHead>
@@ -49,28 +67,32 @@ const Order = ({order, setModalOpen}) => {
                 </TableBody>
             </Table>
         </TableContainer>
+        <hr />
+
         <Div sx={{p: 2}}>
             <FlexEnd>
 
-                <Typography variant='h6' > Subtotal: £{parseFloat(order.session.amount_subtotal / 100).toFixed(2)}</Typography>
+                <Typography variant='subtitle1' > Subtotal: £{parseFloat(order.session.amount_subtotal / 100).toFixed(2)}</Typography>
             </FlexEnd>
             <FlexEnd>
 
-                <Typography variant='h6' align='left'> Shipping: £{parseFloat(order.session.total_details.amount_shipping / 100).toFixed(2)}</Typography>
+                <Typography variant='subtitle1' align='left'> Shipping: £{parseFloat(order.session.total_details.amount_shipping / 100).toFixed(2)}</Typography>
             </FlexEnd>
             <FlexEnd>
 
-                <Typography variant='h6' align='left'> Taxes: £{parseFloat(order.session.total_details.amount_tax / 100).toFixed(2)}</Typography>
+                <Typography variant='subtitle1' align='left'> Taxes: £{parseFloat(order.session.total_details.amount_tax / 100).toFixed(2)}</Typography>
             </FlexEnd>
             <FlexEnd>
-              <Typography variant='h5' align='left'> Total: £{parseFloat(order.session.amount_total / 100).toFixed(2)}</Typography>
+              <Typography variant='h6' align='left'> Total: £{parseFloat(order.session.amount_total / 100).toFixed(2)}</Typography>
 
             </FlexEnd>
         </Div>
-        <br />
-        <CenteredDiv>
-            <Typography variant='h6'>Shipping Address</Typography>
-        </CenteredDiv>
+        
+                          
+                          
+        
+
+
         </Container>
 
 );

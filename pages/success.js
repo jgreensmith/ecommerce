@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 
 import Layout from "../components/Layout";
 import { CenteredDiv } from '../utils/styles';
-import { Button, Dialog, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Button, Dialog, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Order from '../components/shop/Order';
+import { display } from '@mui/system';
 
 const Success = () => {
     const [order, setOrder] = useState(null);
@@ -42,16 +43,27 @@ const Success = () => {
     //console.log(order);
   return (
     <Layout title="success">
+
+      { !order && (
+        <CenteredDiv>
+          <Typography variant='h2' gutterBottom>Loading...</Typography>
+        </CenteredDiv>
+        )}
+      { order && (
+
+      <React.Fragment>
         <CenteredDiv sx={{m: 10}}>
-          <Typography variant='h2' gutterBottom>Success</Typography>
-          <Typography variant='body1' align='center' gutterBottom></Typography>
+          <Alert sx={{ display: 'flex', justifyContent: 'center', border: '1px solid green', p: {vs: '0 40px', sm: '0 70px'}}} icon={false} severity='success'>
+            <Typography variant='h2' align='center' sx={{width: '100%'}} >Payment Successful</Typography>
+          </Alert>
+          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thanks for ordering! You will recive an email confirmation soon</Typography>
           <Button variant='contained' sx={{m:3}} onClick={() => setModalOpen(true)}>
               view order details
           </Button>
           
           
           <Link href="/products" passHref>
-            <Button variant='contained' sx={{m:3}}>
+            <Button variant='text' sx={{m:3}}>
               continue shopping
             </Button>
           </Link>
@@ -64,7 +76,8 @@ const Success = () => {
             <Order order={order} setModalOpen={setModalOpen}/>
             
         </Dialog>
-
+    </React.Fragment>
+)}
     </Layout>
   )
 }
