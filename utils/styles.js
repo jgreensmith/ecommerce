@@ -116,14 +116,20 @@ export const CartImg = styled("img")({
 });
 
 //containers
+export const Div = styled('div')({
+  
+});
 export const CenteredDiv = styled('div')({
   display: 'flex', 
   justifyContent: 'center', 
   alignItems: 'center',
   flexDirection: 'column'
 });
-export const Flex = styled('div')({
-  display: 'flex'
+export const FlexEnd = styled('div')({
+  display: 'flex',
+  justifyContent: 'end',
+  paddingRight: 2,
+  width: '100%'
 });
 export const FlexStart = styled('div')({
   display: 'flex', 

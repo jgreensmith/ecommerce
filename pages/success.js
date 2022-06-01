@@ -33,11 +33,7 @@ const Success = () => {
 
 
     }
-    // const [modalContent, setModalContent] = useState([]);
-    // const updateContent = (x) => {
-    //     setModalContent([x]);
-    //     setModalOpen(true);
-    // };
+    
 
     useEffect(() => {
         getOrder(sessionId);
@@ -65,7 +61,7 @@ const Success = () => {
         fullScreen={fullScreen}
         onClose={() => setModalOpen(false)}
         >
-            <Order order={order}/>
+            <Order order={order} setModalOpen={setModalOpen}/>
             
         </Dialog>
 
