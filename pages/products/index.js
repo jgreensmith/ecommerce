@@ -37,7 +37,7 @@ const Products = ({products}) => {
                                     <CardBanner className={styles.cardBanner} sx={{top: '-30px', transform: 'translateY(-20px)'}} >
                                         <FlexSpace sx={{p: 1}}>
                                             <Typography 
-                                                component="h5" 
+                                                variant='h6' 
                                                 sx={{
                                                     color: '#fff',
                                                     opacity: 0.8
@@ -46,11 +46,12 @@ const Products = ({products}) => {
                                                 {product.name}
                                             </Typography>
                                             <Typography 
-                                                component="h5" 
+                                                variant='subtitle1' 
                                                 align='right'
                                                 sx={{
                                                     color: '#fff',
-                                                    opacity: 0.8
+                                                    opacity: 0.8,
+                                                    pt: '3px'
                                                 }}
                                                 >
                                                 {currencyConverter.format(product.price)}
@@ -74,19 +75,20 @@ const Products = ({products}) => {
                                                 
                                         }}
                                     >
-                                        
-                                        <Tooltip title="Add to Basket">  
-                                            <IconButton color='secondary' onClick={() => addOne(product)}>
-                                                <AddShoppingCartIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                        
-                                        
-                                        <Tooltip title="Visit website">
-                                            <Link href={`/products/${product.slug.current}`} color="primary.light" >
-                                                <Button variant='contained'>View Product</Button>
-                                            </Link>
-                                        </Tooltip>
+                                        <FlexSpace sx={{p: 1}}>                                      
+                                            <Tooltip title="Add to Basket">  
+                                                <IconButton color='secondary' onClick={() => addOne(product)}>
+                                                    <AddShoppingCartIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                            
+                                            
+                                            <Tooltip title="Visit website">
+                                                <Link href={`/products/${product.slug.current}`} color="primary.light" >
+                                                    <Button variant='contained'>View Product</Button>
+                                                </Link>
+                                            </Tooltip>
+                                        </FlexSpace>
                                     </CardBanner>
                                 </PortfolioCard>
                             </Slide>   
