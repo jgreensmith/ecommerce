@@ -1,6 +1,6 @@
 .card:hover .cardBanner {
     transform: translateY(0px);
-    opacity: 0.8;
+    opacity: 0.95;
   }
   .overlay {
     width: 100vw;

@@ -105,6 +105,8 @@ export const PortfolioImg = styled("img")({
   height: '100%',
   maxWidth: '300px',
   maxHeight: '300px',
+  borderRadius: '7px',
+
 });
 export const ProfileImg = styled("img")({
   borderRadius: '50%',
@@ -135,6 +137,11 @@ export const FlexStart = styled('div')({
   display: 'flex', 
   justifyContent: 'start'
 });
+export const FlexSpace = styled('div')({
+  display: 'flex', 
+  justifyContent: 'space-between',
+  width: '100%'
+});
 
 
 export const CenteredGrid = styled(Grid)({
@@ -149,7 +156,6 @@ export const PortfolioCard = styled('div')(({theme}) => ({
   display: 'flex',
   justifyContent: 'center',
   margin: '10px',
-
 }));
 export const PortfolioCardBody = styled('div')(({theme}) => ({
   width: '300px'

@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
                 return {
                   price_data: { 
-                    currency: process.env.CURRENCY,
+                    currency: process.env.NEXT_PUBLIC_CURRENCY,
                     product_data: { 
                       name: item.name,
                       images: [newImage],

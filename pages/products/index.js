@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button, Container, IconButton, Slide, Tooltip, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
+import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
 
 
 import Layout from '../../components/Layout';
@@ -12,16 +12,19 @@ import { client, urlFor } from '../../lib/client';
 
 import styles from '../../styles/Product.module.css';
 import { StateContext } from '../../utils/context/StateContext';
+import { useCurrencyContext } from '../../utils/context/CurrencyContext';
+
 
 const Products = ({products}) => {
     const { onAdd, setQty, qty } = useContext(StateContext);
+    const { currencyConverter } = useCurrencyContext();
 
     const addOne = (x) => {
         setQty(1);
         onAdd(x, qty);
     };
 
-    //console.log(products)
+    console.log(products)
   return (
     <Layout title='products'>
         <Container maxWidth='lg'>
@@ -32,15 +35,27 @@ const Products = ({products}) => {
                                
                                 <PortfolioCard className={styles.card}>
                                     <CardBanner className={styles.cardBanner} sx={{top: '-30px', transform: 'translateY(-20px)'}} >
-                                        <Typography 
-                                            component="h5" 
-                                            sx={{
-                                                color: '#fff',
-                                                opacity: 0.8
-                                            }}
-                                        >
-                                            {product.name}
-                                        </Typography>
+                                        <FlexSpace sx={{p: 1}}>
+                                            <Typography 
+                                                component="h5" 
+                                                sx={{
+                                                    color: '#fff',
+                                                    opacity: 0.8
+                                                }}
+                                                >
+                                                {product.name}
+                                            </Typography>
+                                            <Typography 
+                                                component="h5" 
+                                                align='right'
+                                                sx={{
+                                                    color: '#fff',
+                                                    opacity: 0.8
+                                                }}
+                                                >
+                                                {currencyConverter.format(product.price)}
+                                            </Typography>
+                                        </FlexSpace>
                                     </CardBanner>
                                     <PortfolioCardBody>
                                         <PortfolioImg

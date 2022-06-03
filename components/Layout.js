@@ -25,7 +25,6 @@ const Layout = ({ children, title }) => {
                 <Container maxWidth="100%" disableGutters={true} sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} >
                     <Toolbar />
                         {children}
-                    
                     <Footer />
                 </Container >
 

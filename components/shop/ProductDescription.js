@@ -4,11 +4,17 @@ import { PortableText } from '@portabletext/react';
 import { Alert, Button, FormControl, Grid, InputLabel, ListItem, MenuItem, Paper, Select, Typography } from '@mui/material';
 
 import { StateContext } from '../../utils/context/StateContext';
+import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 
 
 const ProductDescription = ({ product }) => {
     const { onAdd, qty, setQty } = useContext(StateContext);
+    const { currencyConverter } = useCurrencyContext();
     const inventory = 13
+    
+
+
+    
   return (
     <Paper elevation={3} sx={{ p: 3 }}>
         <ListItem>
@@ -29,7 +35,7 @@ const ProductDescription = ({ product }) => {
                         fontSize: "1.7rem", 
                         }}
                     >
-                        £{product.price}
+                        {currencyConverter.format(product.price) }
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>

@@ -11,8 +11,11 @@ import Paper from '@mui/material/Paper';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { CenteredDiv, Div, Flex, FlexEnd, FlexStart } from '../../utils/styles';
+import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 
 const Order = ({order, setModalOpen}) => {
+    const { currencyConverter } = useCurrencyContext();
+
     console.log(order)
   return (
       <Container  >
@@ -61,7 +64,7 @@ const Order = ({order, setModalOpen}) => {
                         {item.description}
                         </TableCell>
                         <TableCell align="right">{item.quantity}</TableCell>
-                        <TableCell align="right">£{parseFloat(item.amount_total / 100).toFixed(2)}</TableCell>
+                        <TableCell align="right">{currencyConverter.format(parseFloat(item.amount_total / 100).toFixed(2))}</TableCell>
                     </TableRow>
                     ))}
                 </TableBody>
@@ -72,18 +75,18 @@ const Order = ({order, setModalOpen}) => {
         <Div sx={{p: 2}}>
             <FlexEnd>
 
-                <Typography variant='subtitle1' > Subtotal: £{parseFloat(order.session.amount_subtotal / 100).toFixed(2)}</Typography>
+                <Typography variant='subtitle1' > Subtotal: {currencyConverter.format(parseFloat(order.session.amount_subtotal / 100).toFixed(2))}</Typography>
             </FlexEnd>
             <FlexEnd>
 
-                <Typography variant='subtitle1' align='left'> Shipping: £{parseFloat(order.session.total_details.amount_shipping / 100).toFixed(2)}</Typography>
+                <Typography variant='subtitle1' align='left'> Shipping: {currencyConverter.format(parseFloat(order.session.total_details.amount_shipping / 100).toFixed(2))}</Typography>
             </FlexEnd>
             <FlexEnd>
 
-                <Typography variant='subtitle1' align='left'> Taxes: £{parseFloat(order.session.total_details.amount_tax / 100).toFixed(2)}</Typography>
+                <Typography variant='subtitle1' align='left'> Taxes: {currencyConverter.format(parseFloat(order.session.total_details.amount_tax / 100).toFixed(2))}</Typography>
             </FlexEnd>
             <FlexEnd>
-              <Typography variant='h6' align='left'> Total: £{parseFloat(order.session.amount_total / 100).toFixed(2)}</Typography>
+              <Typography variant='h6' align='left'> Total: {currencyConverter.format(parseFloat(order.session.amount_total / 100).toFixed(2))}</Typography>
 
             </FlexEnd>
         </Div>
