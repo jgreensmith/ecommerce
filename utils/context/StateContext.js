@@ -1,10 +1,10 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 
-export const StateContext = createContext();
+export const Context = createContext();
 
-export const StateContextProvider = (props) => {
+export const StateContext = (props) => {
     //state
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
@@ -14,6 +14,20 @@ export const StateContextProvider = (props) => {
 
     let foundProduct;
     let index;
+
+    useEffect(() => {
+      if (localStorage.getItem("cart")) {
+        setCartItems(JSON.parse(localStorage.getItem("cart")));
+        JSON.parse(localStorage.getItem("cart")).map((item) => {
+          setTotalQuantities(
+            (prevTotalQuantities) => prevTotalQuantities + item.quantity
+          );
+          setTotalPrice(
+            (prevTotalPrice) => prevTotalPrice + item.price * item.quantity
+          );
+        });
+      }
+    }, []);
 
     const onAdd = (product, quantity) => {
         //check if product is already in cart
@@ -39,12 +53,17 @@ export const StateContextProvider = (props) => {
             });
       
             setCartItems(updatedCartItems);
+            localStorage.setItem("cart", JSON.stringify(updatedCartItems));
         } else {
             //add product
-            product.quantity = quantity;
+          product.quantity = quantity;
             
-            setCartItems([...cartItems, { ...product }]);
-            console.log([...cartItems, { ...product }])
+          setCartItems([...cartItems, { ...product }]);
+          localStorage.setItem(
+            "cart",
+            JSON.stringify([...cartItems, { ...product }])
+          );
+
         }
        //set new price and quantity
        setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
@@ -58,6 +77,7 @@ export const StateContextProvider = (props) => {
       setTotalPrice((prevTotalPrice) => prevTotalPrice -foundProduct.price * foundProduct.quantity);
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
       setCartItems(newCartItems);
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
     }
   
     const toggleCartItemQuanitity = (id, value) => {
@@ -67,16 +87,18 @@ export const StateContextProvider = (props) => {
   
       if(value === 'inc') {
         setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
+        localStorage.setItem("cart", JSON.stringify([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]))
         setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
       } else if(value === 'dec') {
         if (foundProduct.quantity > 1) {
           setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]);
+          localStorage.setItem("cart", JSON.stringify([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]))
           setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
           setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
         }
       }
-    }
+    };
   
     const incQty = () => {
       setQty((prevQty) => prevQty + 1);
@@ -91,7 +113,7 @@ export const StateContextProvider = (props) => {
     }
 
     return (
-        <StateContext.Provider
+        <Context.Provider
           value={{
             showCart,
             setShowCart,
@@ -111,9 +133,9 @@ export const StateContextProvider = (props) => {
           }}
         >
           {props.children}
-        </StateContext.Provider>
+        </Context.Provider>
     )
 
 }
 
-export default StateContextProvider;
+export const useStateContext = () => useContext(Context);

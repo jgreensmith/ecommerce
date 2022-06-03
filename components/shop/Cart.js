@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Button, Container, Divider, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Toolbar, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { Box } from '@mui/system';
 import Router from 'next/router';
 
-import { StateContext } from '../../utils/context/StateContext';
+import { useStateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/client';
 import getStripe from '../../lib/getStripe';
 import toast from 'react-hot-toast';
@@ -17,7 +17,7 @@ import toast from 'react-hot-toast';
 
 function Cart(props) {
     const { handleCartToggle } = props;
-    const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useContext(StateContext);
+    const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
     const cartRef = useRef();
 
 

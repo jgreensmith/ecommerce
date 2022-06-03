@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../utils/createEmotionCache';
-import StateContextProvider from '../utils/context/StateContext';
+import { StateContext } from '../utils/context/StateContext';
 import { Toaster } from 'react-hot-toast';
 import { CurrencyContext } from '../utils/context/CurrencyContext';
 
@@ -18,12 +18,12 @@ export default function MyApp(props) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <StateContextProvider>
+      <StateContext>
         <CurrencyContext>
           <Toaster />
           <Component {...pageProps} />
         </CurrencyContext>
-      </StateContextProvider>
+      </StateContext>
       
     </CacheProvider>
   );

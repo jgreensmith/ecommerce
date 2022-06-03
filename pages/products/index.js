@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 import { Button, Container, IconButton, Slide, Tooltip, Typography } from '@mui/material';
@@ -11,12 +11,12 @@ import Layout from '../../components/Layout';
 import { client, urlFor } from '../../lib/client';
 
 import styles from '../../styles/Product.module.css';
-import { StateContext } from '../../utils/context/StateContext';
+import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 
 
 const Products = ({products}) => {
-    const { onAdd, setQty, qty } = useContext(StateContext);
+    const { onAdd, setQty, qty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
 
     const addOne = (x) => {

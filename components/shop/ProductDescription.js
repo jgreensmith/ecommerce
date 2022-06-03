@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { PortableText } from '@portabletext/react';
 
 import { Alert, Button, FormControl, Grid, InputLabel, ListItem, MenuItem, Paper, Select, Typography } from '@mui/material';
 
-import { StateContext } from '../../utils/context/StateContext';
+import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 
 
 const ProductDescription = ({ product }) => {
-    const { onAdd, qty, setQty } = useContext(StateContext);
+    const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
     

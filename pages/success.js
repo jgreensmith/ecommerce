@@ -8,10 +8,13 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Layout from "../components/Layout";
 import { CenteredDiv } from '../utils/styles';
 import Order from '../components/shop/Order';
+import { useStateContext } from '../utils/context/StateContext';
 
 const Success = () => {
     const [order, setOrder] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
+
 
     const router = useRouter();
     const sessionId = router.query.session_id;
@@ -37,7 +40,11 @@ const Success = () => {
     
 
     useEffect(() => {
-        getOrder(sessionId);
+      localStorage.clear();
+      setCartItems([]);
+      setTotalPrice(0);
+      setTotalQuantities(0);
+      getOrder(sessionId);
     }, [sessionId]);
 
     //console.log(order);
