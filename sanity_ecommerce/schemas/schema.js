@@ -7,6 +7,7 @@ import product from './product'
 import hero from './hero'
 import banner from './banner'
 import blockContent from './blockContent'
+import siteSettings from './siteSettings'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -18,6 +19,7 @@ export default createSchema({
     product,
     hero,
     banner,
+    siteSettings,
     blockContent
   ]),
 })
