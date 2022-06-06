@@ -87,15 +87,15 @@ const ProductDescription = ({ product }) => {
             </>
         )}
         <ListItem>
-            <Typography
+            {/* <Typography
                 gutterBottom
                 variant='body2'
                 sx={{overflowWrap: 'normal', width: '100%', overflow: 'hidden'}}
-            >
+            > */}
                 <PortableText
                     value={product.body}
                 />
-            </Typography>
+            {/* </Typography> */}
         </ListItem>
 
     </Paper>

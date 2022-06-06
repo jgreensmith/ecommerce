@@ -44,10 +44,10 @@ const Hero = ({ heroData }) => {
                         }} 
                     >
                         
-                            <NextLink href="/services">
+                            <NextLink href="/about">
                                 <SvgButton sx={{mr: '9px', mb: 3}} >
                                     <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
-                                        About Merchant
+                                        About Merchant X
                                     </Typography>
                                 </SvgButton>
                             </NextLink>

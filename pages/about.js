@@ -1,10 +1,11 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Link, Paper, Slide, Toolbar, Typography } from "@mui/material";
+import { PortableText } from "@portabletext/react";
 import Layout from "../components/Layout";
-import { client } from "../lib/client";
+import { client, urlFor } from "../lib/client";
 import { ProfileImg } from "../utils/styles";
 
 const About = ({settings}) => {
-    console.log(settings)
+    //console.log(settings)
     return(
     <Layout title="About" >
 
@@ -28,7 +29,7 @@ const About = ({settings}) => {
                         mt: 8 
                         }}
                         >
-                        <ProfileImg src='/images/profileImage.jpeg' 
+                        <ProfileImg src={urlFor(s.profileImage)} 
                         sx={{ 
                             width: { sm: '300px', xs: '200px'},
                             height: { sm: '300px', xs: '200px'},
@@ -45,9 +46,12 @@ const About = ({settings}) => {
                         {s.title}
                         </Typography>
                         {/* <UnstyledButtonCustom /> */}
-                        <Typography variant='body1' >
-                            {s.description}
-                        </Typography>
+                        
+                            <PortableText
+                                value={s.about}
+                            />
+                        
+                        
 
 
                     </Paper>
