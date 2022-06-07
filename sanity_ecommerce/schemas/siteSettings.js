@@ -44,7 +44,7 @@ export default {
             name: 'colorThemes',
             title: 'Custom Color Themes',
             type: 'object',
-            description: 'Must be valid hex codes!!',
+            description: 'Must be valid hex codes! make sure there are no spaces',
             group: 'colors',
             options: {
                 collapsible: true,
@@ -54,7 +54,7 @@ export default {
                 {
                     name: 'primary',
                     title: 'Primary Color',
-                    description: 'Main color, will appear on navbar',
+                    description: 'Main color, background color of navbar',
                     type: 'string',
                     validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
@@ -64,7 +64,6 @@ export default {
                     title: 'Primary Contrast Text',
                     type: 'object',
                     description: 'Color of navbar text',
-                    
                     options: {
                         collapsible: true,
                         collapsed: true
@@ -72,14 +71,14 @@ export default {
                     fields: [
                         {
                             name: 'contrastTextLight',
-                            title: 'Contrast Text Light',
+                            title: 'Default Light Text',
                             type: 'boolean',
                             description: 'Use this if primary color is dark',
                             hidden: ({ parent, value }) => !value && parent?.contrastTextDark || parent?.customContrastText
                         },
                         {
                             name: 'contrastTextDark',
-                            title: 'Contrast Text Dark',
+                            title: 'Default Dark Text',
                             type: 'boolean',
                             description: 'Use this if primary color is light',
                             hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.customContrastText
@@ -88,7 +87,7 @@ export default {
                             name: 'customContrastText',
                             title: 'Custom Primary Contrast Text',
                             type: 'string',
-                            description: 'Must be valid hex codes!!',
+                            description: 'Must be valid hex code!',
                             validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false }),
                             hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.contrastTextDark
                         },
@@ -116,14 +115,14 @@ export default {
                     fields: [
                         {
                             name: 'contrastTextLight',
-                            title: 'Contrast Text Light',
+                            title: 'Default Light Text',
                             type: 'boolean',
                             description: 'Use this if secondary color is dark',
                             hidden: ({ parent, value }) => !value && parent?.contrastTextDark || parent?.customContrastText
                         },
                         {
                             name: 'contrastTextDark',
-                            title: 'Contrast Text Dark',
+                            title: 'Default Dark Text',
                             type: 'boolean',
                             description: 'Use this if secondary color is light',
                             hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.customContrastText
