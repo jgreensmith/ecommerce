@@ -59,7 +59,7 @@ export default {
                     title: 'Primary Color',
                     description: 'Main color, will appear on navbar',
                     type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/g, { name: "hex code format", invert: false })
+                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
                 {
@@ -92,7 +92,7 @@ export default {
                             title: 'Custom Primary Contrast Text',
                             type: 'string',
                             description: 'Must be valid hex codes!!',
-                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/g, { name: "hex code format", invert: false }),
+                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false }),
                             hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.contrastTextDark
                         },
 
@@ -103,7 +103,7 @@ export default {
                     title: 'Secondary Color',
                     description: 'This will appear on main buttons',
                     type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/g, { name: "hex code format", invert: false })
+                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
                 {
@@ -136,7 +136,7 @@ export default {
                             title: 'Custom Contrast Text',
                             type: 'string',
                             description: 'Must be valid hex codes!!',
-                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/g, { name: "hex code format", invert: false }),
+                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false }),
                             hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.contrastTextDark
                         },
 
@@ -146,7 +146,7 @@ export default {
                     name: 'background',
                     title: 'Background Color',
                     type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/g, { name: "hex code format", invert: false })
+                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                 },
             ]
         },
