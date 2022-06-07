@@ -6,7 +6,8 @@ export default {
         {
             name: 'title',
             title: 'Site Title',
-            type: 'string'
+            type: 'string',
+            validation: Rule => Rule.required()        
         },
         {
             name: 'colorThemes',
@@ -25,10 +26,75 @@ export default {
                     type: 'string'
                 },
                 {
+                    name: 'primaryText',
+                    title: 'Primary Contrast Text',
+                    type: 'object',
+                    description: 'Color of navbar text',
+                    options: {
+                        collapsible: true,
+                        collapsed: true
+                    },
+                    fields: [
+                        {
+                            name: 'contrastTextLight',
+                            title: 'Contrast Text Light',
+                            type: 'boolean',
+                            description: 'Use this if primary color is dark',
+                            hidden: ({ parent, value }) => !value && parent?.contrastTextDark || parent?.customContrastText
+                        },
+                        {
+                            name: 'contrastTextDark',
+                            title: 'Contrast Text Dark',
+                            type: 'boolean',
+                            description: 'Use this if primary color is light',
+                            hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.customContrastText
+                        },
+                        {
+                            name: 'customContrastText',
+                            title: 'Custom Primary Contrast Text',
+                            type: 'string',
+                            description: 'Must be valid hex codes!!',
+                            hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.contrastTextDark
+                        },
+
+                    ]
+                },
+                {
                     name: 'secondary',
-                    title: 'Primary Color',
+                    title: 'Secondary Color',
                     description: 'This will appear on main buttons',
                     type: 'string'
+                },
+                {
+                    name: 'secondaryText',
+                    title: 'Secondary Contrast Text',
+                    type: 'object',
+                    description: 'Color of button text',
+                    options: {
+                        collapsible: true,
+                        collapsed: true
+                    },
+                    fields: [
+                        {
+                            name: 'contrastTextLight',
+                            title: 'Contrast Text Light',
+                            type: 'boolean',
+                            description: 'Use this if secondary color is dark',
+                        },
+                        {
+                            name: 'contrastTextDark',
+                            title: 'Contrast Text Dark',
+                            type: 'boolean',
+                            description: 'Use this if secondary color is light',
+                        },
+                        {
+                            name: 'customContrastText',
+                            title: 'Custom Contrast Text',
+                            type: 'string',
+                            description: 'Must be valid hex codes!!',
+                        },
+
+                    ]
                 },
                 {
                     name: 'background',
