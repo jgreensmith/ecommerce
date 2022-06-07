@@ -8,7 +8,7 @@ import Footer from './Footer';
 import ColorContext from '../utils/context/colorContext';
 
 const Layout = ({ children, title }) => {
-    const { sanityPrimary } = useContext(ColorContext);
+    const { sanityColors } = useContext(ColorContext);
     const sanityTheme = createTheme({
         typography: {
           h1: {
@@ -29,13 +29,13 @@ const Layout = ({ children, title }) => {
         },
         palette: {
           primary: {
-            main: sanityPrimary,
+            main: sanityColors.primary,
             light: '#f1f3fa',
             dark: '#b4004e',
             text: '#fff'
           },
           secondary: {
-            main: '#ff0080',
+            main: sanityColors.secondary,
             light: 'rgba(2, 29, 55, 0.7)',
             dark: '#283593',
             text: '#021d37'
@@ -44,7 +44,7 @@ const Layout = ({ children, title }) => {
             main: '#f04000',
           },
           background: {
-            default: '#f1f3fa',
+            default: sanityColors.background,
             dark: '#021d37'
           },
         },
@@ -63,7 +63,7 @@ const Layout = ({ children, title }) => {
 
     
 
-    console.log(sanityPrimary);
+    console.log(sanityColors);
     return (
         <React.Fragment>
             <Head>

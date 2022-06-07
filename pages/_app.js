@@ -16,11 +16,11 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, settings } = props;
 
-  const sanityPrimary = settings[0].primary;
-  
+  const sanityColors = settings[0].colorThemes;
+  //console.log(settings)
  
   return (
-    <ColorContext.Provider value={{ sanityPrimary }} >
+    <ColorContext.Provider value={{ sanityColors }} >
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
