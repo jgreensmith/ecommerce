@@ -3,10 +3,7 @@ export default {
     title: 'Site Settings',
     type: 'document',
     groups: [
-        {
-          name: 'about',
-          title: 'About',
-        },
+       
         {
           name: 'colors',
           title: 'Custom Color Themes',
