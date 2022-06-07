@@ -17,7 +17,7 @@ export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, settings } = props;
 
   const sanityColors = settings[0].colorThemes;
-  //console.log(settings)
+  console.log(settings)
  
   return (
     <ColorContext.Provider value={{ sanityColors }} >

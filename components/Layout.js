@@ -28,13 +28,13 @@ const Layout = ({ children, title }) => {
         },
         palette: {
           primary: {
-            main: sanityColors.primary,
+            main: !sanityColors.primary ? '#7d3c98' : sanityColors.primary,
             light: '#f1f3fa',
             dark: '#b4004e',
             text: '#fff'
           },
           secondary: {
-            main: sanityColors.secondary,
+            main: !sanityColors.secondary ? '#ff0080' : sanityColors.secondary,
             light: 'rgba(2, 29, 55, 0.7)',
             dark: '#283593',
             text: '#021d37'
@@ -43,7 +43,7 @@ const Layout = ({ children, title }) => {
             main: '#f04000',
           },
           background: {
-            default: sanityColors.background,
+            default: !sanityColors.background ? '#f1f3fa' : sanityColors.background,
             dark: '#021d37'
           },
         },
