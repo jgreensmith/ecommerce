@@ -9,6 +9,12 @@ export default {
             type: 'string'
         },
         {
+            name: 'primary',
+            title: 'Primary Color',
+            description: 'main color, will appear on navbar and must be a valid hex code',
+            type: 'string'
+        },
+        {
             name: 'profileImage',
             title: 'Profile Image',
             type: 'image',

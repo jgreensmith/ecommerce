@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Head  from 'next/head';
 import { Box, ThemeProvider } from '@mui/system';
 import { Container, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Navbar from './Navbar';
 import { theme } from '../utils/styles';
 import Footer from './Footer';
+import ColorContext from '../utils/context/colorContext';
 
 const Layout = ({ children, title }) => {
+    const { sanityPrimary } = useContext(ColorContext)
 
+    console.log(sanityPrimary);
     return (
         <React.Fragment>
             <Head>

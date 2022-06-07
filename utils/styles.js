@@ -2,6 +2,8 @@ import { Button, Card, ImageListItemBar, Grid } from '@mui/material';
 import { createTheme, styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
 
+
+
 export const theme = createTheme({
   typography: {
     h1: {
@@ -22,7 +24,7 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#060728',
+      main: '#b4004e',
       light: '#f1f3fa',
       dark: '#b4004e',
       text: '#fff'

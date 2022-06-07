@@ -11,7 +11,7 @@ const Home = ({heroData}) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const query = '*[_type == "hero"]'
   const heroData = await client.fetch(query)
 
