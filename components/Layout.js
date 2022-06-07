@@ -1,14 +1,67 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Head  from 'next/head';
 import { Box, ThemeProvider } from '@mui/system';
-import { Container, CssBaseline, Toolbar, Typography } from '@mui/material';
+import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Navbar from './Navbar';
 import { theme } from '../utils/styles';
 import Footer from './Footer';
 import ColorContext from '../utils/context/colorContext';
 
 const Layout = ({ children, title }) => {
-    const { sanityPrimary } = useContext(ColorContext)
+    const { sanityPrimary } = useContext(ColorContext);
+    const sanityTheme = createTheme({
+        typography: {
+          h1: {
+            fontSize: '2.2rem',
+            fontWeight: 400,
+            margin: '2rem 0',
+          },
+          h2: {
+            fontSize: '1.8rem',
+            fontWeight: 400,
+            margin: '1rem 0',
+          },
+          h3: {
+            fontSize: '1.4rem',
+            fontWeight: 400,
+            margin: '1rem 0',
+          },
+        },
+        palette: {
+          primary: {
+            main: sanityPrimary,
+            light: '#f1f3fa',
+            dark: '#b4004e',
+            text: '#fff'
+          },
+          secondary: {
+            main: '#ff0080',
+            light: 'rgba(2, 29, 55, 0.7)',
+            dark: '#283593',
+            text: '#021d37'
+          },
+          error: {
+            main: '#f04000',
+          },
+          background: {
+            default: '#f1f3fa',
+            dark: '#021d37'
+          },
+        },
+        breakpoints: {
+          values: {
+            xs: 0,
+            vs: 500,
+            sm: 680,
+            md: 920,
+            lg: 1200,
+            xl: 1536,
+          },
+        },
+       
+      });
+
+    
 
     console.log(sanityPrimary);
     return (
@@ -21,7 +74,9 @@ const Layout = ({ children, title }) => {
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                 />
             </Head>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={sanityTheme}>
+
+
                 <CssBaseline />
 
                 <Navbar />
@@ -30,8 +85,8 @@ const Layout = ({ children, title }) => {
                         {children}
                     <Footer />
                 </Container >
-
             </ThemeProvider>
+
         </React.Fragment>
     )
 }
