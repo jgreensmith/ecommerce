@@ -6,6 +6,7 @@ import { ProfileImg } from "../utils/styles";
 
 const About = ({settings}) => {
     //console.log(settings)
+    const s = settings[0];
     return(
     <Layout title="About" >
 
@@ -14,10 +15,10 @@ const About = ({settings}) => {
             my: 4
         }}
         >
-            {settings.map((s) => (
+            
 
             
-            <Grid container spacing={2} key={s}>
+            <Grid container spacing={2} >
                 <Grid item xs={12} md={6} >
                     <Paper 
                         elevation={3} 
@@ -58,7 +59,7 @@ const About = ({settings}) => {
                 </Grid>
                 
             </Grid>
-            ))}
+           
         </Container>
     </Layout>
     )
