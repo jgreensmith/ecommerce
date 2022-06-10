@@ -33,6 +33,7 @@ const ProductDescription = ({ product }) => {
                         sx={{
                         fontWeight: 700,
                         fontSize: "1.7rem", 
+                        pr: 1
                         }}
                     >
                         {currencyConverter.format(product.price) }
