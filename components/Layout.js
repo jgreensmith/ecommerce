@@ -5,9 +5,11 @@ import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/m
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ColorContext from '../utils/context/colorContext';
+import TitleContext from '../utils/context/TitleContext';
 
 const Layout = ({ children, title }) => {
     const { sanityColors } = useContext(ColorContext);
+    const { companyName } = useContext(TitleContext);
     const sanityTheme = createTheme({
         typography: {
           h1: {
@@ -67,7 +69,7 @@ const Layout = ({ children, title }) => {
         <React.Fragment>
             <Head>
                 <meta charSet="utf-8" />
-                <title>{`${title} | DefaultCommerce`}</title>
+                <title>{`${title} | ${companyName}`}</title>
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"

@@ -44,7 +44,7 @@ const About = ({settings}) => {
                         sx={{ p: 4, mr: 2, mt: 2 }}
                     >
                         <Typography variant='h1'>
-                        {s.title}
+                        About {s.title}
                         </Typography>
                         {/* <UnstyledButtonCustom /> */}
                         

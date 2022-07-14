@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import { CurrencyContext } from '../utils/context/CurrencyContext';
 import { client } from '../lib/client';
 import ColorContext from '../utils/context/colorContext';
+import TitleContext from '../utils/context/TitleContext';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -17,22 +18,25 @@ export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, settings } = props;
 
   const sanityColors = settings[0].colorThemes;
+  const companyName = settings[0].title;
   console.log(settings)
  
   return (
     <ColorContext.Provider value={{ sanityColors }} >
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <StateContext>
-          <CurrencyContext>
-              <Toaster />
-              <Component {...pageProps} />
-          </CurrencyContext>
-        </StateContext>
-        
-      </CacheProvider>
+      <TitleContext.Provider value={{ companyName }} >
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+          </Head>
+          <StateContext>
+            <CurrencyContext>
+                <Toaster />
+                <Component {...pageProps} />
+            </CurrencyContext>
+          </StateContext>
+          
+        </CacheProvider>
+      </TitleContext.Provider>
     </ColorContext.Provider>
   );
 }

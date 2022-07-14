@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { IconButton, Button, Container, Grid, Paper, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TitleContext from "../utils/context/TitleContext";
 
 
 export default function Footer() {
+    const { companyName } = useContext(TitleContext);
+
   return (
 
     <Container maxWidth="100%" component="footer" 
@@ -14,7 +18,7 @@ export default function Footer() {
             <Box >
                 <Typography variant="body2" color="primary" align="left" sx={{pt: 1}}>
                     {'© '}
-                    Merchant 2022
+                    {companyName} 2022
                     {'.'}
                 </Typography>
                 <Typography variant="body2" color="primary" align="left" sx={{pt: 1}}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import NextLink from 'next/link';
 
 import {
@@ -28,6 +28,7 @@ import { Box } from '@mui/system';
 import { LogoImg, MainButton } from '../utils/styles';
 import Cart from './shop/Cart';
 import { useStateContext } from '../utils/context/StateContext';
+import TitleContext from '../utils/context/TitleContext';
 
 
 
@@ -55,6 +56,8 @@ const Navbar = (props) => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
     const { totalQuantities } = useStateContext();
+    const { companyName } = useContext(TitleContext);
+
 
     //console.log(totalQuantities);
 
@@ -108,7 +111,7 @@ const Navbar = (props) => {
                         </IconButton>
                         <NextLink href="/">
                             <MainButton >
-                                Merchant X
+                                {companyName}
                                 
                             </MainButton>
                         </NextLink>

@@ -26,7 +26,7 @@ const Products = ({products}) => {
 
     console.log(products)
   return (
-    <Layout title='products'>
+    <Layout title='Products'>
         <Container maxWidth='lg'>
         <CenteredGrid container spacing={5} sx={{pt: 6}} >
                     {products.map((product) => (
