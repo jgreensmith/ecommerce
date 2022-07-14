@@ -8,13 +8,13 @@ import { StyledImg, ThumbnailButton } from '../../utils/styles';
 
 const Product = ({ product }) => {
 
-  //console.log(product);
-  const { image, name } = product;
+  console.log(product);
+  const { image, name, seoDescription } = product;
 
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
-    <Layout title={name}>
+    <Layout title={name} seo={seoDescription}>
       <Toolbar />
       <Container maxWidth="xl">
         <Grid container spacing={3}>

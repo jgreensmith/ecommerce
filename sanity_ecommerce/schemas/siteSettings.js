@@ -148,7 +148,7 @@ export default {
         },
         {
             name: 'seoDescription',
-            title: 'Meta Description',
+            title: 'Home Page Meta Description (SEO)',
             type: 'text',
             description: 'brief description of page for Search Engine Optimization'
 

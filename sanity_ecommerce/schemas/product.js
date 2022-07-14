@@ -39,5 +39,11 @@ export default {
             title: 'Body',
             type: 'blockContent',
         },
+        {
+            name: 'seoDescription',
+            title: 'Product Page Meta Description (SEO)',
+            type: 'text',
+            description: 'brief description of page for Search Engine Optimization'
+        },
     ]
 }

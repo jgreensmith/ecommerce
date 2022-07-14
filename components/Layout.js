@@ -7,7 +7,7 @@ import Footer from './Footer';
 import ColorContext from '../utils/context/colorContext';
 import TitleContext from '../utils/context/TitleContext';
 
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title, seo }) => {
     const { sanityColors } = useContext(ColorContext);
     const { companyName } = useContext(TitleContext);
     const sanityTheme = createTheme({
@@ -74,6 +74,8 @@ const Layout = ({ children, title }) => {
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                 />
+              <meta name="title" property="og:title" content={`${title} ${companyName}`} />
+              <meta name="description" property="og:description" content={seo} />
             </Head>
             <ThemeProvider theme={sanityTheme}>
 
