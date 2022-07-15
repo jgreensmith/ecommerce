@@ -68,12 +68,12 @@ const Layout = ({ children, title, seo }) => {
     return (
         <React.Fragment>
             <Head>
-                <meta charSet="utf-8" />
-                <title>{`${title} | ${companyName}`}</title>
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-                />
+              <meta charSet="utf-8" />
+              <title>{`${title} | ${companyName}`}</title>
+              <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+              />
               <meta name="title" property="og:title" content={`${title} ${companyName}`} />
               <meta name="description" property="og:description" content={seo} />
             </Head>

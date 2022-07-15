@@ -43,6 +43,9 @@ export const ThumbnailButton = styled(Button)(({ theme }) => ({
 export const LogoImg = styled("img")({
   maxWidth: '110px',
 });
+export const ShrekImg = styled("img")({
+  
+});
 
 export const StyledImg = styled("img")({
   width: '100%',
