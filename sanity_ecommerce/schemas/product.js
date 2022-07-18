@@ -1,6 +1,6 @@
 export default {
     name: 'product',
-    title: 'Product',
+    title: 'All Products',
     type: 'document',
     fields: [
         {
@@ -20,6 +20,12 @@ export default {
             title: 'Name',
             type: 'string',
         },
+        {
+            name: 'categories',
+            title: 'Categories',
+            type: 'array',
+            of: [{type: 'reference', to: {type: 'category'}}],
+          },
         {
             name: 'slug',
             title: 'Slug',
