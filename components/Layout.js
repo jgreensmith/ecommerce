@@ -10,6 +10,24 @@ import TitleContext from '../utils/context/TitleContext';
 const Layout = ({ children, title, seo }) => {
     const { sanityColors } = useContext(ColorContext);
     const { companyName } = useContext(TitleContext);
+
+    const contrastText = () => {
+      const darkText = sanityColors.primaryText.contrastTextDark;
+      const lightText = sanityColors.primaryText.contrastTextLight;
+      const custom = sanityColors.primaryText.customContrastText;
+
+      if(darkText === true) {
+        return '#3b454e';
+      } else if (lightText === true) {
+        return '#ffffff';
+      } else if (!custom) {
+        return '#b2bac2';
+      } else {
+        return custom;
+      }
+
+    };
+
     const sanityTheme = createTheme({
         typography: {
           h1: {
@@ -33,7 +51,7 @@ const Layout = ({ children, title, seo }) => {
             main: !sanityColors.primary ? '#7d3c98' : sanityColors.primary,
             light: '#f1f3fa',
             dark: '#b4004e',
-            text: '#fff'
+            text: contrastText()
           },
           secondary: {
             main: !sanityColors.secondary ? '#ff0080' : sanityColors.secondary,
@@ -64,7 +82,7 @@ const Layout = ({ children, title, seo }) => {
 
     
 
-    console.log(sanityColors);
+    console.log(contrastText());
     return (
         <React.Fragment>
             <Head>
