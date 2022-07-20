@@ -4,12 +4,13 @@ import { Box, ThemeProvider } from '@mui/system';
 import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import ColorContext from '../utils/context/colorContext';
-import TitleContext from '../utils/context/TitleContext';
+import SettingsContext from '../utils/context/SettingsContext';
 
 const Layout = ({ children, title, seo }) => {
-    const { sanityColors } = useContext(ColorContext);
-    const { companyName } = useContext(TitleContext);
+    const { settings } = useContext(SettingsContext);
+    const sanityColors = settings[0].colorThemes;
+    const companyName = settings[0].title;
+
 
     const contrastText = () => {
       const darkText = sanityColors.primaryText.contrastTextDark;

@@ -3,12 +3,12 @@ import { IconButton, Button, Container, Grid, Paper, Toolbar, Typography } from 
 import { Box } from "@mui/system";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TitleContext from "../utils/context/TitleContext";
+import SettingsContext from "../utils/context/SettingsContext";
 
 
 export default function Footer() {
-    const { companyName } = useContext(TitleContext);
-
+    const { settings } = useContext(SettingsContext);
+    const companyName = settings[0].title;
   return (
 
     <Container maxWidth="100%" component="footer" 
