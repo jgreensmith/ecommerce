@@ -43,13 +43,13 @@ const Hero = ({ heroData }) => {
     const customLinks = contact.customLinks;
 
 
-    //console.log(heroData);
+    console.log(heroData);
     return (
         <HeroBox>
 
             <Swiper modules={[EffectFade, Autoplay]} {...params} effect='fade'>
-            {heroData.map((hero, index) => (
-                <SwiperSlide key={index}>
+            {heroData.map((hero) => (
+                <SwiperSlide key={hero._id}>
                     <HeroSlide
                         role="img"
                         aria-label={hero.alt}
@@ -117,14 +117,16 @@ const Hero = ({ heroData }) => {
                             </Link>
                             { customLinks && 
                                 customLinks.map((link) => (
+                                    <div key={link._key}>
 
-                                    <Link key={link} href={link.linkUrl} target="_blank" rel="noreferrer" >
+                                    <Link  href={link.linkUrl} target="_blank" rel="noreferrer" >
                                         <SvgButton sx={{mr: '9px', mb: 3}}  >
                                             <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
                                                 {link.linkTitle} 
                                             </Typography>
                                         </SvgButton>
                                     </Link>
+                                    </div>
                                 ))
                             }
                         

@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import { IconButton, Button, Container, Grid, Paper, Toolbar, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { borderTop, Box } from "@mui/system";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import SettingsContext from "../utils/context/SettingsContext"; 
 import { FaTiktok } from "react-icons/fa";
-import Link from "next/link";
 
 
 export default function Footer() {
@@ -24,7 +23,15 @@ export default function Footer() {
   return (
 
     <Container maxWidth="100%" component="footer" 
-        sx={{ background: 'transparent' }}
+        sx={{ 
+            //position: 'absolute',
+            background: 'inherit',
+            //bottom: '-20px',
+            transform: 'translateY(-20px)', 
+            borderTop: '1px solid black',
+            
+
+        }}
     >
         <Box p={4} sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Box >
@@ -72,10 +79,12 @@ export default function Footer() {
                 }
                 { customLinks && 
                     customLinks.map((link) => (
-
-                            <Button variant="text" key={link} href={link.linkUrl} target="_blank" rel="noreferrer" >
+                        <div key={link._key}>
+                            <Button variant="text" href={link.linkUrl} target="_blank" rel="noreferrer" >
                                 {link.linkTitle}
                             </Button>
+                        </div>
+                            
                     ))
                 }
                 
