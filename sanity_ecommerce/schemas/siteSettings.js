@@ -39,7 +39,7 @@ export default {
                 },
                 {
                     name: 'subject',
-                    title: 'Default Subject',
+                    title: 'Default Email Subject',
                     type: 'string',
                     description: 'This will set the subject for the customer to email you. example: Product Enquiry', 
                     hidden: ({parent}) => !parent?.email

@@ -2,13 +2,25 @@ import { useContext } from "react";
 import { IconButton, Button, Container, Grid, Paper, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import SettingsContext from "../utils/context/SettingsContext";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import SettingsContext from "../utils/context/SettingsContext"; 
+import { FaTiktok } from "react-icons/fa";
+import Link from "next/link";
 
 
 export default function Footer() {
     const { settings } = useContext(SettingsContext);
     const companyName = settings[0].title;
+    const contact = settings[0].contactObj;
+    const email = contact.email;
+    const subject = contact.subject;
+    const insta = contact.instagram;
+    const facebook = contact.facebook;
+    const twitter = contact.twitter;
+    const tiktok = contact.tiktok;
+    const customLinks = contact.customLinks;
+
   return (
 
     <Container maxWidth="100%" component="footer" 
@@ -34,17 +46,39 @@ export default function Footer() {
                     </Button>
                 </Typography>
             </Box>
-            {/* <Box>
-                <Button variant="text" href="mailto:digitalmcr@hotmail.com?subject=MCR Digital enquiry" >
+            <Box>
+                <Button variant="text" href={`mailto:${email}?subject=${subject}`} >
                     Email
                 </Button>
-                <IconButton href="https://www.instagram.com/digital.mcr/" target="_blank" rel="noreferrer" color="primary" >
-                    <InstagramIcon  />
-                </IconButton>   
-                <IconButton href="https://www.linkedin.com/in/d%E2%80%99arcy-o%E2%80%99connor-b730a9152/" target="_blank" rel="noreferrer" color="primary" >
-                    <LinkedInIcon  />
-                </IconButton> 
-            </Box> */}
+                { insta &&
+                    <IconButton href={insta} target="_blank" rel="noreferrer" color="primary" >
+                        <InstagramIcon  />
+                    </IconButton> 
+                }  
+                { facebook &&
+                    <IconButton href={facebook} target="_blank" rel="noreferrer" color="primary" >
+                        <FacebookIcon  />
+                    </IconButton> 
+                }
+                {/* { twitter && */}
+                    <IconButton href={twitter} target="_blank" rel="noreferrer" color="primary" >
+                        <TwitterIcon  />
+                    </IconButton> 
+                
+                {/* { tiktok && */}
+                    <IconButton href={tiktok} target="_blank" rel="noreferrer" color="primary" >
+                        <FaTiktok  />
+                    </IconButton> 
+                { customLinks && 
+                    customLinks.map((link) => (
+
+                            <Button variant="text" key={link} href={link.linkUrl} target="_blank" rel="noreferrer" >
+                                {link.linkTitle}
+                            </Button>
+                    ))
+                }
+                
+            </Box>
 
         </Box>
     </Container>

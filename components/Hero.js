@@ -118,7 +118,7 @@ const Hero = ({ heroData }) => {
                             { customLinks && 
                                 customLinks.map((link) => (
 
-                                    <Link href={link.linkUrl} target="_blank" rel="noreferrer" >
+                                    <Link key={link} href={link.linkUrl} target="_blank" rel="noreferrer" >
                                         <SvgButton sx={{mr: '9px', mb: 3}}  >
                                             <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
                                                 {link.linkTitle} 
