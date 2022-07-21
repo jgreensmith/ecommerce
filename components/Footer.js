@@ -60,15 +60,16 @@ export default function Footer() {
                         <FacebookIcon  />
                     </IconButton> 
                 }
-                {/* { twitter && */}
+                { twitter &&
                     <IconButton href={twitter} target="_blank" rel="noreferrer" color="primary" >
                         <TwitterIcon  />
                     </IconButton> 
-                
-                {/* { tiktok && */}
+                }
+                { tiktok &&
                     <IconButton href={tiktok} target="_blank" rel="noreferrer" color="primary" >
                         <FaTiktok  />
                     </IconButton> 
+                }
                 { customLinks && 
                     customLinks.map((link) => (
 

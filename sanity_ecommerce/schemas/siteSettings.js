@@ -1,6 +1,5 @@
 export default {
     name: 'siteSettings',
-    title: 'Site Settings',
     type: 'document',
     groups: [
        

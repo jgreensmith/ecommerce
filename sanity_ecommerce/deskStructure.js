@@ -1,4 +1,5 @@
-import S from '@sanity/desk-tool/structure-builder'
+import S from '@sanity/desk-tool/structure-builder';
+import { FiSettings } from "react-icons/fi";
 
 export default () =>
   S.list()
@@ -7,7 +8,8 @@ export default () =>
     [    
         
         S.listItem()
-        .title('Settings')
+        .title('Site Settings')
+        .icon(FiSettings)
         .child(
             S.document()
             .schemaType('siteSettings')
