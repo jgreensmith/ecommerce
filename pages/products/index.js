@@ -84,9 +84,7 @@ const Products = ({products}) => {
                                             
                                             
                                             <Tooltip title="Visit website">
-                                                <Link href={`/products/${product.slug.current}`} color="primary.light" >
-                                                    <Button variant='contained'>View Product</Button>
-                                                </Link>
+                                                <Button href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
                                             </Tooltip>
                                         </FlexSpace>
                                     </CardBanner>
