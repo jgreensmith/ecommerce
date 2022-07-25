@@ -16,7 +16,7 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, settings } = props;
 
-  console.log(settings)
+  //console.log(settings)
  
   return (
     <SettingsContext.Provider value={{ settings }} >

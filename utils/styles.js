@@ -109,6 +109,7 @@ export const PortfolioCard = styled('div')(({theme}) => ({
   display: 'flex',
   justifyContent: 'center',
   margin: '10px',
+  boxSizing: 'border-box'
 }));
 export const PortfolioCardBody = styled('div')(({theme}) => ({
   width: '300px'

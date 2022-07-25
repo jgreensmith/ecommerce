@@ -43,7 +43,7 @@ const Hero = ({ heroData }) => {
     const customLinks = contact.customLinks;
 
 
-    console.log(heroData);
+    //console.log(heroData);
     return (
         <HeroBox>
 

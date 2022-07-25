@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { Button, Container, IconButton, Slide, Tooltip, Typography } from '@mui/material';
+import { Button, Container, Divider, Drawer, Grid, IconButton, List, Paper, Slide, Toolbar, Tooltip, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
@@ -23,14 +23,30 @@ const Products = ({products}) => {
         setQty(1);
         onAdd(x, qty);
     };
+    
 
-    console.log(products)
+    //console.log(products)
   return (
     <Layout title='Products'>
-        <Container maxWidth='lg'>
-        <CenteredGrid container spacing={5} sx={{pt: 6}} >
+        <Container maxWidth='xl' disableGutters>
+       <Grid container spacing={1} >        
+        <Grid item xs={3} >
+            <Paper sx={{ width: 260, p: 1, m: 1, mt: 7}}>
+                <Toolbar>
+                    <Typography variant='h6'>
+                        Filter by Catergory
+                    </Typography>
+                </Toolbar>
+                <List>
+
+                </List>
+            </Paper>
+        </Grid>
+        <Grid item xs={9}  >
+
+        <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
                     {products.map((product) => (
-                        <CenteredGrid item key={product._id} xs={12} sm={6} md={4} >
+                        <CenteredGrid item key={product._id}  >
                             <Slide direction="up" in={true}>
                                
                                 <PortfolioCard className={styles.card}>
@@ -72,9 +88,9 @@ const Products = ({products}) => {
                                             justifyContent: 'space-evenly',
                                             bottom: '-20px',
                                             transform: 'translateY(20px)',
-                                                
+                                            
                                         }}
-                                    >
+                                        >
                                         <FlexSpace sx={{p: 1}}>                                      
                                             <Tooltip title="Add to Basket">  
                                                 <IconButton color='secondary' onClick={() => addOne(product)}>
@@ -94,7 +110,11 @@ const Products = ({products}) => {
                         </CenteredGrid>    
                     ))}
                     
-                </CenteredGrid>        </Container>
+                </CenteredGrid>  
+                </Grid>
+      
+            </Grid>
+            </Container>
     </Layout>
   )
 }
