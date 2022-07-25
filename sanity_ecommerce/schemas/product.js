@@ -4,6 +4,11 @@ export default {
     type: 'document',
     fields: [
         {
+            name: 'name',
+            title: 'Name',
+            type: 'string',
+        },
+        {
             name: 'image',
             title: 'Image',
             type: 'array',
@@ -16,16 +21,22 @@ export default {
             
         },
         {
-            name: 'name',
-            title: 'Name',
-            type: 'string',
-        },
-        {
             name: 'categories',
             title: 'Categories',
             type: 'array',
             of: [{type: 'reference', to: {type: 'category'}}],
-          },
+        },
+        {
+            title: 'Variants',
+            name: 'variants',
+            type: 'array',
+            of: [
+              {
+                title: 'Variant',
+                type: 'productVariant',
+              },
+            ],
+        },
         {
             name: 'slug',
             title: 'Slug',

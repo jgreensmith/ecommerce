@@ -8,6 +8,7 @@ import hero from './hero'
 import blockContent from './blockContent'
 import siteSettings from './siteSettings'
 import category from './category'
+import productVariant from './productVariant'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -20,6 +21,7 @@ export default createSchema({
     hero,
     siteSettings,
     blockContent,
-    category
+    category,
+    productVariant
   ]),
 })
