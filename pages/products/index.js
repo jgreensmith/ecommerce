@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
-import { Button, Container, Divider, Drawer, Grid, IconButton, List, Paper, Slide, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Button, Container, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemButton, Paper, Slide, Toolbar, Tooltip, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
@@ -15,17 +15,29 @@ import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 
 
-const Products = ({products}) => {
+const Products = ({products, categories}) => {
     const { onAdd, setQty, qty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
+    const [productList, setProductList] = useState(products);
+    const allCategories = [{"title": 'All'}, ...categories];
 
     const addOne = (x) => {
         setQty(1);
         onAdd(x, qty);
     };
     
+    const catFilter = (cat) => {
+        if(cat.title === 'All') {
+            setProductList(products);
+            return;
+        }
+        const filteredProducts = products.filter(product => product.categories[0]._ref === cat._id);
+        setProductList(filteredProducts);
+    };
 
-    //console.log(products)
+    console.log(products)
+    console.log(categories)
+
   return (
     <Layout title='Products'>
         <Container maxWidth='xl' disableGutters>
@@ -38,14 +50,18 @@ const Products = ({products}) => {
                     </Typography>
                 </Toolbar>
                 <List>
-
+                    {allCategories.map((cat, index) => (
+                        <ListItemButton onClick={() => catFilter(cat)} key={index}>
+                            {cat.title}
+                        </ListItemButton>
+                    ))}                
                 </List>
             </Paper>
         </Grid>
         <Grid item xs={9}  >
 
         <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
-                    {products.map((product) => (
+                    {productList.map((product) => (
                         <CenteredGrid item key={product._id}  >
                             <Slide direction="up" in={true}>
                                
@@ -118,12 +134,14 @@ const Products = ({products}) => {
     </Layout>
   )
 }
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const query = '*[_type == "product"]';
+  const catQuery = '*[_type == "category"]';
   const products = await client.fetch(query);
+  const categories = await client.fetch(catQuery)
 
   return {
-    props: { products }
+    props: { products, categories }
   }
 }
 

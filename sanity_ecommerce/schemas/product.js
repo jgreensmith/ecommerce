@@ -1,7 +1,11 @@
+import { FiShoppingBag } from "react-icons/fi";
+
+
 export default {
     name: 'product',
     title: 'All Products',
     type: 'document',
+    icon: FiShoppingBag,
     fields: [
         {
             name: 'name',
