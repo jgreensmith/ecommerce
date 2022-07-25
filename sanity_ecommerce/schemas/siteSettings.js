@@ -52,7 +52,7 @@ export default {
                     name: 'instagram',
                     title: 'Instagram URL',
                     description: 'must be a URL, not your username! copy the URL from your profile page',
-                    type: 'string',
+                    type: 'url',
                     hidden: ({parent}) => !parent?.instaBool
 
                 },
@@ -65,7 +65,7 @@ export default {
                     name: 'facebook',
                     title: 'Facebook URL',
                     description: 'must be a URL, not your username! copy the URL from your profile page',
-                    type: 'string',
+                    type: 'url',
                     hidden: ({parent}) => !parent?.faceBool
                 },
                 {
@@ -77,7 +77,7 @@ export default {
                     name: 'twitter',
                     title: 'Twitter URL',
                     description: 'must be a URL, not your username! copy the URL from your profile page',
-                    type: 'string',
+                    type: 'url',
                     hidden: ({parent}) => !parent?.twitBool
                 },
                 {
@@ -89,7 +89,7 @@ export default {
                     name: 'tiktok',
                     title: 'TikTok URL',
                     description: 'must be a URL, not your username! copy the URL from your profile page',
-                    type: 'string',
+                    type: 'url',
                     hidden: ({parent}) => !parent?.tikBool
                 },
                 {
@@ -110,7 +110,7 @@ export default {
                             {
                                 name: 'linkUrl',
                                 title: 'Link URL',
-                                type: 'string',
+                                type: 'url',
                                 description: 'must be a URL, not your username! copy the URL from your profile page'
                             }
                         ]
