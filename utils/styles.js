@@ -1,4 +1,4 @@
-import { Button, Card, ImageListItemBar, Grid } from '@mui/material';
+import { Button, Card, ImageListItemBar, Grid, Container } from '@mui/material';
 import { createTheme, styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
 
@@ -71,6 +71,10 @@ export const CartImg = styled("img")({
 });
 
 //containers
+export const ContentContainer = styled(Container)({
+  marginBottom: '80px'
+});
+
 export const Div = styled('div')({
   
 });

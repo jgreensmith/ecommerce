@@ -2,7 +2,7 @@ import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Link, Pa
 import { PortableText } from "@portabletext/react";
 import Layout from "../components/Layout";
 import { client, urlFor } from "../lib/client";
-import { ProfileImg } from "../utils/styles";
+import { ContentContainer, ProfileImg } from "../utils/styles";
 
 const About = ({settings}) => {
     //console.log(settings)
@@ -10,10 +10,10 @@ const About = ({settings}) => {
     return(
     <Layout title="About" >
 
-        <Container maxWidth='lg'
-        sx={{
-            my: 4
-        }}
+        <ContentContainer maxWidth='lg'
+        // sx={{
+        //     mt: 1,
+        // }}
         >
             
 
@@ -60,7 +60,7 @@ const About = ({settings}) => {
                 
             </Grid>
            
-        </Container>
+        </ContentContainer>
     </Layout>
     )
 }
