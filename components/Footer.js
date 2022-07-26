@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { IconButton, Button, Container, Grid, Paper, Toolbar, Typography } from "@mui/material";
+import { IconButton, Button, Container, Grid, Paper, Toolbar, Typography, Divider } from "@mui/material";
 import { borderTop, Box } from "@mui/system";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -27,11 +27,10 @@ export default function Footer() {
             position: 'absolute',
             background: 'inherit',
             bottom: '-150px',
-            borderTop: '1px solid black',
             zIndex: 10
-
         }}
     >
+        <Divider  />
         <Box p={4} sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Box >
                 <Typography variant="body2" color="primary" align="left" sx={{pt: 1}}>
@@ -52,7 +51,7 @@ export default function Footer() {
                     </Button>
                 </Typography>
             </Box>
-            <Box>
+            <Box sx={{minWidth: '200px'}}>
                 <Button variant="text" href={`mailto:${email}?subject=${subject}`} >
                     Email
                 </Button>
@@ -78,11 +77,9 @@ export default function Footer() {
                 }
                 { customLinks && 
                     customLinks.map((link) => (
-                        <div key={link._key}>
-                            <Button variant="text" href={link.linkUrl} target="_blank" rel="noreferrer" >
-                                {link.linkTitle}
-                            </Button>
-                        </div>
+                        <Button key={link._key} variant="text" href={link.linkUrl} target="_blank" rel="noreferrer" >
+                            {link.linkTitle}
+                        </Button>
                             
                     ))
                 }

@@ -134,7 +134,6 @@ const Hero = ({ heroData }) => {
                 </SwiperSlide>
             ))}
             </Swiper>
-            {/* <Footer/> */}
         </HeroBox>
     )
 }
