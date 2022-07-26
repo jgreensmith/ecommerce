@@ -171,7 +171,7 @@ export const HeroBox = styled('div')({
 });
 
 export const HeroSlide = styled('div')({
-  minHeight: '90vh',
+  minHeight: '100vh',
   backgroundSize: 'cover',
   backgroundPosition: '50%',
   display: 'flex',

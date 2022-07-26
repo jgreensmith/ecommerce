@@ -24,12 +24,11 @@ export default function Footer() {
 
     <Container maxWidth="100%" component="footer" 
         sx={{ 
-            //position: 'absolute',
+            position: 'absolute',
             background: 'inherit',
-            //bottom: '-20px',
-            transform: 'translateY(-20px)', 
+            bottom: '-150px',
             borderTop: '1px solid black',
-            
+            zIndex: 10
 
         }}
     >

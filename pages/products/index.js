@@ -51,7 +51,7 @@ const Products = ({products, categories}) => {
 
   return (
     <Layout title='Products'>
-        <Container maxWidth='xl' disableGutters>
+        <Container maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
        <Grid container spacing={1} >        
         <Grid item xs={12} sm={3} sx={{display: {xs: 'none', sm: 'block'}}}>
             <Paper sx={{ width: 260, p: 1, m: 1, mt: 7}}>
@@ -60,6 +60,7 @@ const Products = ({products, categories}) => {
                         Filter by Catergory
                     </Typography>
                 </Toolbar>
+                <Divider />
                 <List>
                     {allCategories.map((cat, index) => (
                         <ListItemButton onClick={() => catFilter(cat)} key={index}>
@@ -171,16 +172,20 @@ const Products = ({products, categories}) => {
         open={catOpen}
         onClose={handleCatToggle}
         >
-            <Paper sx={{ width: '100%', p: 1, m: 0, textAlign: 'center'}}>
+            <Paper sx={{ width: '100%', p: 3, m: 0, textAlign: 'center'}}>
                 <Toolbar>
                     <Typography variant='h6'>
                         Filter by Catergory
                     </Typography>
                 </Toolbar>
-                <List>
+                <Divider />
+                <List >
                     {allCategories.map((cat, index) => (
                         <ListItemButton onClick={() => drawCatFilter(cat)} key={index}>
-                            {cat.title}
+                            <Typography  >
+
+                                {cat.title}
+                            </Typography>
                         </ListItemButton>
                     ))}                
                 </List>
