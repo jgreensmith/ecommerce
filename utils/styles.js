@@ -51,6 +51,8 @@ export const StyledImg = styled("img")({
   width: '100%',
   borderRadius: '15px',
   backgroundColor: '#ebebeb',
+  maxWidth: '400px',
+  margin: 'auto'
 });
 
 export const PortfolioImg = styled("img")({

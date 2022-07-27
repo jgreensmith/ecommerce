@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
 import { client, urlFor } from '../../lib/client';
-import { ContentContainer, StyledImg, ThumbnailButton } from '../../utils/styles';
+import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
 const Product = ({ product }) => {
 
@@ -18,27 +18,27 @@ const Product = ({ product }) => {
       <Toolbar />
       <ContentContainer maxWidth="xl">
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={1}>
+          <Grid item xs={12} vs={2} md={1} >
             {image?.map((item, i) => (
               <ThumbnailButton 
                 key={i}
                 sx={{
                     background: `url("${urlFor(item).size(100, 100).quality(90).fit("min").url()}") center center/cover`,
-                    display: { xs: 'none', sm: 'block' },
+                    display: { xs: 'none', vs: 'block' },
                 }}
                 onClick={ () => setImageIndex(i)} 
               />
             ))}
           </Grid>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} vs={10} md={7} >
             <Grow in>
-              <Container maxWidth="sm">
+              <Container maxWidth="sm" >
                 <StyledImg 
                   src={urlFor(image && image[imageIndex]).size(600, 600).quality(90).fit("min").url()}
                   alt={name}
-                  sx={{ display: { xs: 'none', sm: 'block' } }}
+                  sx={{ display: { xs: 'none', vs: 'block' } }}
                 />
-                 <Box sx={{ display: { xs: 'flex', sm: 'none' }, overflowX: 'scroll' }} >
+                 <Box sx={{ display: { xs: 'flex', vs: 'none' }, overflowX: 'scroll' }} >
                     {image?.map((item, i) => (
                         <StyledImg
                           key={i}
@@ -51,10 +51,12 @@ const Product = ({ product }) => {
               </Container>
             </Grow>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <ProductDescription 
-              product={product}
-            /> 
+          <Grid item xs={12} md={4}>
+            <Div sx={{m: 'auto'}}>
+              <ProductDescription 
+                product={product}
+                /> 
+            </Div>
           </Grid>
         </Grid>
       </ContentContainer>

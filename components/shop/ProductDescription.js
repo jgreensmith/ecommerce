@@ -16,7 +16,7 @@ const ProductDescription = ({ product }) => {
 
     
   return (
-    <Paper elevation={3} sx={{ p: 3 }}>
+    <Paper elevation={3} sx={{ p: 1 }}>
         <ListItem>
             <Typography
                 gutterBottom
