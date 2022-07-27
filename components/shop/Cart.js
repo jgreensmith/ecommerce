@@ -13,12 +13,13 @@ import { useStateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/client';
 import getStripe from '../../lib/getStripe';
 import toast from 'react-hot-toast';
+import { StayPrimaryLandscape } from '@mui/icons-material';
 
 
 function Cart(props) {
     const { handleCartToggle } = props;
     const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
-    const cartRef = useRef();
+    //const cartRef = useRef();
 
 
     const checkoutHandler = async () => {
@@ -52,7 +53,7 @@ function Cart(props) {
 
     return (
         
-        <Container fixed disableGutters={true} ref={cartRef} >
+        <Container fixed  >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <FlexStart >
                     <Typography variant='h3' >Your Cart</Typography>
@@ -76,11 +77,11 @@ function Cart(props) {
                     </Link>
                </CenteredDiv>
             }
-            <TableContainer component={Paper} square sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto' }}>
+            <TableContainer component={Paper} elevation='none' square sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto' }}>
                 <Table >
                     <TableBody >
                         {cartItems.length >= 1 && cartItems.map((cartItem) => (
-                            <TableRow key={cartItem._id}>
+                            <TableRow  key={cartItem._id}>
                                 <TableCell 
                                     align='left' 
                                     sx={{ width: '80px', padding: '5px' }} 
