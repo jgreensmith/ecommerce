@@ -77,7 +77,7 @@ function Cart(props) {
                     </Link>
                </CenteredDiv>
             }
-            <TableContainer component={Paper} elevation='none' square sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto' }}>
+            <TableContainer component={Paper} elevation={0} square sx={{ maxHeight: 'calc(100vh - 240px)', overflowY: 'auto' }}>
                 <Table >
                     <TableBody >
                         {cartItems.length >= 1 && cartItems.map((cartItem) => (

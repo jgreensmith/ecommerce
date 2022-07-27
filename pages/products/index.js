@@ -142,7 +142,7 @@ const Products = ({products, categories}) => {
                         <IconButton
                             sx={{ 
                                 opacity: 1,
-                                backgroundColor: 'rgb(38, 93, 151)',
+                                backgroundColor: 'secondary.main',
                                 position: 'fixed',
                                 bottom: 80,
                                 right: 30,
