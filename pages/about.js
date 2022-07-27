@@ -41,7 +41,7 @@ const About = ({settings}) => {
                     <Grid item xs={12} md={6}>
                     <Paper 
                         elevation={0}  
-                        sx={{ p: 4, mr: 2, mt: 2 }}
+                        sx={{ p: 4, m: 2 }}
                     >
                         <Typography variant='h1'>
                         About {s.title}
