@@ -24,10 +24,11 @@ export default function Footer() {
 
     <Container maxWidth="100%" component="footer" 
         sx={{ 
-            position: 'absolute',
+            position: 'static',
             background: 'inherit',
-            bottom: '-150px',
-            zIndex: 10
+            bottom: '0',
+            zIndex: 10,
+            height: '60px'
         }}
     >
         <Divider  />

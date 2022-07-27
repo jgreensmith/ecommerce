@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
 import { client, urlFor } from '../../lib/client';
-import { StyledImg, ThumbnailButton } from '../../utils/styles';
+import { ContentContainer, StyledImg, ThumbnailButton } from '../../utils/styles';
 
 const Product = ({ product }) => {
 
@@ -16,7 +16,7 @@ const Product = ({ product }) => {
   return (
     <Layout title={name} seo={seoDescription}>
       <Toolbar />
-      <Container maxWidth="xl">
+      <ContentContainer maxWidth="xl">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={1}>
             {image?.map((item, i) => (
@@ -57,7 +57,7 @@ const Product = ({ product }) => {
             /> 
           </Grid>
         </Grid>
-      </Container>
+      </ContentContainer>
     </Layout>
   )
 }

@@ -4,7 +4,7 @@ import { Button, Container, Divider, Drawer, Grid, IconButton, List, ListItem, L
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { ImFilter } from "react-icons/im";
 
-import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, Div, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
+import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, ContentContainer, Div, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
 
 
 import Layout from '../../components/Layout';
@@ -51,7 +51,7 @@ const Products = ({products, categories}) => {
 
   return (
     <Layout title='Products'>
-        <Container maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
+        <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
        <Grid container spacing={1} >        
         <Grid item xs={12} sm={3} sx={{display: {xs: 'none', sm: 'block'}}}>
             <Paper sx={{ width: 260, p: 1, m: 1, mt: 7}}>
@@ -165,7 +165,7 @@ const Products = ({products, categories}) => {
                 </Grid>
       
             </Grid>
-        </Container>
+        </ContentContainer>
         
         <SwipeableDrawer
         anchor='bottom'
