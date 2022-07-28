@@ -5,7 +5,7 @@ export default {
        
         {
           name: 'colors',
-          title: 'Custom Color Themes',
+          title: 'Custom Colour Themes',
         },
         {
             name: 'contact',
@@ -149,7 +149,7 @@ export default {
         },
         {
             name: 'colorThemes',
-            title: 'Custom Color Themes',
+            title: 'Custom Colour Themes',
             type: 'object',
             description: 'Must be valid hex codes! make sure there are no spaces',
             group: 'colors',
@@ -160,96 +160,46 @@ export default {
             fields: [
                 {
                     name: 'primary',
-                    title: 'Primary Color',
-                    description: 'Main color, background color of navbar',
+                    title: 'Primary Colour',
+                    description: 'Main colour, background colour of navbar',
                     type: 'string',
                     validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
-                {
-                    name: 'primaryText',
-                    title: 'Primary Contrast Text',
-                    type: 'object',
-                    description: 'Color of navbar text',
-                    options: {
-                        collapsible: true,
-                        collapsed: true
-                    },
-                    fields: [
-                        {
-                            name: 'contrastTextLight',
-                            title: 'Default Light Text',
-                            type: 'boolean',
-                            description: 'Use this if primary color is dark',
-                            hidden: ({ parent, value }) => !value && parent?.contrastTextDark || parent?.customContrastText
-                        },
-                        {
-                            name: 'contrastTextDark',
-                            title: 'Default Dark Text',
-                            type: 'boolean',
-                            description: 'Use this if primary color is light',
-                            hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.customContrastText
-                        },
-                        {
-                            name: 'customContrastText',
-                            title: 'Custom Primary Contrast Text',
-                            type: 'string',
-                            description: 'Must be valid hex code!',
-                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false }),
-                            hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.contrastTextDark
-                        },
-
-                    ]
-                },
+                
                 {
                     name: 'secondary',
-                    title: 'Secondary Color',
+                    title: 'Secondary Colour',
                     description: 'This will appear on main buttons',
                     type: 'string',
                     validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
+                
                 {
-                    name: 'secondaryText',
-                    title: 'Secondary Contrast Text',
+                    name: 'textBackground',
+                    title: 'Custom Font Colour',
                     type: 'object',
-                    description: 'Color of button text',
-                    
                     options: {
                         collapsible: true,
                         collapsed: true
                     },
                     fields: [
                         {
-                            name: 'contrastTextLight',
-                            title: 'Default Light Text',
-                            type: 'boolean',
-                            description: 'Use this if secondary color is dark',
-                            hidden: ({ parent, value }) => !value && parent?.contrastTextDark || parent?.customContrastText
-                        },
-                        {
-                            name: 'contrastTextDark',
-                            title: 'Default Dark Text',
-                            type: 'boolean',
-                            description: 'Use this if secondary color is light',
-                            hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.customContrastText
-                        },
-                        {
-                            name: 'customContrastText',
-                            title: 'Custom Contrast Text',
+                            name: 'dark',   
+                            title: 'Dark Text',
                             type: 'string',
-                            description: 'Must be valid hex codes!!',
-                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false }),
-                            hidden: ({ parent, value }) => !value && parent?.contrastTextLight || parent?.contrastTextDark
+                            description: 'Default is black',
+                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                         },
-
+                        {
+                            name: 'light',   
+                            title: 'Light Text',
+                            type: 'string',
+                            description: 'Default is white',
+                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })   
+                        }
                     ]
-                },
-                {
-                    name: 'background',
-                    title: 'Background Color',
-                    type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                 },
             ]
         },

@@ -10,23 +10,31 @@ const Layout = ({ children, title, seo }) => {
     const { settings } = useContext(SettingsContext);
     const sanityColors = settings[0].colorThemes;
     const companyName = settings[0].title;
+    const textBack = sanityColors.textBackground;
+    const light = !textBack.light ? '#f1f3fa' : textBack.light
+    const dark = !textBack.dark ? '#021d37' : textBack.dark
 
+    const contrastText = (h) => {
+      let r = 0, g = 0, b = 0;
+        // 3 digits
+      if (h.length == 4) {
+        r = "0x" + h[1] + h[1];
+        g = "0x" + h[2] + h[2];
+        b = "0x" + h[3] + h[3];
 
-    const contrastText = () => {
-      const darkText = sanityColors.primaryText.contrastTextDark;
-      const lightText = sanityColors.primaryText.contrastTextLight;
-      const custom = sanityColors.primaryText.customContrastText;
-
-      if(darkText === true) {
-        return '#3b454e';
-      } else if (lightText === true) {
-        return '#ffffff';
-      } else if (!custom) {
-        return '#b2bac2';
+      // 6 digits
+      } else if (h.length == 7) {
+        r = "0x" + h[1] + h[2];
+        g = "0x" + h[3] + h[4];
+        b = "0x" + h[5] + h[6];
+      } 
+      if ((r*0.299 + g*0.587 + b*0.114) > 186) {
+        return dark;
       } else {
-        return custom;
+        return light;
       }
 
+      
     };
 
     const sanityTheme = createTheme({
@@ -50,22 +58,19 @@ const Layout = ({ children, title, seo }) => {
         palette: {
           primary: {
             main: !sanityColors.primary ? '#7d3c98' : sanityColors.primary,
-            light: '#f1f3fa',
-            dark: '#b4004e',
-            text: contrastText()
+            text: contrastText(sanityColors.primary),
+            
           },
           secondary: {
             main: !sanityColors.secondary ? '#ff0080' : sanityColors.secondary,
-            light: 'rgba(2, 29, 55, 0.7)',
-            dark: '#283593',
-            text: '#021d37'
+            text: contrastText(sanityColors.primary)
           },
           error: {
             main: '#f04000',
           },
           background: {
-            default: !sanityColors.background ? '#f1f3fa' : sanityColors.background,
-            dark: '#021d37'
+            light: light,
+            dark: dark
           },
         },
         breakpoints: {
@@ -83,7 +88,7 @@ const Layout = ({ children, title, seo }) => {
 
     
 
-    console.log(contrastText());
+    console.log(sanityTheme.palette.primary.text);
     return (
         <React.Fragment>
             <Head>
