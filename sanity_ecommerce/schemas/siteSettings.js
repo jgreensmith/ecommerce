@@ -175,6 +175,13 @@ export default {
                     validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
+                {
+                    name: 'background',
+                    title: 'Background',
+                    type: 'string',
+                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
+                    
+                },
                 
                 {
                     name: 'textBackground',

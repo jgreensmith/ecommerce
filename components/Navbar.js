@@ -139,7 +139,7 @@ const Navbar = (props) => {
                         </List>
                         { totalQuantities > 0 ? (
                             <Tooltip title="View Cart">
-                                <Badge badgeContent={totalQuantities} >
+                                <Badge badgeContent={totalQuantities} sx={{color: "primary.text"}} >
                                     <IconButton                         
                                         onClick={handleCartToggle}
                                     >

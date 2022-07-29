@@ -57,7 +57,7 @@ function Cart(props) {
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <FlexStart >
                     <Typography variant='h3' >Your Cart</Typography>
-                    { cartItems.length >= 1 &&<Typography sx={{pl: 2, mt: 2, pt: '3px'}} color='secondary.main' variant='subtitle2' gutterBottom >{calcItems(totalQuantities)}</Typography> }
+                    { cartItems.length >= 1 &&<Typography sx={{pl: 2, mt: 2, pt: '3px'}}  variant='subtitle2' gutterBottom >{calcItems(totalQuantities)}</Typography> }
                 </FlexStart>
                 <IconButton onClick={handleCartToggle} >
                     <CloseIcon />
@@ -111,7 +111,7 @@ function Cart(props) {
                                                 <Button
                                                     onClick={() => onRemove(cartItem)}
                                                     variant="text"
-                                                    color="secondary"
+                                                    color="error"
                                                     sx={{padding: 0}}
                                                 >
                                                     Remove

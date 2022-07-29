@@ -78,13 +78,12 @@ const Products = ({products, categories}) => {
                             <Slide direction="up" in={true}>
                                
                                 <PortfolioCard className={styles.card}>
-                                    <CardBanner className={styles.cardBanner} sx={{top: '-30px', transform: 'translateY(-20px)'}} >
+                                    <CardBanner className={styles.cardBanner} sx={{top: '-15px', transform: 'translateY(-15px)'}} >
                                         <FlexSpace sx={{p: 1}}>
                                             <Typography 
                                                 variant='h6' 
                                                 sx={{
-                                                    color: '#fff',
-                                                    opacity: 0.8
+                                                    color: 'primary.text',
                                                 }}
                                                 >
                                                 {product.name}
@@ -93,8 +92,7 @@ const Products = ({products, categories}) => {
                                                 variant='subtitle1' 
                                                 align='right'
                                                 sx={{
-                                                    color: '#fff',
-                                                    opacity: 0.8,
+                                                    color: 'primary.text',
                                                     pt: '3px'
                                                 }}
                                                 >
@@ -114,21 +112,21 @@ const Products = ({products, categories}) => {
                                         className={styles.cardBanner}
                                         sx={{
                                             justifyContent: 'space-evenly',
-                                            bottom: '-20px',
-                                            transform: 'translateY(20px)',
+                                            bottom: '-10px',
+                                            transform: 'translateY(10px)',
                                             
                                         }}
                                         >
                                         <FlexSpace sx={{p: 1}}>                                      
                                             <Tooltip title="Add to Basket">  
-                                                <IconButton color='secondary' onClick={() => addOne(product)}>
+                                                <IconButton sx={{color: 'primary.text'}} onClick={() => addOne(product)}>
                                                     <AddShoppingCartIcon />
                                                 </IconButton>
                                             </Tooltip>
                                             
                                             
                                             <Tooltip title="Visit website">
-                                                <Button href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
+                                                <Button color='secondary' href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
                                             </Tooltip>
                                         </FlexSpace>
                                     </CardBanner>

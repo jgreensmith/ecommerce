@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
-import { HeroBox, HeroSlide } from '../utils/styles';
+import { HeroBox, HeroSlide, mainTypog } from '../utils/styles';
 import { urlFor } from '../lib/client';
 import SvgButton from './svg/ButtonSvg';
 import { Typography, Link, Slide } from '@mui/material';
@@ -60,14 +60,14 @@ const Hero = ({ heroData }) => {
                         
                             <NextLink href="/about">
                                 <SvgButton sx={{mr: '9px', mb: 3}} >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         About Merchant X
                                     </Typography>
                                 </SvgButton>
                             </NextLink>
                             <NextLink href="/products">
                                 <SvgButton sx={{mr: '9px', mb: 3}} >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         Shop
                                     </Typography>
                                 </SvgButton>
@@ -75,7 +75,7 @@ const Hero = ({ heroData }) => {
                             { insta && 
                             <Link href={insta} target="_blank" rel="noreferrer" >
                                 <SvgButton sx={{mr: '9px', mb: 3}}  >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         Instagram 
                                     </Typography>
                                 </SvgButton>
@@ -84,7 +84,7 @@ const Hero = ({ heroData }) => {
                             { facebook && 
                             <Link href={facebook} target="_blank" rel="noreferrer" >
                                 <SvgButton sx={{mr: '9px', mb: 3}}  >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         Facebook 
                                     </Typography>
                                 </SvgButton>
@@ -93,7 +93,7 @@ const Hero = ({ heroData }) => {
                             { twitter && 
                             <Link href={twitter} target="_blank" rel="noreferrer" >
                                 <SvgButton sx={{mr: '9px', mb: 3}}  >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         Twitter 
                                     </Typography>
                                 </SvgButton>
@@ -102,7 +102,7 @@ const Hero = ({ heroData }) => {
                             { tiktok && 
                             <Link href={tiktok} target="_blank" rel="noreferrer" >
                                 <SvgButton sx={{mr: '9px', mb: 3}}  >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         TikTok 
                                     </Typography>
                                 </SvgButton>
@@ -110,7 +110,7 @@ const Hero = ({ heroData }) => {
                             }
                             <Link href={`mailto:${email}?subject=${subject}`}>
                                 <SvgButton sx={{mr: '9px', mb: 3}}  >
-                                    <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                    <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                         Contact Us
                                     </Typography>
                                 </SvgButton>
@@ -121,7 +121,7 @@ const Hero = ({ heroData }) => {
 
                                     <Link  href={link.linkUrl} target="_blank" rel="noreferrer" >
                                         <SvgButton sx={{mr: '9px', mb: 3}}  >
-                                            <Typography color='#fff' variant='h6' sx={{textTransform: 'capitalize'}} >
+                                            <Typography color='primary.text' variant='h6' sx={{textTransform: 'capitalize'}} >
                                                 {link.linkTitle} 
                                             </Typography>
                                         </SvgButton>

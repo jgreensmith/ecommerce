@@ -11,10 +11,12 @@ const Layout = ({ children, title, seo }) => {
     const sanityColors = settings[0].colorThemes;
     const companyName = settings[0].title;
     const textBack = sanityColors.textBackground;
-    const light = !textBack.light ? '#f1f3fa' : textBack.light
-    const dark = !textBack.dark ? '#021d37' : textBack.dark
+    const light = !textBack.light ? '#ffffff' : textBack.light;
+    const dark = !textBack.dark ? '#021d37' : textBack.dark;
+    const background = !sanityColors.background ? '#f1f3fa' : sanityColors.background;
 
     const contrastText = (h) => {
+      //convert hex to rgb
       let r = 0, g = 0, b = 0;
         // 3 digits
       if (h.length == 4) {
@@ -28,6 +30,7 @@ const Layout = ({ children, title, seo }) => {
         g = "0x" + h[3] + h[4];
         b = "0x" + h[5] + h[6];
       } 
+      //choose dark or light based on brightness of rgb
       if ((r*0.299 + g*0.587 + b*0.114) > 186) {
         return dark;
       } else {
@@ -63,14 +66,14 @@ const Layout = ({ children, title, seo }) => {
           },
           secondary: {
             main: !sanityColors.secondary ? '#ff0080' : sanityColors.secondary,
-            text: contrastText(sanityColors.primary)
+            text: contrastText(sanityColors.secondary)
           },
           error: {
             main: '#f04000',
           },
           background: {
-            light: light,
-            dark: dark
+            default: background,
+            text: contrastText(background)
           },
         },
         breakpoints: {

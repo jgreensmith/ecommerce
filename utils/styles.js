@@ -1,4 +1,4 @@
-import { Button, Card, ImageListItemBar, Grid, Container } from '@mui/material';
+import { Button, Card, ImageListItemBar, Grid, Container, Typography } from '@mui/material';
 import { createTheme, styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
 
@@ -127,7 +127,7 @@ export const CardBanner = styled('div')(({theme}) => ({
   padding: '7px 10px',
   display: 'flex',
   alignItems: 'center',
-  background: theme.palette.background.dark,
+  background: theme.palette.primary.main,
   backdropFilter: 'blur(10px)',
   borderRadius: '10px',
   

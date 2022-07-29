@@ -43,7 +43,7 @@ const CustomButtonRoot = styled(ButtonRoot)(
   }
 
   & .borderEffect {
-    stroke: ${theme.palette.primary.light};
+    stroke: ${theme.palette.secondary.main};
     stroke-width: 0;
     stroke-dasharray: 300 600;
     stroke-dashoffset: 300;
@@ -53,7 +53,7 @@ const CustomButtonRoot = styled(ButtonRoot)(
   &:hover,
   &.${buttonUnstyledClasses.focusVisible} {
     .borderEffect {
-      stroke: ${theme.palette.primary.light};
+      stroke: ${theme.palette.secondary.main};
       stroke-dashoffset: -600;
       stroke-width: 3;
     }

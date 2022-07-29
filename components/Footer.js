@@ -34,16 +34,16 @@ export default function Footer() {
         <Divider  />
         <Box p={4} sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Box >
-                <Typography variant="body2" align="left" sx={{pt: 1, color: "primary.text"}}>
+                <Typography variant="body2" align="left" sx={{pt: 1, color: "background.text"}}>
                     {'© '}
                     {companyName} 2022
                     {'.'}
                 </Typography>
-                <Typography variant="body2" align="left" sx={{pt: 1, color: "primary.text"}}>
+                <Typography variant="body2" align="left" sx={{pt: 1, color: "background.text"}}>
                     Powered by 
                     <Button 
                     variant="text" 
-                    sx={{textTransform: 'capitalize', color: "primary.text"}}
+                    sx={{textTransform: 'capitalize', color: "background.text"}}
                     href="https://www.linkedin.com/in/james-greensmith-b808341a4/" 
                     target="_blank" 
                     rel="noreferrer"
@@ -53,32 +53,32 @@ export default function Footer() {
                 </Typography>
             </Box>
             <Box sx={{minWidth: '200px'}}>
-                <Button variant="text" href={`mailto:${email}?subject=${subject}`} sx={{color: "primary.text"}} >
+                <Button variant="text" href={`mailto:${email}?subject=${subject}`} sx={{color: "background.text"}} >
                     Email
                 </Button>
                 { insta &&
-                    <IconButton href={insta} target="_blank" rel="noreferrer" sx={{color: "primary.text"}} >
+                    <IconButton href={insta} target="_blank" rel="noreferrer" sx={{color: "background.text"}} >
                         <InstagramIcon  />
                     </IconButton> 
                 }  
                 { facebook &&
-                    <IconButton href={facebook} target="_blank" rel="noreferrer" sx={{color: "primary.text"}} >
+                    <IconButton href={facebook} target="_blank" rel="noreferrer" sx={{color: "background.text"}} >
                         <FacebookIcon  />
                     </IconButton> 
                 }
                 { twitter &&
-                    <IconButton href={twitter} target="_blank" rel="noreferrer" sx={{color: "primary.text"}} >
+                    <IconButton href={twitter} target="_blank" rel="noreferrer" sx={{color: "background.text"}} >
                         <TwitterIcon  />
                     </IconButton> 
                 }
                 { tiktok &&
-                    <IconButton href={tiktok} target="_blank" rel="noreferrer" sx={{color: "primary.text"}} >
+                    <IconButton href={tiktok} target="_blank" rel="noreferrer" sx={{color: "background.dark"}} >
                         <FaTiktok  />
                     </IconButton> 
                 }
                 { customLinks && 
                     customLinks.map((link) => (
-                        <Button key={link._key} variant="text" href={link.linkUrl} target="_blank" rel="noreferrer" sx={{color: "primary.text"}} >
+                        <Button key={link._key} variant="text" href={link.linkUrl} target="_blank" rel="noreferrer" sx={{color: "background.text"}} >
                             {link.linkTitle}
                         </Button>
                             
