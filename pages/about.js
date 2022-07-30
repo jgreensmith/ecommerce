@@ -11,9 +11,9 @@ const About = ({settings}) => {
     <Layout title="About" >
 
         <ContentContainer maxWidth='lg'
-        // sx={{
-        //     mt: 1,
-        // }}
+        sx={{
+            mt: 5,
+        }}
         >
             
 
