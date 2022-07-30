@@ -39,7 +39,7 @@ const CustomButtonRoot = styled(ButtonRoot)(
     stroke-width: 2;
     filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.1));
     fill: ${theme.palette.primary.main};
-    opacity: 0.4
+    opacity: 0.5
   }
 
   & .borderEffect {
@@ -60,6 +60,11 @@ const CustomButtonRoot = styled(ButtonRoot)(
 
     .bg {
       fill: transparent;
+      stroke: ${theme.palette.secondary.main};
+
+    }
+    .content {
+      color: ${theme.palette.secondary.main}
     }
   }
 
@@ -80,16 +85,16 @@ const CustomButtonRoot = styled(ButtonRoot)(
     pointer-events: none;
 
     & .content {
-      font-size: 0.875rem;
+      font-size: 1.2rem;
       font-family: IBM Plex Sans, sans-serif;
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.5;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--main-color);
-      text-transform: uppercase;
+      color: ${theme.palette.primary.text};
+      text-transform: capitalize;
     }
 
     & svg {

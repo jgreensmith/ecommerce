@@ -12,7 +12,7 @@ const Layout = ({ children, title, seo }) => {
     const companyName = settings[0].title;
     const textBack = sanityColors.textBackground;
     const light = !textBack.light ? '#ffffff' : textBack.light;
-    const dark = !textBack.dark ? '#021d37' : textBack.dark;
+    const dark = !textBack.dark ? '#000000' : textBack.dark;
     const background = !sanityColors.background ? '#f1f3fa' : sanityColors.background;
 
     const contrastText = (h) => {
