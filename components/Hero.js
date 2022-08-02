@@ -30,9 +30,9 @@ const params = {
 
 const Hero = ({ heroData }) => {
 
+    // const obj = JSON.parse(heroData[1].customString)
 
-
-    //console.log(heroData);
+    // console.log({obj});
     return (
         <HeroBox>
 

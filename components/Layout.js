@@ -8,6 +8,7 @@ import SettingsContext from '../utils/context/SettingsContext';
 
 const Layout = ({ children, title, seo }) => {
     const { settings } = useContext(SettingsContext);
+    const defaultTheme = JSON.parse(settings[0].defaultThemes);
     const sanityColors = settings[0].colorThemes;
     const companyName = settings[0].title;
     const textBack = sanityColors.textBackground;
@@ -91,7 +92,7 @@ const Layout = ({ children, title, seo }) => {
 
     
 
-    console.log(sanityTheme.palette.primary.text);
+    console.log(defaultTheme);
     return (
         <React.Fragment>
             <Head>

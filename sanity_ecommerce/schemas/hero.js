@@ -1,3 +1,4 @@
+
 export default {
     name: 'hero',
     title: 'Hero',
@@ -19,5 +20,6 @@ export default {
             description: 'brief description of the image, important for SEO',
             validation: Rule => Rule.required()
         },
+        
     ]
 }

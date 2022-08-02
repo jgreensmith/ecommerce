@@ -1,3 +1,5 @@
+import CustomComponent from '../src/CustomComponent'
+
 export default {
     name: 'siteSettings',
     type: 'document',
@@ -146,6 +148,14 @@ export default {
             of: [{
                 type: 'text'
             }]
+        },
+        {
+            name: 'defaultThemes',
+            title: 'Choose from default themes',
+            type: 'string',
+            group: 'colors',
+            inputComponent: CustomComponent,
+            //hidden: ({document}) => !document?.colorThemes?.primary
         },
         {
             name: 'colorThemes',
