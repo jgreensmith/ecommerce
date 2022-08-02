@@ -76,6 +76,10 @@ const Layout = ({ children, title, seo }) => {
             default: background,
             text: contrastText(background)
           },
+          text: {
+            light: light,
+            dark: dark
+          }
         },
         breakpoints: {
           values: {

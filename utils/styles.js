@@ -124,12 +124,13 @@ export const CardBanner = styled('div')(({theme}) => ({
   width: '95%',
   position: 'absolute',
   marginBottom:  '5px',
-  padding: '7px 10px',
+  //padding: '7px 10px',
   display: 'flex',
   alignItems: 'center',
-  background: theme.palette.primary.main,
-  backdropFilter: 'blur(10px)',
-  borderRadius: '10px',
+  backgroundColor: theme.palette.text.light,
+  //border: `1px solid ${theme.palette.text.dark}`,
+  borderRadius: '7px',
+  boxShadow: theme.shadows[6],
   
   opacity: 0,
   transition: 'all 0.4s'

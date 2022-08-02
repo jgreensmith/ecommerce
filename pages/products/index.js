@@ -78,13 +78,13 @@ const Products = ({products, categories}) => {
                             <Slide direction="up" in={true}>
                                
                                 <PortfolioCard className={styles.card}>
-                                    <CardBanner className={styles.cardBanner} sx={{top: '-15px', transform: 'translateY(-15px)'}} >
+                                    <CardBanner className={styles.cardBanner} sx={{top: '-10px', transform: 'translateY(-15px)', px: '10px'  }} >
                                         <FlexSpace sx={{p: 1}}>
                                             <Typography 
                                                 variant='h6' 
-                                                sx={{
-                                                    color: 'primary.text',
-                                                }}
+                                                // sx={{
+                                                //     color: 'secondary.main',
+                                                // }}
                                                 >
                                                 {product.name}
                                             </Typography>
@@ -114,20 +114,18 @@ const Products = ({products, categories}) => {
                                             justifyContent: 'space-evenly',
                                             bottom: '-10px',
                                             transform: 'translateY(10px)',
-                                            
+                                            p: '7px 13px'                                         
                                         }}
                                         >
                                         <FlexSpace sx={{p: 1}}>                                      
                                             <Tooltip title="Add to Basket">  
-                                                <IconButton sx={{color: 'primary.text'}} onClick={() => addOne(product)}>
+                                                <IconButton color='secondary' onClick={() => addOne(product)}>
                                                     <AddShoppingCartIcon />
                                                 </IconButton>
                                             </Tooltip>
                                             
                                             
-                                            <Tooltip title="Visit website">
-                                                <Button color='secondary' href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
-                                            </Tooltip>
+                                                <Button disableElevation color='secondary' href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
                                         </FlexSpace>
                                     </CardBanner>
                                 </PortfolioCard>
