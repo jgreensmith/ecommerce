@@ -8,10 +8,12 @@ import SettingsContext from '../utils/context/SettingsContext';
 
 const Layout = ({ children, title, seo }) => {
     const { settings } = useContext(SettingsContext);
+    //themes chosen from default palette
     const defaultTheme = JSON.parse(settings[0].defaultThemes);
     const sanityColors = settings[0].colorThemes;
     const companyName = settings[0].title;
     const textBack = sanityColors.textBackground;
+    //check if custom
     const light = !textBack.light ? '#ffffff' : textBack.light;
     const dark = !textBack.dark ? '#000000' : textBack.dark;
     const background = !sanityColors.background ? '#f1f3fa' : sanityColors.background;

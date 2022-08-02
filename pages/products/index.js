@@ -20,6 +20,7 @@ const Products = ({products, categories}) => {
     const { currencyConverter } = useCurrencyContext();
     const [productList, setProductList] = useState(products);
     const [catOpen, setCatOpen] = useState(false);
+    //add all option to products
     const allCategories = [{"title": 'All'}, ...categories];
 
     const addOne = (x) => {
@@ -32,6 +33,7 @@ const Products = ({products, categories}) => {
             setProductList(products);
             return;
         }
+        //match product ref with cat id
         const filteredProducts = products.filter(product => product.categories[0]._ref === cat._id);
         setProductList(filteredProducts);
     };
