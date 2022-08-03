@@ -155,26 +155,28 @@ export default {
             type: 'string',
             group: 'colors',
             inputComponent: CustomComponent,
-            //hidden: ({document}) => !document?.colorThemes?.primary
+            hidden: ({document}) => document?.defaultCustomBool
+        },
+        {
+            name: 'defaultCustomBool',
+            title: 'Add Custom Colour Scheme',
+            type: 'boolean',
+            group: 'colors',
         },
         {
             name: 'colorThemes',
-            title: 'Custom Colour Themes',
+            title: 'Custom Colour Themes - Must be valid hex codes!',
             type: 'object',
-            description: 'Must be valid hex codes! make sure there are no spaces',
+            description: 'Make sure there are no spaces. To use default palettes instead, clear custom inputs and turn off the toggle button',
             group: 'colors',
-            options: {
-                collapsible: true,
-                collapsed: true
-            },
+            hidden: ({document}) => !document?.defaultCustomBool,
             fields: [
                 {
                     name: 'primary',
                     title: 'Primary Colour',
                     description: 'Main colour, background colour of navbar',
                     type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
-                    
+                    validation: Rule => Rule.required().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                 },
                 
                 {
@@ -182,42 +184,34 @@ export default {
                     title: 'Secondary Colour',
                     description: 'This will appear on main buttons',
                     type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
+                    validation: Rule => Rule.required().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
                 {
                     name: 'background',
                     title: 'Background',
                     type: 'string',
-                    validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
+                    validation: Rule => Rule.required().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                     
                 },
                 
+                
                 {
-                    name: 'textBackground',
-                    title: 'Custom Font Colour',
-                    type: 'object',
-                    options: {
-                        collapsible: true,
-                        collapsed: true
-                    },
-                    fields: [
-                        {
-                            name: 'dark',   
-                            title: 'Dark Text',
-                            type: 'string',
-                            description: 'Default is black',
-                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
-                        },
-                        {
-                            name: 'light',   
-                            title: 'Light Text',
-                            type: 'string',
-                            description: 'Default is white',
-                            validation: Rule => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })   
-                        }
-                    ]
+                    name: 'dark',   
+                    title: 'Dark Text',
+                    type: 'string',
+                    description: 'Default is black',
+                    validation: Rule => Rule.required().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })
                 },
+                {
+                    name: 'light',   
+                    title: 'Light Text',
+                    type: 'string',
+                    description: 'Default is white',
+                    validation: Rule => Rule.required().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: "hex code format", invert: false })   
+                }
+                    
+                
             ]
         },
         {

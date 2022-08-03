@@ -9,18 +9,18 @@ import { CurrencyContext } from '../utils/context/CurrencyContext';
 import { client } from '../lib/client';
 import SettingsContext from '../utils/context/SettingsContext';
 
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, settings } = props;
-
-  //console.log(settings)
+  
  
   return (
-    <SettingsContext.Provider value={{ settings }} >
-        <CacheProvider value={emotionCache}>
+    <CacheProvider value={emotionCache}>
+          <SettingsContext.Provider value={{ settings }} >
           <Head>
             <meta name="viewport" content="initial-scale=1, width=device-width" />
           </Head>
@@ -31,8 +31,8 @@ export default function MyApp(props) {
             </CurrencyContext>
           </StateContext>
           
-        </CacheProvider>
     </SettingsContext.Provider>
+        </CacheProvider>
   );
 }
 

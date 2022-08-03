@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Head  from 'next/head';
 import { Box, ThemeProvider } from '@mui/system';
 import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/material';
@@ -8,19 +8,19 @@ import SettingsContext from '../utils/context/SettingsContext';
 
 const Layout = ({ children, title, seo }) => {
     const { settings } = useContext(SettingsContext);
-    //themes chosen from default palette
-    const defaultTheme = JSON.parse(settings[0].defaultThemes);
-    const sanityColors = settings[0].colorThemes;
+    // //themes chosen from default palette
+    
     const companyName = settings[0].title;
-    const textBack = sanityColors.textBackground;
-    //check if custom
-    const light = !textBack.light ? '#ffffff' : textBack.light;
-    const dark = !textBack.dark ? '#000000' : textBack.dark;
-    const background = !sanityColors.background ? '#f1f3fa' : sanityColors.background;
+    const customColors = settings[0].colorThemes;
+    const chosenPalette = JSON.parse(settings[0].defaultThemes);
 
-    const contrastText = (h) => {
+    const contrastText = (h, dark, light) => {
       //convert hex to rgb
       let r = 0, g = 0, b = 0;
+      
+      if(!h) {
+        return;
+      }
         // 3 digits
       if (h.length == 4) {
         r = "0x" + h[1] + h[1];
@@ -42,6 +42,92 @@ const Layout = ({ children, title, seo }) => {
 
       
     };
+    
+
+    const defaultTheme = {
+      primary: {
+        main: "#d4c3e9",
+        text: "#000000"
+      },
+      secondary: {
+        main: "#28c3d1",
+        text: '#000000'
+      },
+      error: {
+        main: '#f04000',
+      },
+      background: {
+        default: "#f1f3fa",
+        text: "#000000"
+      },
+      text: {
+        dark: "#000000",
+        light: "#ffffff"  
+      }
+    }
+    const muiChosenPalette = {
+      primary: {
+        main: chosenPalette?.primary,
+        text: contrastText(chosenPalette?.primary, chosenPalette?.dark, chosenPalette?.light)
+      },
+      secondary: {
+        main: chosenPalette?.secondary,
+        text: contrastText(chosenPalette?.secondary, chosenPalette?.dark, chosenPalette?.light)
+      },
+      error: {
+        main: '#f04000'
+      },
+      background: {
+        default: chosenPalette?.background,
+        text: contrastText(chosenPalette?.background, chosenPalette?.dark, chosenPalette?.light)
+      },
+      text: {
+        light: chosenPalette?.light,
+        dark: chosenPalette?.dark
+      }
+    }
+
+    const muiCustomColors = {
+      primary: {
+        main: customColors?.primary,
+        text: contrastText(customColors?.primary, customColors?.dark, customColors?.light),
+        
+      },
+      secondary: {
+        main: customColors?.secondary,
+        text: contrastText(customColors?.secondary, customColors?.dark, customColors?.light)
+      },
+      error: {
+        main: '#f04000',
+      },
+      background: {
+        default: customColors?.background,
+        text: contrastText(customColors?.background, customColors?.dark, customColors?.light)
+      },
+      text: {
+        light: customColors?.light,
+        dark: customColors?.dark
+      }
+    }
+   
+
+    const colorSorter = () => {
+
+
+        if(!customColors && chosenPalette) {
+          console.log('muiChosenPalette');
+          return muiChosenPalette;
+        
+        } else if (customColors) {
+          console.log('muiCustomPalette');
+          return muiCustomColors;
+        } else {
+          console.log('defaultTheme');
+          return defaultTheme;
+
+        }
+      
+    }
 
     const sanityTheme = createTheme({
         typography: {
@@ -61,28 +147,8 @@ const Layout = ({ children, title, seo }) => {
             margin: '1rem 0',
           },
         },
-        palette: {
-          primary: {
-            main: !sanityColors.primary ? '#7d3c98' : sanityColors.primary,
-            text: contrastText(sanityColors.primary),
-            
-          },
-          secondary: {
-            main: !sanityColors.secondary ? '#ff0080' : sanityColors.secondary,
-            text: contrastText(sanityColors.secondary)
-          },
-          error: {
-            main: '#f04000',
-          },
-          background: {
-            default: background,
-            text: contrastText(background)
-          },
-          text: {
-            light: light,
-            dark: dark
-          }
-        },
+        palette: colorSorter(),
+ 
         breakpoints: {
           values: {
             xs: 0,
@@ -98,7 +164,8 @@ const Layout = ({ children, title, seo }) => {
 
     
 
-    console.log(defaultTheme);
+  console.log(sanityTheme.palette);
+  //console.log(settings)
     return (
         <React.Fragment>
             <Head>
