@@ -12,7 +12,8 @@ export const Button = styled.button`
     padding: 0;
     box-sizing: border-box;
     border-color: inherit;
-    border-radius: 10px;
+    border-radius: 15px;
+    border: ${props => props.isActive};
     &:hover {
         cursor: pointer;
         border: 2px solid #28c3d1
@@ -21,6 +22,7 @@ export const Button = styled.button`
         border: 5px solid #28c3d1
 
     }
+    
     
     
 `

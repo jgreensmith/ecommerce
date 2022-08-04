@@ -20,11 +20,18 @@ export const CustomComponent = React.forwardRef((props, ref) => {
         presence,     // Presence information for collaborative avatars
         onFocus,      // Method to handle focus state
         onBlur,  
-        onChange     // Method to handle blur state  
+        onChange,
       } = props
 
     const inputId = useId();
 
+    const checkEqual = (cur, pal) => {
+      if(cur === pal) {
+        return '5px solid #28c3d1';
+      } else {
+        return '';
+      }
+    }
 
     const handleChange = React.useCallback(
         // useCallback will help with performance
@@ -35,7 +42,8 @@ export const CustomComponent = React.forwardRef((props, ref) => {
         },
         [onChange]
       )
-
+      //console.log(value)
+      //console.log(paletteList)
 return (
   <FormField
     description={type.description}  // Creates description from schema
@@ -47,13 +55,16 @@ return (
     
         <Grid ref={ref} columns={[2, 3]} gap={2} padding={4} style={{backgroundColor: '#f1f3fa'}}>
           {
-            paletteList.map((pal, i) => (
+            paletteList.map((pal, i) => {
+              const jPal = JSON.stringify(pal);
+              
+             return (
               <Button 
                 key={i}
                 id={inputId}
-                value={JSON.stringify(pal)}                 // Current field value
+                value={jPal}                
                 onClick={handleChange}
-                onFocus={onFocus}  
+                isActive={checkEqual(value, jPal)}
               >
                 
                   <Color style={{borderRadius: '10px 10px 0 0'}} fillColor={pal.primary}  />  
@@ -64,22 +75,14 @@ return (
                 
 
             </Button>
-            ))
+            )
+            } )
           }
             
             
         </Grid>
     
-    {/* <TextInput
-      id={inputId}
-      onChange={handleChange}
-      value={value || ''}                 // Current field value
-      readOnly={readOnly}           // If "readOnly" is defined make this field read only
-      placeholder={placeholder}     // If placeholder is defined, display placeholder text
-      onFocus={onFocus}             // Handles focus events
-      onBlur={onBlur}               // Handles blur events
-      ref={ref}
-    /> */}
+    
 
   </FormField>
 )
