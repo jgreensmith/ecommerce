@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 import { HeroBox, HeroSlide, mainTypog } from '../utils/styles';
-import { urlFor } from '../lib/config';
+import { urlFor } from '../lib/sanity';
 import SvgButton from './svg/ButtonSvg';
 import { Typography, Link, Slide } from '@mui/material';
 import Links from './Links';
@@ -30,9 +30,7 @@ const params = {
 
 const Hero = ({ heroData }) => {
 
-    // const obj = JSON.parse(heroData[1].customString)
-
-    // console.log({obj});
+    
     return (
         <HeroBox>
 
@@ -41,9 +39,8 @@ const Hero = ({ heroData }) => {
                 <SwiperSlide key={hero._id}>
                     <HeroSlide
                         role="img"
-                        aria-label={hero.alt}
                         sx={{
-                            backgroundImage: `url("${urlFor(hero.heroImage).quality(90).fit("min").url()}")`
+                            backgroundImage: `url("${urlFor(hero).quality(90).fit("min").url()}")`
                         }} 
                     >
                         <Links />

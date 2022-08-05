@@ -4,7 +4,6 @@ import createSchema from 'part:@sanity/base/schema-creator'
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 import product from './product'
-import hero from './hero'
 import blockContent from './blockContent'
 import siteSettings from './siteSettings'
 import category from './category'
@@ -18,7 +17,6 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     product,
-    hero,
     siteSettings,
     blockContent,
     category,

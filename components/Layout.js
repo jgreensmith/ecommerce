@@ -164,7 +164,7 @@ const Layout = ({ children, title, seo }) => {
 
     
 
-  console.log(sanityTheme.palette);
+  //console.log(sanityTheme.palette);
   //console.log(settings)
     return (
         <React.Fragment>

@@ -11,9 +11,14 @@ import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/s
 const Product = ({ product }) => {
 
   console.log(product);
-  const { image, name, seoDescription } = product;
+  const { images, name, seoDescription, mainImage } = product;
+
+  const allImages = [mainImage, ...images]
+  
 
   const [imageIndex, setImageIndex] = useState(0);
+  console.log(mainImage)
+  console.log(allImages)
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -21,7 +26,7 @@ const Product = ({ product }) => {
       <ContentContainer maxWidth="xl">
         <Grid container spacing={3}>
           <Grid item xs={12} vs={2} md={1} >
-            {image?.map((item, i) => (
+            {allImages?.map((item, i) => (
               <ThumbnailButton 
                 key={i}
                 sx={{
@@ -36,12 +41,12 @@ const Product = ({ product }) => {
             <Grow in>
               <Container maxWidth="sm" >
                 <StyledImg 
-                  src={urlFor(image && image[imageIndex]).size(600, 600).quality(90).fit("min").url()}
+                  src={urlFor(allImages && allImages[imageIndex]).size(600, 600).quality(90).fit("min").url()}
                   alt={name}
                   sx={{ display: { xs: 'none', vs: 'block' } }}
                 />
                  <Box sx={{ display: { xs: 'flex', vs: 'none' }, overflowX: 'scroll' }} >
-                    {image?.map((item, i) => (
+                    {allImages?.map((item, i) => (
                         <StyledImg
                           key={i}
                           src={urlFor(item).size(600, 600).quality(90).fit("min").url()}

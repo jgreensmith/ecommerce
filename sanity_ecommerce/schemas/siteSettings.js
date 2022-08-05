@@ -7,7 +7,7 @@ export default {
        
         {
           name: 'colors',
-          title: 'Custom Colour Themes',
+          title: 'Colour Schemes',
         },
         {
             name: 'contact',
@@ -15,7 +15,11 @@ export default {
         },
         {
             name: 'about',
-            title: 'Profile Page'
+            title: 'About Page'
+        },
+        {
+            name: 'home',
+            title: 'Home Page'
         }
       ],
     fields: [
@@ -120,6 +124,20 @@ export default {
                     }]
                 }
             ]
+        },
+        {
+            name: 'heroImages',
+            title: 'Hero Images',
+            type: 'array',
+            group: 'home',
+            description: 'Slideshow images for Home page',
+            of: [{ 
+                type: 'image',
+                options: {
+                    hotspot: true,
+                }
+            }]
+            
         },
         
         {

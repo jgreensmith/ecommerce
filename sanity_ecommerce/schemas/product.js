@@ -13,8 +13,17 @@ export default {
             type: 'string',
         },
         {
-            name: 'image',
-            title: 'Image',
+            name: 'mainImage',
+            title: 'Main Image',
+            type: 'image',
+            options: {
+                hotspot: true
+            },
+            validation: Rule => Rule.required()
+        },
+        {
+            name: 'images',
+            title: 'Images',
             type: 'array',
             of: [{ 
                 type: 'image',

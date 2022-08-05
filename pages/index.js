@@ -4,11 +4,15 @@ import { groq } from "next-sanity";
 import { getClient } from "../lib/sanity.server";
 
 
-const Home = ({heroData, settings}) => {
+const Home = ({settings}) => {
+
   const seo = settings[0].seoDescription
+  const hero = settings[0].heroImages
+
+  //console.log(settings)
   return (
     <Layout title="Home" seo={seo}>
-      {/* <Hero heroData={heroData} /> */}
+      <Hero heroData={hero} />
     </Layout>
   )
 }

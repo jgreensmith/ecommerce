@@ -105,7 +105,7 @@ const Products = ({products, categories}) => {
                                     </CardBanner>
                                     <PortfolioCardBody>
                                         <PortfolioImg
-                                            src={urlFor(product.image && product.image[0]).size(600, 600).quality(90).fit("min").url()}
+                                            src={urlFor(product.mainImage).size(600, 600).quality(90).fit("min").url()}
                                             alt={product.name}
                                             loading="lazy"
                                             />
