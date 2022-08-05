@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 
 import { Button, Container, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemButton, Paper, Slide, Toolbar, Tooltip, Typography, SwipeableDrawer } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { ImFilter } from "react-icons/im";
 
-import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, ContentContainer, Div, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
+import { CenteredGrid, ContentContainer } from "../../utils/styles";
 
 
 import Layout from '../../components/common/Layout';
-import { urlFor } from '../../lib/sanity';
 
-import styles from '../../styles/Product.module.css';
 import { useStateContext } from '../../utils/context/StateContext';
-import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 import { getClient } from '../../lib/sanity.server';
 import { groq } from 'next-sanity';
+import ProductCard from '../../components/shop/ProductCard';
 
 const Products = ({products, categories}) => {
     const { onAdd, setQty, qty } = useStateContext();
-    const { currencyConverter } = useCurrencyContext();
     const [productList, setProductList] = useState(products);
     const [catOpen, setCatOpen] = useState(false);
+    //const categories = null
     //add all option to products
+    
+
     const allCategories = [{"title": 'All'}, ...categories];
+    
 
     const addOne = (x) => {
         setQty(1);
@@ -54,7 +54,24 @@ const Products = ({products, categories}) => {
 
   return (
     <Layout title='Products'>
+    {/* {!categories && 
+            <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
+                <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
+
+                    {productList.map((product) => (
+                        <CenteredGrid item key={product._id}  >
+                            <ProductCard product={product} />
+                                          
+                        </CenteredGrid>    
+                    ))}
+                </CenteredGrid>
+            </ContentContainer>
+
+    } */}
+     
+    <React.Fragment>
         <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
+            
        <Grid container spacing={1} >        
         <Grid item xs={12} sm={3} sx={{display: {xs: 'none', sm: 'block'}}}>
             <Paper sx={{ width: 260, p: 1, m: 1, mt: 7, position: 'fixed'}}>
@@ -78,61 +95,7 @@ const Products = ({products, categories}) => {
         <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
                     {productList.map((product) => (
                         <CenteredGrid item key={product._id}  >
-                            <Slide direction="up" in={true}>
-                               
-                                <PortfolioCard className={styles.card}>
-                                    <CardBanner className={styles.cardBanner} sx={{top: '-10px', transform: 'translateY(-15px)', px: '10px'  }} >
-                                        <FlexSpace sx={{p: 1}}>
-                                            <Typography 
-                                                variant='h6' 
-                                                // sx={{
-                                                //     color: 'secondary.main',
-                                                // }}
-                                                >
-                                                {product.name}
-                                            </Typography>
-                                            <Typography 
-                                                variant='subtitle1' 
-                                                align='right'
-                                                sx={{
-                                                    color: 'primary.text',
-                                                    pt: '3px'
-                                                }}
-                                                >
-                                                {currencyConverter.format(product.price)}
-                                            </Typography>
-                                        </FlexSpace>
-                                    </CardBanner>
-                                    <PortfolioCardBody>
-                                        <PortfolioImg
-                                            src={urlFor(product.mainImage).size(600, 600).quality(90).fit("min").url()}
-                                            alt={product.name}
-                                            loading="lazy"
-                                            />
-                                    </PortfolioCardBody>
-                                    
-                                    <CardBanner
-                                        className={styles.cardBanner}
-                                        sx={{
-                                            justifyContent: 'space-evenly',
-                                            bottom: '-10px',
-                                            transform: 'translateY(10px)',
-                                            p: '7px 13px'                                         
-                                        }}
-                                        >
-                                        <FlexSpace sx={{p: 1}}>                                      
-                                            <Tooltip title="Add to Basket">  
-                                                <IconButton color='secondary' onClick={() => addOne(product)}>
-                                                    <AddShoppingCartIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            
-                                            
-                                                <Button disableElevation color='secondary' href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
-                                        </FlexSpace>
-                                    </CardBanner>
-                                </PortfolioCard>
-                            </Slide>   
+                            <ProductCard product={product} />
                                           
                         </CenteredGrid>    
                     ))}
@@ -190,7 +153,8 @@ const Products = ({products, categories}) => {
                 </List>
             </Paper>
         </SwipeableDrawer>
-     
+    </React.Fragment>
+    
     </Layout>
   )
 }

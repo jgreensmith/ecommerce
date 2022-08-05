@@ -1,6 +1,7 @@
 import React from 'react'
 import Links from './Links';
 import { HeroBox, HeroSlide } from '../../utils/styles';
+import { urlFor } from '../../lib/sanity';
 
 
 const HeroFixed = ({heroFixed}) => {
