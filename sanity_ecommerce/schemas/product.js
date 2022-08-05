@@ -25,6 +25,8 @@ export default {
             name: 'images',
             title: 'Images',
             type: 'array',
+            description: 'Must have at least one alternative image',
+            validation: Rule => Rule.required(),
             of: [{ 
                 type: 'image',
                 options: {
