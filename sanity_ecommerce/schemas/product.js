@@ -39,6 +39,7 @@ export default {
             name: 'categories',
             title: 'Categories',
             type: 'array',
+            validation: Rule => Rule.required(),
             of: [{type: 'reference', to: {type: 'category'}}],
         },
         {
