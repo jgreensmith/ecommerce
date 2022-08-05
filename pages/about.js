@@ -1,8 +1,11 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Link, Paper, Slide, Toolbar, Typography } from "@mui/material";
 import { PortableText } from "@portabletext/react";
 import Layout from "../components/Layout";
-import { client, urlFor } from "../lib/client";
+import { urlFor } from "../lib/sanity";
 import { ContentContainer, ProfileImg } from "../utils/styles";
+import { getClient } from "../lib/sanity.server";
+import { groq } from "next-sanity";
+
 
 const About = ({settings}) => {
     //console.log(settings)
@@ -23,8 +26,8 @@ const About = ({settings}) => {
                     <Paper 
                         elevation={3} 
                         sx={{ 
-                        width: { sm: '300px', xs: '200px'},
-                        height: { sm: '300px', xs: '200px'},
+                        width: { sm: '300px', xs: '230px'},
+                        height: { sm: '300px', xs: '230px'},
                         borderRadius: '50%',
                         mx: 'auto',
                         mt: 8 
@@ -32,8 +35,8 @@ const About = ({settings}) => {
                         >
                         <ProfileImg src={urlFor(s.profileImage)} 
                         sx={{ 
-                            width: { sm: '300px', xs: '200px'},
-                            height: { sm: '300px', xs: '200px'},
+                            width: { sm: '300px', xs: '230px'},
+                            height: { sm: '300px', xs: '230px'},
                         }} 
                         />
                     </Paper>
@@ -65,9 +68,12 @@ const About = ({settings}) => {
     )
 }
 
-export const getStaticProps = async () => {
-    const query = '*[_type == "siteSettings"]';
-    const settings = await client.fetch(query);
+export const getStaticProps = async ({preview = false}) => {
+    const query = groq`*[_type == "siteSettings"]`
+    const settings = await getClient(preview).fetch(query)
+
+    if (!settings) return {notFound: true}
+
 
     return {
         props: { settings }

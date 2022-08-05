@@ -6,8 +6,9 @@ import createEmotionCache from '../utils/createEmotionCache';
 import { StateContext } from '../utils/context/StateContext';
 import { Toaster } from 'react-hot-toast';
 import { CurrencyContext } from '../utils/context/CurrencyContext';
-import { client } from '../lib/client';
 import SettingsContext from '../utils/context/SettingsContext';
+import { getClient } from '../lib/sanity.server';
+import { groq } from 'next-sanity';
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -42,9 +43,11 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired,
 };
 
-MyApp.getInitialProps = async () => {
-  const query = '*[_type == "siteSettings"]';
-  const settings = await client.fetch(query);
+MyApp.getInitialProps = async ({ preview = false }) => {
+  const query = groq`*[_type == "siteSettings"]`
+  const settings = await getClient(preview).fetch(query)
+
+  if (!settings) return {notFound: true}
 
   return {
        settings 

@@ -1,9 +1,11 @@
 import { Container, Grid, Grow, Toolbar } from '@mui/material';
 import { Box } from '@mui/system';
+import { groq } from 'next-sanity';
 import React, { useState } from 'react'
 import Layout from '../../components/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
-import { client, urlFor } from '../../lib/client';
+import { urlFor } from '../../lib/sanity';
+import { getClient, sanityClient } from '../../lib/sanity.server';
 import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
 const Product = ({ product }) => {
@@ -65,12 +67,13 @@ const Product = ({ product }) => {
 }
 //adds path to params
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
+  const query = groq`*[_type == "product"] {
     slug {
       current
     }
   }`;
-  const products = await client.fetch(query);
+  const products = await sanityClient.fetch(query);
+  //put current product slug in params
 
   const paths = products.map((product) => ({
     params: {
@@ -83,10 +86,11 @@ export const getStaticPaths = async () => {
   }
 
 }
+//groq filter slug that matches current slug
 
-export const getStaticProps = async ({ params: { slug } }) => {
-  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  const product = await client.fetch(query);
+export const getStaticProps = async ({ params: { slug }, preview = false }) => {
+  const query = groq`*[_type == "product" && slug.current == '${slug}'][0]`;
+  const product = await getClient(preview).fetch(query);
 
   //console.log(product);
 

@@ -8,12 +8,13 @@ import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, ContentContainer
 
 
 import Layout from '../../components/Layout';
-import { client, urlFor } from '../../lib/client';
+import { urlFor } from '../../lib/sanity';
 
 import styles from '../../styles/Product.module.css';
 import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
-
+import { getClient } from '../../lib/sanity.server';
+import { groq } from 'next-sanity';
 
 const Products = ({products, categories}) => {
     const { onAdd, setQty, qty } = useStateContext();
@@ -56,7 +57,7 @@ const Products = ({products, categories}) => {
         <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
        <Grid container spacing={1} >        
         <Grid item xs={12} sm={3} sx={{display: {xs: 'none', sm: 'block'}}}>
-            <Paper sx={{ width: 260, p: 1, m: 1, mt: 7}}>
+            <Paper sx={{ width: 260, p: 1, m: 1, mt: 7, position: 'fixed'}}>
                 <Toolbar>
                     <Typography variant='h6'>
                         Filter by Catergory
@@ -193,11 +194,15 @@ const Products = ({products, categories}) => {
     </Layout>
   )
 }
-export const getStaticProps = async () => {
-  const query = '*[_type == "product"]';
-  const catQuery = '*[_type == "category"]';
-  const products = await client.fetch(query);
-  const categories = await client.fetch(catQuery)
+export const getStaticProps = async ({ preview = false }) => {
+    const query = groq`*[_type == "product"]`
+    const catQuery = groq`*[_type == "category"]`
+
+  const products = await getClient(preview).fetch(query)
+  const categories = await getClient(preview).fetch(catQuery)
+
+  if (!products) return {notFound: true}
+
 
   return {
     props: { products, categories }

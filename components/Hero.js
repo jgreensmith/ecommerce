@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 import { HeroBox, HeroSlide, mainTypog } from '../utils/styles';
-import { urlFor } from '../lib/client';
+import { urlFor } from '../lib/config';
 import SvgButton from './svg/ButtonSvg';
 import { Typography, Link, Slide } from '@mui/material';
 import Links from './Links';

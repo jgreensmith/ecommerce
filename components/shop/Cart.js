@@ -10,10 +10,9 @@ import { Box } from '@mui/system';
 import Router from 'next/router';
 
 import { useStateContext } from '../../utils/context/StateContext';
-import { urlFor } from '../../lib/client';
+import { urlFor } from '../../lib/sanity';
 import getStripe from '../../lib/getStripe';
 import toast from 'react-hot-toast';
-import { StayPrimaryLandscape } from '@mui/icons-material';
 
 
 function Cart(props) {
