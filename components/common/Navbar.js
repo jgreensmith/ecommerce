@@ -25,10 +25,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from '@mui/system';
 
-import { LogoImg, MainButton } from '../utils/styles';
-import Cart from './shop/Cart';
-import { useStateContext } from '../utils/context/StateContext';
-import SettingsContext from '../utils/context/SettingsContext';
+import { LogoImg, MainButton } from '../../utils/styles';
+import Cart from '../shop/Cart';
+import { useStateContext } from '../../utils/context/StateContext';
+import SettingsContext from '../../utils/context/SettingsContext';
 
 
 

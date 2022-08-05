@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Alert, Button, Typography } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import { CenteredDiv } from '../utils/styles';
 
 

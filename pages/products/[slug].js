@@ -2,7 +2,7 @@ import { Container, Grid, Grow, Toolbar } from '@mui/material';
 import { Box } from '@mui/system';
 import { groq } from 'next-sanity';
 import React, { useState } from 'react'
-import Layout from '../../components/Layout';
+import Layout from '../../components/common/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
 import { urlFor } from '../../lib/sanity';
 import { getClient, sanityClient } from '../../lib/sanity.server';

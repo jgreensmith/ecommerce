@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
-import Layout from '../components/Layout';
+import Layout from '../components/common/Layout';
 import { CenteredDiv, ShrekImg } from '../utils/styles';
 
 const Custom404 = () => {

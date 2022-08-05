@@ -7,7 +7,7 @@ import { ImFilter } from "react-icons/im";
 import { CardActionFooter, CardBanner, CardTitle, CenteredGrid, ContentContainer, Div, FlexSpace, Overlay, PortfolioCard, PortfolioCardBody, PortfolioImg } from "../../utils/styles";
 
 
-import Layout from '../../components/Layout';
+import Layout from '../../components/common/Layout';
 import { urlFor } from '../../lib/sanity';
 
 import styles from '../../styles/Product.module.css';

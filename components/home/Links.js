@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import NextLink from 'next/link';
 
 import { Link } from '@mui/material';
-import SettingsContext from '../utils/context/SettingsContext';
-import SvgButton from './svg/ButtonSvg';
+import SettingsContext from '../../utils/context/SettingsContext';
+import SvgButton from '../svg/ButtonSvg';
 
 
 const Links = () => {

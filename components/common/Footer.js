@@ -4,7 +4,7 @@ import { borderTop, Box } from "@mui/system";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import SettingsContext from "../utils/context/SettingsContext"; 
+import SettingsContext from "../../utils/context/SettingsContext"; 
 import { FaTiktok } from "react-icons/fa";
 
 

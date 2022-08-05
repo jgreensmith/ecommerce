@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Link, Paper, Slide, Toolbar, Typography } from "@mui/material";
 import { PortableText } from "@portabletext/react";
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import { urlFor } from "../lib/sanity";
 import { ContentContainer, ProfileImg } from "../utils/styles";
 import { getClient } from "../lib/sanity.server";

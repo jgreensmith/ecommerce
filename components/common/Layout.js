@@ -4,7 +4,7 @@ import { Box, ThemeProvider } from '@mui/system';
 import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import SettingsContext from '../utils/context/SettingsContext';
+import SettingsContext from '../../utils/context/SettingsContext';
 
 const Layout = ({ children, title, seo }) => {
     const { settings } = useContext(SettingsContext);

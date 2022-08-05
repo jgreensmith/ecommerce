@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Alert, Button, Dialog, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import { CenteredDiv } from '../utils/styles';
 import Order from '../components/shop/Order';
 import { useStateContext } from '../utils/context/StateContext';

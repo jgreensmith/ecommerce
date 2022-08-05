@@ -127,10 +127,11 @@ export default {
         },
         {
             name: 'heroImages',
-            title: 'Hero Images',
+            title: 'Slideshow images for Home page',
             type: 'array',
             group: 'home',
-            description: 'Slideshow images for Home page',
+            description: 'fixed image field must be empty',
+            hidden: ({document}) => document?.heroFixed,
             of: [{ 
                 type: 'image',
                 options: {
@@ -138,6 +139,14 @@ export default {
                 }
             }]
             
+        },
+        {
+            name: 'heroFixed',
+            title: 'Fixed Hero Image for Home page',
+            type: 'image',
+            group: 'home',
+            description: 'Slideshow field must be empty',
+            hidden: ({document}) => document?.heroImages
         },
         
         {
