@@ -12,6 +12,7 @@ export default {
         name: 'title', 
         title: 'Category Title',
         type: 'string',
+
     },
     
    

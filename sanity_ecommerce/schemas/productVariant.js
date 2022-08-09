@@ -24,18 +24,14 @@ export default {
             type: 'number',
         },
         {
-            name: 'images',
-            title: 'Images',
-            type: 'array',
-            of: [
-            {
-                type: 'image',
-                options: {
-                hotspot: true,
-                },
-            },
-            ],
-        },
+            name: 'variantImage',
+            title: 'Variant Image',
+            type: 'image',
+            options: {
+                hotspot: true
+            }
+        }
+        
         
     ],
     }

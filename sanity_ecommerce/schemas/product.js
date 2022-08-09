@@ -9,8 +9,28 @@ export default {
     fields: [
         {
             name: 'name',
-            title: 'Name',
+            title: 'Product title',
             type: 'string',
+            validation: Rule => Rule.required()
+        },
+        {
+            name: 'colorBool',
+            title: 'Is this product a Colour variant?',
+            type: 'boolean', 
+        },
+        {
+            name: 'color',
+            title: 'Colour',
+            type: 'string',
+            hidden: ({document}) => !document?.colorBool,
+        },
+        {
+            name: 'colorRef',
+            title: 'Colour Ref',
+            type: 'array',
+            hidden: ({document}) => !document?.colorBool,
+            of: [{type: 'reference', to: {type: 'product'}}],
+            
         },
         {
             name: 'mainImage',
@@ -22,30 +42,80 @@ export default {
             validation: Rule => Rule.required()
         },
         {
+            name: 'addVariantsBool',
+            title: 'Add Product Variants?',
+            type: 'boolean'
+        },
+        {
             name: 'images',
             title: 'Images',
             type: 'array',
             description: 'Must have at least one alternative image',
             validation: Rule => Rule.required(),
-            of: [{ 
-                type: 'image',
-                options: {
-                    hotspot: true,
-                }
-            }]
+            //hidden: ({document}) => document?.addVariantsBool,
+            of: [
+                
+                { 
+                    type: 'image',
+                    options: {
+                        hotspot: true,
+                    }
+                },
+                        
+        ]
             
         },
+        // {
+        //     name: 'variantImages',
+        //     title: 'Images',
+        //     type: 'array',
+        //     description: 'Must have at least one alternative image',
+        //     hidden: ({document}) => !document?.addVariantsBool,
+        //     validation: Rule => Rule.required(),
+        //     of: [
+        //         {   
+        //             name: 'imageObj',      
+        //             type: 'object',
+        //             fields: [
+        //                 { 
+        //                     name: 'image',
+        //                     type: 'image',
+        //                     options: {
+        //                         hotspot: true,
+        //                     }
+        //                 },
+        //                 {
+        //                     name: 'variantLink',
+        //                     title: 'Link to variant',
+        //                     type: 'reference', 
+        //                     to: {type: 'productVariant'}
+        //                 }
+        //             ]
+        //         }            
+            
+        // ]
+            
+        // },
         {
             name: 'categories',
             title: 'Categories',
             type: 'array',
             validation: Rule => Rule.required(),
             of: [{type: 'reference', to: {type: 'category'}}],
-        },
+        }, 
+        // {
+        //     title: 'Default variant',
+        //     name: 'defaultProductVariant',
+        //     type: 'productVariant',
+        //     validation: Rule => Rule.required(),
+        //     hidden: ({document}) => !document?.addVariantsBool,    
+        // },
         {
             title: 'Variants',
             name: 'variants',
             type: 'array',
+            //validation: Rule => Rule.required(),
+            hidden: ({document}) => !document?.addVariantsBool,
             of: [
               {
                 title: 'Variant',

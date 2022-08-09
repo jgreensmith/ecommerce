@@ -2,23 +2,28 @@ import { Container, Grid, Grow, Toolbar } from '@mui/material';
 import { Box } from '@mui/system';
 import { groq } from 'next-sanity';
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import Layout from '../../components/common/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
 import { urlFor } from '../../lib/sanity';
 import { getClient, sanityClient } from '../../lib/sanity.server';
 import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
-const Product = ({ product }) => {
+const Product = ({ product, products }) => {
 
-  console.log(product);
-  const { images, name, seoDescription, mainImage } = product;
-
+  console.log({product, products});
+  const { variants, images, addVariantsBool, colorRef, name, seoDescription, mainImage } = product;
+    
   const allImages = [mainImage, ...images]
   
+  const colorProducts = products.filter((el) => {
+    return colorRef?.some((r) => {
+      return r._ref === el._id
+    })
+  })
 
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(mainImage)
-  console.log(allImages)
+  console.log(colorProducts)
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -36,6 +41,7 @@ const Product = ({ product }) => {
                 onClick={ () => setImageIndex(i)} 
               />
             ))}
+
           </Grid>
           <Grid item xs={12} vs={10} md={7} >
             <Grow in>
@@ -97,10 +103,14 @@ export const getStaticProps = async ({ params: { slug }, preview = false }) => {
   const query = groq`*[_type == "product" && slug.current == '${slug}'][0]`;
   const product = await getClient(preview).fetch(query);
 
+  const productsQuery = groq`*[_type == "product" ]`;
+  const products = await getClient(preview).fetch(productsQuery);
+
+
   //console.log(product);
 
   return {
-    props: { product }
+    props: { product, products }
   }
 }
 
