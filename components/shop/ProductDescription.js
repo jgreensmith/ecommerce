@@ -1,23 +1,40 @@
 import React from 'react';
 import { PortableText } from '@portabletext/react';
 
-import { Alert, Button, FormControl, Grid, InputLabel, ListItem, MenuItem, Paper, Select, Typography } from '@mui/material';
+import { Alert, Button, FormControl, Grid, InputLabel, Menu, MenuItem, MenuList, Paper, Select, Typography } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
+import { useState } from 'react';
+import Link from 'next/link';
+import { Div, StyledList, StyledUnList } from '../../utils/styles';
+import { urlFor } from '../../lib/sanity';
 
 
-const ProductDescription = ({ product }) => {
+const ProductDescription = ({ product, colorProducts, colorBool }) => {
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
+
+    //color dropdown menu
+    const [anchorElm, setAnchorElm] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    const handleClose = () => {
+        setAnchorElm(null);
+        setOpen(false)
+    }
+    const handleClick = (e) => {
+        setAnchorElm(e.currentTarget);
+        setOpen(true);
+    }
     
-
-
+    console.log(colorProducts)
     
   return (
     <Paper elevation={3} sx={{ p: 1 }}>
-        <ListItem>
+        <Div sx={{ p: 1}}>
             <Typography
                 gutterBottom
                 variant='h6'
@@ -25,8 +42,8 @@ const ProductDescription = ({ product }) => {
             >
                 {product.name}
             </Typography>
-        </ListItem>
-        <ListItem>
+        </Div>
+        <Div sx={{ p: 1}}>
             <Grid container>
                 <Grid item xs={6}>
                     <Typography 
@@ -51,10 +68,10 @@ const ProductDescription = ({ product }) => {
                     )}
                 </Grid>
             </Grid>
-        </ListItem>
+        </Div>
         {inventory > 0 && (
             <>
-                <ListItem>
+                <Div sx={{ p: 1}}>
                     <FormControl fullWidth>
                         <InputLabel>Quantity</InputLabel>
                         <Select
@@ -73,21 +90,68 @@ const ProductDescription = ({ product }) => {
                             ))}
                         </Select>
                     </FormControl>     
-                </ListItem>
-                <ListItem>
+                </Div>
+                {
+                    <>
+                    <Div sx={{ p: 1}}>
+                        <Button 
+                            variant="outlined"
+                            onClick={handleClick}
+                            fullWidth
+                            aria-controls="basic-menu"
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            sx={{color: 'text.dark'}}   
+                            endIcon={<ArrowDropDownIcon />}                
+                        >
+                            Colour Options
+                        </Button>
+                        <Menu anchorEl={anchorElm} open={open} onClose={handleClose}  >
+                            <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
+                                <MenuList>
+                                    {
+                                        colorProducts.map((x) => (
+                                            <MenuItem key={x._id} onClick={handleClose} sx={{ width: '100%',}} >
+                                                <Link 
+                                                    href={`/products/${x.slug.current}`}
+                                                    
+                                                > 
+                                                    <Typography sx={{width: '100%'}} align='center' variant='body1'>
+                                                        {x.color}
+                                                    </Typography>
+                                                </Link>
+                                            </MenuItem>
+                                        ))
+                                    }
+                             </MenuList>
+                            </Paper>
+                        </Menu>
+                                    
+
+                            
+
+                           
+                        
+                        
+                    </Div>
+                            
+                        
+                    </>
+                }
+                <Div sx={{ p: 1}}>
                     <Button
                         type="button"
                         fullWidth
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         onClick={() => onAdd(product, qty)}
                     >
                         Add to cart
                     </Button>
-                </ListItem>
+                </Div>
             </>
         )}
-        <ListItem>
+        <Div sx={{ p: 1}}>
             {/* <Typography
                 gutterBottom
                 variant='body2'
@@ -97,7 +161,7 @@ const ProductDescription = ({ product }) => {
                     value={product.body}
                 />
             {/* </Typography> */}
-        </ListItem>
+        </Div>
 
     </Paper>
   )

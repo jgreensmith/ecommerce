@@ -21,7 +21,7 @@ const Products = ({products, categories}) => {
     //add all option to products
     
 
-    const allCategories = [{"title": 'All'}, ...categories];
+    const allCategories = categories ? [{"title": 'All'}, ...categories] : null;
     
 
     const addOne = (x) => {
@@ -35,7 +35,7 @@ const Products = ({products, categories}) => {
             return;
         }
         //match product ref with cat id
-        const filteredProducts = products.filter(product => product.categories[0]._ref === cat._id);
+        const filteredProducts = products.filter(product => product?.categories[0]?._ref === cat._id);
         setProductList(filteredProducts);
     };
 
@@ -54,7 +54,7 @@ const Products = ({products, categories}) => {
 
   return (
     <Layout title='Products'>
-    {/* {!categories && 
+    {!categories && 
             <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
                 <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
 
@@ -67,8 +67,8 @@ const Products = ({products, categories}) => {
                 </CenteredGrid>
             </ContentContainer>
 
-    } */}
-     
+    }
+   { categories && 
     <React.Fragment>
         <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
             
@@ -154,6 +154,7 @@ const Products = ({products, categories}) => {
             </Paper>
         </SwipeableDrawer>
     </React.Fragment>
+    }
     
     </Layout>
   )

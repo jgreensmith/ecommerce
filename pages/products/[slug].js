@@ -11,10 +11,14 @@ import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/s
 
 const Product = ({ product, products }) => {
 
-  console.log({product, products});
-  const { variants, images, addVariantsBool, colorRef, name, seoDescription, mainImage } = product;
-    
-  const allImages = [mainImage, ...images]
+  //console.log({product, products});
+  const { variants, images, addVariantsBool, colorRef, colorBool, name, seoDescription, mainImage } = product;
+
+  const [allImages, setAllImages] = useState([mainImage, ...images])
+   
+  //const allImages = [mainImage, ...images]
+
+  //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
   
   const colorProducts = products.filter((el) => {
     return colorRef?.some((r) => {
@@ -23,7 +27,7 @@ const Product = ({ product, products }) => {
   })
 
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(colorProducts)
+  console.log(allImages)
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -68,6 +72,8 @@ const Product = ({ product, products }) => {
             <Div sx={{m: 'auto'}}>
               <ProductDescription 
                 product={product}
+                colorProducts={colorProducts}
+                colorBool={colorBool}
                 /> 
             </Div>
           </Grid>

@@ -27,6 +27,7 @@ export const MainButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
 
 }));
+//images
 
 export const ThumbnailButton = styled(Button)(({ theme }) => ({
   height: '56px',
@@ -39,7 +40,6 @@ export const ThumbnailButton = styled(Button)(({ theme }) => ({
   boxSizing: 'border-box',
 }));
 
-//images
 export const LogoImg = styled("img")({
   maxWidth: '110px',
 });
@@ -75,6 +75,24 @@ export const CartImg = styled("img")({
 //containers
 export const ContentContainer = styled(Container)({
   marginBottom: '80px'
+});
+export const StyledUnList = styled('ul')(({theme}) => ({
+  width: '200px',
+  zIndex: 3,
+  backgroundColor: theme.palette.background.default,
+  padding: 0,
+  position: 'absolute',
+  listStyle: 'none',
+  textAlign: 'center',
+  display: 'block',
+  boxShadow: theme.shadows[3]
+}));
+export const StyledList = styled('li')({
+  width: '100%',
+  height: '100%',
+  textDecoration: 'none',
+  color: 'black',
+  padding: '16px',
 });
 
 export const Div = styled('div')({
