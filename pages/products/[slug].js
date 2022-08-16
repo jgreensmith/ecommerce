@@ -12,28 +12,33 @@ import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/s
 const Product = ({ product, products }) => {
 
   //console.log({product, products});
-  const { variants, images, addVariantsBool, colorRef, colorBool, name, seoDescription, mainImage } = product;
+  const { variants, images, name, seoDescription, mainImage, defaultDimensions } = product;
 
   const [allImages, setAllImages] = useState([mainImage, ...images])
+  const [dimensionList, setDimensionList] = useState([defaultDimensions]);
+
+
    
   //const allImages = [mainImage, ...images]
 
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
     const newImages = v.variantImages
-    setAllImages([newImage, ...newImages])
+    const newDimensions = v.dimensions
+    setAllImages([newImage, ...newImages]);
+    setDimensionList([newDimensions]);
   }
 
   //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
-  const colorProducts = products.filter((el) => {
-    return colorRef?.some((r) => {
-      return r._ref === el._id
-    })
-  })
+  // const colorProducts = products.filter((el) => {
+  //   return colorRef?.some((r) => {
+  //     return r._ref === el._id
+  //   })
+  // })
 
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(variants)
-  console.log(() => variantHandler(variants[0]))
+  console.log(dimensionList)
+  //console.log(() => variantHandler(variants[0]))
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -78,8 +83,6 @@ const Product = ({ product, products }) => {
             <Div sx={{m: 'auto'}}>
               <ProductDescription 
                 product={product}
-                colorProducts={colorProducts}
-                colorBool={colorBool}
                 variantHandler={variantHandler}
                 variants={variants}
                 /> 

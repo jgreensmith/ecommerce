@@ -12,7 +12,7 @@ import { Div, StyledList, StyledUnList } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
 
 
-const ProductDescription = ({ product, colorProducts, colorBool, variants, variantHandler }) => {
+const ProductDescription = ({ product, variants, variantHandler }) => {
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
@@ -30,7 +30,7 @@ const ProductDescription = ({ product, colorProducts, colorBool, variants, varia
         setOpen(true);
     }
     
-    console.log(colorProducts)
+    
     
   return (
     <Paper elevation={3} sx={{ p: 1 }}>
@@ -91,7 +91,7 @@ const ProductDescription = ({ product, colorProducts, colorBool, variants, varia
                         </Select>
                     </FormControl>     
                 </Div>
-                {
+                { variants &&
                     <>
                     <Div sx={{ p: 1}}>
                         <Button 
@@ -105,6 +105,43 @@ const ProductDescription = ({ product, colorProducts, colorBool, variants, varia
                             endIcon={<ArrowDropDownIcon />}                
                         >
                             Colour Options
+                        </Button>
+                        <Menu anchorEl={anchorElm} open={open} onClose={handleClose}  >
+                            <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
+                                <MenuList>
+                                    {
+                                        variants.map((x) => (
+                                            <MenuItem key={x._key} onClick={handleClose} sx={{ width: '100%'}} >
+                                                
+                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={() => variantHandler(x)}>
+                                                    <Typography sx={{width: '100%'}} align='center' variant='body1'>
+                                                        {x.title}
+                                                    </Typography>
+                                                </Button>
+                                                   
+                                                
+                                            </MenuItem>
+                                        ))
+                                    }
+                             </MenuList>
+                            </Paper>
+                        </Menu>
+                                    
+
+                        
+                    </Div>
+                    <Div sx={{ p: 1}}>
+                        <Button 
+                            variant="outlined"
+                            onClick={handleClick}
+                            fullWidth
+                            aria-controls="basic-menu"
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            sx={{color: 'text.dark'}}   
+                            endIcon={<ArrowDropDownIcon />}                
+                        >
+                            Dimension
                         </Button>
                         <Menu anchorEl={anchorElm} open={open} onClose={handleClose}  >
                             <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>

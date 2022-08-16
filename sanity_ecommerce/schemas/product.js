@@ -49,6 +49,13 @@ export default {
             ]
         },
         {
+            name: 'bundle',
+            title: 'If this Product is a Multi-pack, add Multipack sizes here',
+            type: 'array',
+            description: 'perfect for stickers!',
+            of: [{type: 'string'}]
+        },
+        {
             name: 'color',
             title: 'Colour',
             type: 'string',
@@ -84,13 +91,7 @@ export default {
         ]
             
         },
-        {
-            name: 'bundle',
-            title: 'If this Product is a Multi-pack, add Multipack sizes here',
-            type: 'array',
-            description: 'perfect for stickers!',
-            of: [{type: 'string'}]
-        },
+        
        
         {
             name: 'categories',
@@ -114,6 +115,7 @@ export default {
             hidden: ({document}) => !document?.boolObj?.aestheticBool,
             description: 'Colour / material / finish '
         },
+        
         {
             title: 'Dimension Variant Title',
             name: 'dimensionTitle',
@@ -127,6 +129,44 @@ export default {
             type: 'string',
             hidden: ({document}) => !document?.boolObj?.variantBool,
             description: 'Size / Weight / Length'
+        },
+        {
+            title: 'Default Aesthetic Value',
+            name: 'defaultAesthetic',
+            type: 'string'
+        },
+        {
+            title: 'Default Available Dimensions',
+            name: 'defaultDimensions',
+            type: 'array',
+            of: [{  
+                type: 'object',
+                fields: [
+                    {
+                        name: 'firstDimension',
+                        title: 'First Dimension - Size / weight / length',
+                        description: 'Will appear under First Dimension title',
+                        type: 'string'
+                    },
+                    {
+                        name: 'secondDimension',
+                        title: 'Second Dimension - Size / weight / length (leave blank if n/a)',
+                        description: 'Will appear under Second Dimension title',
+                        type: 'string'
+                    },
+                    {
+                        name: 'sizePrice',
+                        title: 'Price (if different)',
+                        type: 'number'
+                    },
+                    {
+                        name: 'sizeInventory',
+                        title: 'Inventory',
+                        type: 'number'
+                    }
+                ]
+            }]
+            
         },
         {
             title: 'Aesthetic Variant Values',

@@ -36,7 +36,7 @@ export default {
        
         {
             title: 'Available Sizes',
-            name: 'twoDimensions',
+            name: 'dimensions',
             type: 'array',
             of: [{  
                 type: 'object',
