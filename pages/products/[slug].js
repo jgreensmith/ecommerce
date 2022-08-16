@@ -18,8 +18,13 @@ const Product = ({ product, products }) => {
    
   //const allImages = [mainImage, ...images]
 
+  const variantHandler = (v) => {
+    const newImage = v.variantMainImage
+    const newImages = v.variantImages
+    setAllImages([newImage, ...newImages])
+  }
+
   //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
-  
   const colorProducts = products.filter((el) => {
     return colorRef?.some((r) => {
       return r._ref === el._id
@@ -27,7 +32,8 @@ const Product = ({ product, products }) => {
   })
 
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(allImages)
+  console.log(variants)
+  console.log(() => variantHandler(variants[0]))
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -74,6 +80,8 @@ const Product = ({ product, products }) => {
                 product={product}
                 colorProducts={colorProducts}
                 colorBool={colorBool}
+                variantHandler={variantHandler}
+                variants={variants}
                 /> 
             </Div>
           </Grid>

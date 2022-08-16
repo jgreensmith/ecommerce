@@ -65,37 +65,7 @@ export default {
         ]
             
         },
-        // {
-        //     name: 'variantImages',
-        //     title: 'Images',
-        //     type: 'array',
-        //     description: 'Must have at least one alternative image',
-        //     hidden: ({document}) => !document?.addVariantsBool,
-        //     validation: Rule => Rule.required(),
-        //     of: [
-        //         {   
-        //             name: 'imageObj',      
-        //             type: 'object',
-        //             fields: [
-        //                 { 
-        //                     name: 'image',
-        //                     type: 'image',
-        //                     options: {
-        //                         hotspot: true,
-        //                     }
-        //                 },
-        //                 {
-        //                     name: 'variantLink',
-        //                     title: 'Link to variant',
-        //                     type: 'reference', 
-        //                     to: {type: 'productVariant'}
-        //                 }
-        //             ]
-        //         }            
-            
-        // ]
-            
-        // },
+       
         {
             name: 'categories',
             title: 'Categories',

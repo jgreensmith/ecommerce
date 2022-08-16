@@ -14,27 +14,22 @@ import { groq } from 'next-sanity';
 import ProductCard from '../../components/shop/ProductCard';
 
 const Products = ({products, categories}) => {
-    const { onAdd, setQty, qty } = useStateContext();
     const [productList, setProductList] = useState(products);
     const [catOpen, setCatOpen] = useState(false);
     //const categories = null
     //add all option to products
     
-
+    //if categories create allcategories array
     const allCategories = categories ? [{"title": 'All'}, ...categories] : null;
     
 
-    const addOne = (x) => {
-        setQty(1);
-        onAdd(x, qty);
-    };
-    
+  
     const catFilter = (cat) => {
         if(cat.title === 'All') {
             setProductList(products);
             return;
         }
-        //match product ref with cat id
+        //match product ref (if there is one) with cat id
         const filteredProducts = products.filter(product => product?.categories[0]?._ref === cat._id);
         setProductList(filteredProducts);
     };

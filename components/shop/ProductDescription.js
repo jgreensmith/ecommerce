@@ -12,7 +12,7 @@ import { Div, StyledList, StyledUnList } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
 
 
-const ProductDescription = ({ product, colorProducts, colorBool }) => {
+const ProductDescription = ({ product, colorProducts, colorBool, variants, variantHandler }) => {
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
@@ -110,16 +110,16 @@ const ProductDescription = ({ product, colorProducts, colorBool }) => {
                             <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
                                 <MenuList>
                                     {
-                                        colorProducts.map((x) => (
-                                            <MenuItem key={x._id} onClick={handleClose} sx={{ width: '100%',}} >
-                                                <Link 
-                                                    href={`/products/${x.slug.current}`}
-                                                    
-                                                > 
+                                        variants.map((x) => (
+                                            <MenuItem key={x._key} onClick={handleClose} sx={{ width: '100%'}} >
+                                                
+                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={() => variantHandler(x)}>
                                                     <Typography sx={{width: '100%'}} align='center' variant='body1'>
-                                                        {x.color}
+                                                        {x.title}
                                                     </Typography>
-                                                </Link>
+                                                </Button>
+                                                   
+                                                
                                             </MenuItem>
                                         ))
                                     }
