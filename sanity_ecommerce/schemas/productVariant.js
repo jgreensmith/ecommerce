@@ -3,26 +3,15 @@ export default {
     name: 'productVariant',
     type: 'object',
     fields: [
+    
+  
         {
-            title: 'Title',
+            title: 'Aesthetic',
             name: 'title',
-            type: 'string'
-        },
-        {
-            title: 'Weight in grams',
-            name: 'grams',
-            type: 'number',
-        },
-        {
-            title: 'Size',
-            name: 'size',
             type: 'string',
+            description: 'e.g Green / Gloss'
         },
-        {
-            title: 'Price',
-            name: 'price',
-            type: 'number',
-        },
+       
         {
             name: 'variantMainImage',
             title: 'Variant Image',
@@ -43,7 +32,41 @@ export default {
                 },
               },
             ],
-          },
+        },
+       
+        {
+            title: 'Available Sizes',
+            name: 'twoDimensions',
+            type: 'array',
+            of: [{  
+                type: 'object',
+                fields: [
+                    {
+                        name: 'firstDimension',
+                        title: 'First Dimension - Size / weight / length',
+                        description: 'Will appear under First Dimension title',
+                        type: 'string'
+                    },
+                    {
+                        name: 'secondDimension',
+                        title: 'Second Dimension - Size / weight / length (leave blank if n/a)',
+                        description: 'Will appear under Second Dimension title',
+                        type: 'string'
+                    },
+                    {
+                        name: 'sizePrice',
+                        title: 'Price (if different)',
+                        type: 'number'
+                    },
+                    {
+                        name: 'sizeInventory',
+                        title: 'Inventory',
+                        type: 'number'
+                    }
+                ]
+            }]
+            
+        },
         
         
     ],

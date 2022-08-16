@@ -14,24 +14,47 @@ export default {
             validation: Rule => Rule.required()
         },
         {
-            name: 'colorBool',
-            title: 'Is this product a Colour variant?',
-            type: 'boolean', 
+            name: 'boolObj',
+            title: 'Does This Product have Variants?',
+            type: 'object',
+            description: 'Choose one of the options below. If not a variant, leave blank',
+            options: {
+                collapsible: true,
+                collapsed: true
+            },
+            fields: [
+                {
+                    title: 'Aesthetic and Dimensions Variants',
+                    name: 'variantBool',
+                    type: 'boolean',
+                    hidden: ({ parent, value }) => !value && parent?.dimensionBool || !value && parent?.aestheticBool,
+                    description: 'Colour/ Material/ finish'
+                },
+                {
+                    title: 'Dimensions Variants',
+                    name: 'dimensionBool',
+                    type: 'boolean',
+                    hidden: ({ parent, value }) => !value && parent?.variantBool || !value && parent?.aestheticBool,
+                    description: 'Size / length / weight'
+                },
+                {
+                    title: 'Aesthetic Variants Only',
+                    name: 'aestheticBool',
+                    type: 'boolean',
+                    hidden: ({ parent, value }) => !value && parent?.dimensionBool || !value && parent?.variantBool,
+                    description: 'Size / length / weight'
+                },
+                    
+               
+            ]
         },
         {
             name: 'color',
             title: 'Colour',
             type: 'string',
-            hidden: ({document}) => !document?.colorBool,
+            //hidden: ({document}) => !document?.colorBool,
         },
-        {
-            name: 'colorRef',
-            title: 'Colour Ref',
-            type: 'array',
-            hidden: ({document}) => !document?.colorBool,
-            of: [{type: 'reference', to: {type: 'product'}}],
-            
-        },
+       
         {
             name: 'mainImage',
             title: 'Main Image',
@@ -41,11 +64,7 @@ export default {
             },
             validation: Rule => Rule.required()
         },
-        {
-            name: 'addVariantsBool',
-            title: 'Add Product Variants?',
-            type: 'boolean'
-        },
+        
         {
             name: 'images',
             title: 'Images',
@@ -65,6 +84,13 @@ export default {
         ]
             
         },
+        {
+            name: 'bundle',
+            title: 'If this Product is a Multi-pack, add Multipack sizes here',
+            type: 'array',
+            description: 'perfect for stickers!',
+            of: [{type: 'string'}]
+        },
        
         {
             name: 'categories',
@@ -72,27 +98,76 @@ export default {
             type: 'array',
             validation: Rule => Rule.required(),
             of: [{type: 'reference', to: {type: 'category'}}],
-        }, 
-        // {
-        //     title: 'Default variant',
-        //     name: 'defaultProductVariant',
-        //     type: 'productVariant',
-        //     validation: Rule => Rule.required(),
-        //     hidden: ({document}) => !document?.addVariantsBool,    
-        // },
+        },
+        
         {
-            title: 'Variants',
-            name: 'variants',
+            title: 'Aesthetic Variant Title',
+            name: 'variantTitle',
+            type: 'string',
+            hidden: ({document}) => !document?.boolObj?.variantBool,
+            description: 'Colour / material / finish '
+        },
+        {
+            title: 'Aesthetic Variant Title',
+            name: 'aestheticTitle',
+            type: 'string',
+            hidden: ({document}) => !document?.boolObj?.aestheticBool,
+            description: 'Colour / material / finish '
+        },
+        {
+            title: 'Dimension Variant Title',
+            name: 'dimensionTitle',
+            type: 'string',
+            hidden: ({document}) => !document?.boolObj?.variantBool,
+            description: 'Size / Weight / Length '
+        },
+        {
+            title: 'Secondary Dimension Variant Title (leave blank if n/a)',
+            name: 'secondDimensionTitle',
+            type: 'string',
+            hidden: ({document}) => !document?.boolObj?.variantBool,
+            description: 'Size / Weight / Length'
+        },
+        {
+            title: 'Aesthetic Variant Values',
+            name: 'aestheticVariants',
             type: 'array',
-            //validation: Rule => Rule.required(),
-            hidden: ({document}) => !document?.addVariantsBool,
+            hidden: ({document}) => !document?.boolObj?.aestheticBool,
             of: [
-              {
+                {
                 title: 'Variant',
-                type: 'productVariant',
-              },
+                type: 'aestheticVariant',
+                },
             ],
         },
+        {
+            title: 'Variant Values',
+            name: 'variants',
+            type: 'array',
+            hidden: ({document}) => !document?.boolObj?.variantBool,
+            of: [
+                {
+                title: 'Variant',
+                type: 'productVariant',
+                },
+            ],
+        },
+        
+        {
+            title: 'Dimension Variant Values',
+            name: 'dimensionVariants',
+            type: 'array',
+            hidden: ({document}) => !document?.boolObj?.dimensionBool,
+            of: [
+                {
+                title: 'Variant',
+                type: 'dimensionVariant',
+                },
+            ],  
+        },
+            
+        
+        
         {
             name: 'slug',
             title: 'Slug',

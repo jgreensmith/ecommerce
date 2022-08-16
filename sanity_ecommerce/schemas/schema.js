@@ -8,6 +8,8 @@ import blockContent from './blockContent'
 import siteSettings from './siteSettings'
 import category from './category'
 import productVariant from './productVariant'
+import dimensionVariant from './dimensionVariant'
+import aestheticVariant from './aestheticVariant'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -20,6 +22,8 @@ export default createSchema({
     siteSettings,
     blockContent,
     category,
-    productVariant
+    productVariant,
+    dimensionVariant,
+    aestheticVariant
   ]),
 })
