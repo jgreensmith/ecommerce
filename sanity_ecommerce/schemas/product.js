@@ -55,12 +55,7 @@ export default {
             description: 'perfect for stickers!',
             of: [{type: 'string'}]
         },
-        {
-            name: 'color',
-            title: 'Colour',
-            type: 'string',
-            //hidden: ({document}) => !document?.colorBool,
-        },
+        
        
         {
             name: 'mainImage',

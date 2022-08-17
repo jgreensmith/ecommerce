@@ -12,14 +12,18 @@ import { Div, StyledList, StyledUnList } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
 
 
-const ProductDescription = ({ product, variants, variantHandler }) => {
+const ProductDescription = ({ product, variants, variantHandler, dimensionList, defaultAesthetic }) => {
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
 
     //color dropdown menu
     const [anchorElm, setAnchorElm] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const [open, setOpen] = useState(false);
+    const [dOpen, setDOpen] = useState(false);
+
 
     const handleClose = () => {
         setAnchorElm(null);
@@ -29,7 +33,14 @@ const ProductDescription = ({ product, variants, variantHandler }) => {
         setAnchorElm(e.currentTarget);
         setOpen(true);
     }
-    
+    const handleDClose = () => {
+        setAnchorEl(null);
+        setDOpen(false)
+    }
+    const handleDClick = (e) => {
+        setAnchorEl(e.currentTarget);
+        setDOpen(true);
+    }
     
     
   return (
@@ -104,11 +115,21 @@ const ProductDescription = ({ product, variants, variantHandler }) => {
                             sx={{color: 'text.dark'}}   
                             endIcon={<ArrowDropDownIcon />}                
                         >
-                            Colour Options
+                            {product.variantTitle ? product.variantTitle : "Aesthetic"}
                         </Button>
                         <Menu anchorEl={anchorElm} open={open} onClose={handleClose}  >
                             <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
                                 <MenuList>
+                                    <MenuItem  onClick={handleClose} sx={{ width: '100%'}} >
+                                                
+                                        <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={defaultAesthetic}>
+                                            <Typography sx={{width: '100%'}} align='center' variant='body1'>
+                                                {product.defaultAesthetic}
+                                            </Typography>
+                                        </Button>
+                                            
+                                        
+                                    </MenuItem>
                                     {
                                         variants.map((x) => (
                                             <MenuItem key={x._key} onClick={handleClose} sx={{ width: '100%'}} >
@@ -133,7 +154,7 @@ const ProductDescription = ({ product, variants, variantHandler }) => {
                     <Div sx={{ p: 1}}>
                         <Button 
                             variant="outlined"
-                            onClick={handleClick}
+                            onClick={handleDClick}
                             fullWidth
                             aria-controls="basic-menu"
                             aria-haspopup="true"
@@ -141,18 +162,23 @@ const ProductDescription = ({ product, variants, variantHandler }) => {
                             sx={{color: 'text.dark'}}   
                             endIcon={<ArrowDropDownIcon />}                
                         >
-                            Dimension
+                            {product.dimensionTitle ? product.dimensionTitle : "Dimension"}
+                            {product.secondDimensionTitle ? ` & ${product.secondDimensionTitle}` : ""}
                         </Button>
-                        <Menu anchorEl={anchorElm} open={open} onClose={handleClose}  >
-                            <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
+                        <Menu anchorEl={anchorEl} open={dOpen} onClose={handleDClose}  >
+                            <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
                                 <MenuList>
                                     {
-                                        variants.map((x) => (
-                                            <MenuItem key={x._key} onClick={handleClose} sx={{ width: '100%'}} >
+                                        dimensionList.map((x) => (
+                                            <MenuItem key={x._key} onClick={handleDClose} sx={{ width: '100%'}} >
                                                 
-                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={() => variantHandler(x)}>
+                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={handleDClose} >
                                                     <Typography sx={{width: '100%'}} align='center' variant='body1'>
-                                                        {x.title}
+                                                    {product.secondDimensionTitle ? `${product.dimensionTitle}: ` : ""}
+                                                    {x.firstDimension}{product.secondDimensionTitle ? " | " : ""}
+                                                    {product.secondDimensionTitle ? `${product.secondDimensionTitle}: ` : ""}
+                                                    {x.secondDimension ? x.secondDimension : ""}
+                                                    {x.sizePrice ? ` (${currencyConverter.format(x.sizePrice)})` : ""}
                                                     </Typography>
                                                 </Button>
                                                    
@@ -189,15 +215,10 @@ const ProductDescription = ({ product, variants, variantHandler }) => {
             </>
         )}
         <Div sx={{ p: 1}}>
-            {/* <Typography
-                gutterBottom
-                variant='body2'
-                sx={{overflowWrap: 'normal', width: '100%', overflow: 'hidden'}}
-            > */}
+            
                 <PortableText
                     value={product.body}
                 />
-            {/* </Typography> */}
         </Div>
 
     </Paper>

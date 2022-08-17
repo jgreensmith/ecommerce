@@ -15,7 +15,7 @@ const Product = ({ product, products }) => {
   const { variants, images, name, seoDescription, mainImage, defaultDimensions } = product;
 
   const [allImages, setAllImages] = useState([mainImage, ...images])
-  const [dimensionList, setDimensionList] = useState([defaultDimensions]);
+  const [dimensionList, setDimensionList] = useState(defaultDimensions);
 
 
    
@@ -26,7 +26,11 @@ const Product = ({ product, products }) => {
     const newImages = v.variantImages
     const newDimensions = v.dimensions
     setAllImages([newImage, ...newImages]);
-    setDimensionList([newDimensions]);
+    setDimensionList(newDimensions);
+  }
+  const defaultAesthetic = () => {
+    setAllImages([mainImage, ...images])
+    setDimensionList(defaultDimensions)
   }
 
   //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
@@ -85,6 +89,8 @@ const Product = ({ product, products }) => {
                 product={product}
                 variantHandler={variantHandler}
                 variants={variants}
+                dimensionList={dimensionList}
+                defaultAesthetic={defaultAesthetic}
                 /> 
             </Div>
           </Grid>
