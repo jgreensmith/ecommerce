@@ -12,14 +12,19 @@ import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/s
 const Product = ({ product, products }) => {
 
   //console.log({product, products});
-  const { variants, images, name, seoDescription, mainImage, defaultDimensions } = product;
+  const { images, name, seoDescription, mainImage, defaultDimensions, defaultSecondDimensions } = product;
+
+
+  const defaultDimensionsList = defaultDimensions ? defaultDimensions : []
 
   const [allImages, setAllImages] = useState([mainImage, ...images])
-  const [dimensionList, setDimensionList] = useState(defaultDimensions);
+  const [dimensionList, setDimensionList] = useState(defaultDimensionsList);
 
+  //Dimensions only
+  const defaultSecondDimensionList = defaultSecondDimensions ? defaultSecondDimensions : []
+  const [secondDimensionList, setSecondDimensionList] = useState(defaultSecondDimensionList);
 
    
-  //const allImages = [mainImage, ...images]
 
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
@@ -30,7 +35,14 @@ const Product = ({ product, products }) => {
   }
   const defaultAesthetic = () => {
     setAllImages([mainImage, ...images])
-    setDimensionList(defaultDimensions)
+    setDimensionList(defaultDimensionsList)
+  }
+  const dimensionHandler = (d) => {
+    const newSecondDimensions = d.secondDimensions
+    setSecondDimensionList(newSecondDimensions)
+  }
+  const defaultDimensionHandler = () => {
+    setSecondDimensionList(defaultSecondDimensionList)
   }
 
   //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
@@ -88,9 +100,11 @@ const Product = ({ product, products }) => {
               <ProductDescription 
                 product={product}
                 variantHandler={variantHandler}
-                variants={variants}
                 dimensionList={dimensionList}
                 defaultAesthetic={defaultAesthetic}
+                dimensionHandler={dimensionHandler}
+                defaultDimensionHandler={defaultDimensionHandler}
+                secondDimensionList={secondDimensionList}
                 /> 
             </Div>
           </Grid>

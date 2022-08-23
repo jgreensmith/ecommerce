@@ -10,37 +10,67 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Div, StyledList, StyledUnList } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 
-const ProductDescription = ({ product, variants, variantHandler, dimensionList, defaultAesthetic }) => {
+const ProductDescription = ({ product, variantHandler, dimensionList, defaultAesthetic, defaultDimensionHandler, dimensionHandler, secondDimensionList }) => {
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
+    const variants = product.variants ? product.variants : []
+    const dimensionVariants = product.dimensionVariants ? product.dimensionVariants : []
 
-    //color dropdown menu
-    const [anchorElm, setAnchorElm] = useState(null);
-    const [anchorEl, setAnchorEl] = useState(null);
+    //Aesthetic and Dimension states
+    const [anchorElVar, setAnchorElVar] = useState(null);
+    const [anchorElVarD, setAnchorElVarD] = useState(null);
 
-    const [open, setOpen] = useState(false);
-    const [dOpen, setDOpen] = useState(false);
+    const [varOpen, setVarOpen] = useState(false);
+    const [varDiOpen, setVarDiOpen] = useState(false);
+
+    const handleVarClose = () => {
+        setAnchorElVar(null);
+        setVarOpen(false);
+    }
+    const handleVarClick = (e) => {
+        setAnchorElVar(e.currentTarget);
+        setVarOpen(true);
+    }
+    const handleVarDiClose = () => {
+        setAnchorElVarD(null);
+        setVarDiOpen(false);
+    }
+    const handleVarDiClick = (e) => {
+        setAnchorElVarD(e.currentTarget);
+        setVarDiOpen(true);
+    }
+
+    //Dimension states
+    const [anchorElDim, setAnchorElDim] = useState(null);
+    const [anchorElSecDim, setAnchorElSecDim] = useState(null);
+
+    const [dimOpen, setDimOpen] = useState(false);
+    const [secDimOpen, setSecDimOpen] = useState(false);
+ 
+    const handleDimClose = () => {
+        setAnchorElDim(null);
+        setDimOpen(false);
+    }
+    const handleDimClick = (e) => {
+        setAnchorElDim(e.currentTarget);
+        setDimOpen(true);
+    }
+    const handleSecDimClose = () => {
+        setAnchorElSecDim(null);
+        setSecDimOpen(false);
+    }
+    const handleSecDimClick = (e) => {
+        setAnchorElSecDim(e.currentTarget);
+        setSecDimOpen(true);
+    }
 
 
-    const handleClose = () => {
-        setAnchorElm(null);
-        setOpen(false)
-    }
-    const handleClick = (e) => {
-        setAnchorElm(e.currentTarget);
-        setOpen(true);
-    }
-    const handleDClose = () => {
-        setAnchorEl(null);
-        setDOpen(false)
-    }
-    const handleDClick = (e) => {
-        setAnchorEl(e.currentTarget);
-        setDOpen(true);
-    }
+   console.log(dimensionVariants)
+   console.log(secondDimensionList)
     
     
   return (
@@ -81,7 +111,7 @@ const ProductDescription = ({ product, variants, variantHandler, dimensionList, 
             </Grid>
         </Div>
         {inventory > 0 && (
-            <>
+            <React.Fragment>
                 <Div sx={{ p: 1}}>
                     <FormControl fullWidth>
                         <InputLabel>Quantity</InputLabel>
@@ -102,29 +132,29 @@ const ProductDescription = ({ product, variants, variantHandler, dimensionList, 
                         </Select>
                     </FormControl>     
                 </Div>
-                { variants &&
-                    <>
+                { product.variants &&
+                    <React.Fragment>
                     <Div sx={{ p: 1}}>
                         <Button 
                             variant="outlined"
-                            onClick={handleClick}
+                            onClick={handleVarClick}
                             fullWidth
                             aria-controls="basic-menu"
                             aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
+                            aria-expanded={varOpen ? 'true' : undefined}
                             sx={{color: 'text.dark'}}   
                             endIcon={<ArrowDropDownIcon />}                
                         >
-                            {product.variantTitle ? product.variantTitle : "Aesthetic"}
+                            {product.aestheticTitle ? product.aestheticTitle : "Aesthetic"}
                         </Button>
-                        <Menu anchorEl={anchorElm} open={open} onClose={handleClose}  >
+                        <Menu anchorEl={anchorElVar} open={varOpen} onClose={handleVarClose}  >
                             <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
                                 <MenuList>
-                                    <MenuItem  onClick={handleClose} sx={{ width: '100%'}} >
+                                    <MenuItem  onClick={handleVarClose} sx={{ width: '100%'}} >
                                                 
                                         <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={defaultAesthetic}>
                                             <Typography sx={{width: '100%'}} align='center' variant='body1'>
-                                                {product.defaultAesthetic}
+                                                {product.defaultAesthetic ? product.defaultAesthetic : "Default Aesthetic"}
                                             </Typography>
                                         </Button>
                                             
@@ -132,7 +162,7 @@ const ProductDescription = ({ product, variants, variantHandler, dimensionList, 
                                     </MenuItem>
                                     {
                                         variants.map((x) => (
-                                            <MenuItem key={x._key} onClick={handleClose} sx={{ width: '100%'}} >
+                                            <MenuItem key={x._key} onClick={handleVarClose} sx={{ width: '100%'}} >
                                                 
                                                 <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={() => variantHandler(x)}>
                                                     <Typography sx={{width: '100%'}} align='center' variant='body1'>
@@ -154,25 +184,25 @@ const ProductDescription = ({ product, variants, variantHandler, dimensionList, 
                     <Div sx={{ p: 1}}>
                         <Button 
                             variant="outlined"
-                            onClick={handleDClick}
+                            onClick={handleVarDiClick}
                             fullWidth
                             aria-controls="basic-menu"
                             aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
+                            aria-expanded={varDiOpen ? 'true' : undefined}
                             sx={{color: 'text.dark'}}   
                             endIcon={<ArrowDropDownIcon />}                
                         >
                             {product.dimensionTitle ? product.dimensionTitle : "Dimension"}
                             {product.secondDimensionTitle ? ` & ${product.secondDimensionTitle}` : ""}
                         </Button>
-                        <Menu anchorEl={anchorEl} open={dOpen} onClose={handleDClose}  >
+                        <Menu anchorEl={anchorElVarD} open={varDiOpen} onClose={handleVarDiClose}  >
                             <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
                                 <MenuList>
                                     {
                                         dimensionList.map((x) => (
-                                            <MenuItem key={x._key} onClick={handleDClose} sx={{ width: '100%'}} >
+                                            <MenuItem key={x._key} onClick={handleVarDiClose} sx={{ width: '100%'}} >
                                                 
-                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={handleDClose} >
+                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={handleVarDiClose} >
                                                     <Typography sx={{width: '100%'}} align='center' variant='body1'>
                                                     {product.secondDimensionTitle ? `${product.dimensionTitle}: ` : ""}
                                                     {x.firstDimension}{product.secondDimensionTitle ? " | " : ""}
@@ -186,20 +216,109 @@ const ProductDescription = ({ product, variants, variantHandler, dimensionList, 
                                             </MenuItem>
                                         ))
                                     }
+                                
                              </MenuList>
                             </Paper>
                         </Menu>
                                     
-
-                            
-
-                           
+     
                         
                         
                     </Div>
                             
                         
-                    </>
+                    </React.Fragment>
+                }
+                {
+                    product.dimensionVariants && 
+                        <React.Fragment>
+                            <Div sx={{ p: 1}}>
+                                <Button 
+                                    variant="outlined"
+                                    onClick={handleDimClick}
+                                    fullWidth
+                                    aria-controls="basic-menu"
+                                    aria-haspopup="true"
+                                    aria-expanded={dimOpen ? 'true' : undefined}
+                                    sx={{color: 'text.dark'}}   
+                                    endIcon={<ArrowDropDownIcon />}                
+                                >
+                                    {product.dimensionTitle ? product.dimensionTitle : "Dimension"}
+                                </Button>
+                                <Menu anchorEl={anchorElDim} open={dimOpen} onClose={handleDimClose}  >
+                                    <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
+                                        <MenuList>
+                                            <MenuItem  onClick={handleDimClose} sx={{ width: '100%'}} >
+                                                        
+                                                <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={defaultDimensionHandler}>
+                                                    <Typography sx={{width: '100%'}} align='center' variant='body1'>
+                                                        {product.defaultDimension ? product.defaultDimension : "Default Dimension"}
+                                                    </Typography>
+                                                </Button>
+                                                    
+                                                
+                                            </MenuItem>
+                                            {
+                                                dimensionVariants.map((x) => (
+                                                    <MenuItem key={x._key} onClick={handleDimClose} sx={{ width: '100%'}} >
+                                                        
+                                                        <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={() => dimensionHandler(x)}>
+                                                            <Typography sx={{width: '100%'}} align='center' variant='body1'>
+                                                                {x.dimensionSize}
+                                                            </Typography>
+                                                        </Button>
+                                                        
+                                                        
+                                                    </MenuItem>
+                                                ))
+                                            }
+                                    </MenuList>
+                                    </Paper>
+                                </Menu>
+                                            
+
+                                
+                            </Div>
+                            <Div sx={{ p: 1}}>
+                                <Button 
+                                    variant="outlined"
+                                    onClick={handleSecDimClick}
+                                    fullWidth
+                                    aria-controls="basic-menu"
+                                    aria-haspopup="true"
+                                    aria-expanded={secDimOpen ? 'true' : undefined}
+                                    sx={{color: 'text.dark'}}   
+                                    endIcon={<ArrowDropDownIcon />}                
+                                >
+                                    {product.secondDimensionTitle ? product.secondDimensionTitle : "Second Dimension"}
+                                </Button>
+                                <Menu anchorEl={anchorElSecDim} open={secDimOpen} onClose={handleSecDimClose}  >
+                                    <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
+                                        <MenuList>
+                                            
+                                            {
+                                                secondDimensionList.map((x) => (
+                                                    <MenuItem key={x._key} onClick={handleSecDimClose} sx={{ width: '100%'}} >
+                                                        
+                                                        <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={handleVarDiClose} >
+                                                            <Typography sx={{width: '100%'}} align='center' variant='body1'>
+                                                            {x.secondDimension}
+                                                            {x.sizePrice ? ` (${currencyConverter.format(x.sizePrice)})` : ""}
+                                                            </Typography>
+                                                        </Button>
+                                                        
+                                                        
+                                                    </MenuItem>
+                                                ))
+                                            }
+                                    </MenuList>
+                                    </Paper>
+                                </Menu>
+                                            
+
+                                
+                            </Div>
+                        </React.Fragment>
                 }
                 <Div sx={{ p: 1}}>
                     <Button
@@ -212,7 +331,7 @@ const ProductDescription = ({ product, variants, variantHandler, dimensionList, 
                         Add to cart
                     </Button>
                 </Div>
-            </>
+            </React.Fragment>
         )}
         <Div sx={{ p: 1}}>
             

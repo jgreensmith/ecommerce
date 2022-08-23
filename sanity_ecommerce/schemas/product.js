@@ -1,5 +1,15 @@
 import { FiShoppingBag } from "react-icons/fi";
 
+const hideUnless = (x, y) => {
+    if(x) {
+        return false
+    } else if(y) {
+        return false
+    } else {
+        return true
+    }
+}
+
 
 export default {
     name: 'product',
@@ -96,18 +106,12 @@ export default {
             of: [{type: 'reference', to: {type: 'category'}}],
         },
         
-        {
-            title: 'Aesthetic Variant Title',
-            name: 'variantTitle',
-            type: 'string',
-            hidden: ({document}) => !document?.boolObj?.variantBool,
-            description: 'Colour / material / finish '
-        },
+    
         {
             title: 'Aesthetic Variant Title',
             name: 'aestheticTitle',
             type: 'string',
-            hidden: ({document}) => !document?.boolObj?.aestheticBool,
+            hidden: ({document}) => hideUnless(document?.boolObj?.variantBool, document?.boolObj?.aestheticBool),
             description: 'Colour / material / finish '
         },
         
@@ -115,24 +119,65 @@ export default {
             title: 'Dimension Variant Title',
             name: 'dimensionTitle',
             type: 'string',
-            hidden: ({document}) => !document?.boolObj?.variantBool,
+            hidden: ({document}) => hideUnless(document?.boolObj?.variantBool, document?.boolObj?.dimensionBool),
             description: 'Size / Weight / Length '
         },
         {
             title: 'Secondary Dimension Variant Title (leave blank if n/a)',
             name: 'secondDimensionTitle',
             type: 'string',
-            hidden: ({document}) => !document?.boolObj?.variantBool,
+            hidden: ({document}) => hideUnless(document?.boolObj?.variantBool, document?.boolObj?.dimensionBool),
             description: 'Size / Weight / Length'
         },
+       
         {
             title: 'Default Aesthetic Value',
             name: 'defaultAesthetic',
+            hidden: ({document}) => hideUnless(document?.boolObj?.variantBool, document?.boolObj?.aestheticBool),
             type: 'string'
         },
         {
+            name: 'defaultDimension',
+            title: 'Default Dimension Value',
+            description: 'Will appear under Dimension Variant Title',
+            hidden: ({document}) => !document?.boolObj?.dimensionBool,
+            type: 'string'
+        },
+        {
+            title: 'Default Available Second Dimensions',
+            name: 'defaultSecondDimensions',
+            description: 'second dimension values that have the same first dimension',
+            hidden: ({document}) => !document?.boolObj?.dimensionBool,
+            type: 'array',
+            of: [{  
+                type: 'object',
+                fields: [
+                    
+                    {
+                        name: 'secondDimension',
+                        title: 'Second Dimension - Size / weight / length (leave blank if n/a)',
+                        description: 'Will appear under Second Dimension title',
+                        type: 'string'
+                    },
+                    {
+                        name: 'sizePrice',
+                        title: 'Price (if different)',
+                        type: 'number'
+                    },
+                    {
+                        name: 'sizeInventory',
+                        title: 'Inventory',
+                        type: 'number'
+                    }
+                ]
+            }]
+            
+        },
+       
+        {
             title: 'Default Available Dimensions',
             name: 'defaultDimensions',
+            hidden: ({document}) => !document?.boolObj?.variantBool,
             type: 'array',
             of: [{  
                 type: 'object',
