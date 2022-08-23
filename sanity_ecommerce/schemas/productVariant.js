@@ -3,19 +3,35 @@ export default {
     name: 'productVariant',
     type: 'object',
     fields: [
-    
+        {
+            name: 'imageBool',
+            title: 'Would you like to add differrent images for this variant?',
+            type: 'boolean',
+            description: 'recommended for aesthetic variants (colour/ finish)'
+        },
   
         {
-            title: 'Aesthetic',
+            title: 'Parent Variant Value',
             name: 'title',
             type: 'string',
-            description: 'e.g Green / Gloss'
+        },
+        {
+            name: 'price',
+            title: 'Price (if different)',
+            type: 'number'
+        },
+        {
+            name: 'inventory',
+            title: 'Inventory',
+            type: 'number'
         },
        
         {
             name: 'variantMainImage',
-            title: 'Variant Image',
+            title: 'Variant Main Image',
             type: 'image',
+            hidden: ({parent}) => !parent?.imageBool,
+            validation: Rule => Rule.custom((field, context) => (context.parent.imageBool && field === undefined) ? "This field must not be empty." : true),
             options: {
                 hotspot: true
             }
@@ -24,6 +40,9 @@ export default {
             name: 'variantImages',
             title: 'Images',
             type: 'array',
+            hidden: ({parent}) => !parent?.imageBool,
+            validation: Rule => Rule.custom((field, context) => (context.parent.imageBool && field === undefined) ? "This field must not be empty." : true),
+            description: 'must have a least one alternative image',
             of: [
               {
                 type: 'image',
@@ -35,31 +54,31 @@ export default {
         },
        
         {
-            title: 'Available Sizes',
-            name: 'dimensions',
+            title: 'Optional Child Variant - add up to two more variant types',
+            name: 'childArray',
             type: 'array',
             of: [{  
                 type: 'object',
                 fields: [
                     {
-                        name: 'firstDimension',
-                        title: 'First Dimension - Size / weight / length',
+                        name: 'childA',
+                        title: 'Child Variant Value - A',
                         description: 'Will appear under First Dimension title',
                         type: 'string'
                     },
                     {
-                        name: 'secondDimension',
-                        title: 'Second Dimension - Size / weight / length (leave blank if n/a)',
+                        name: 'childB',
+                        title: 'Child Variant Value - B (leave blank if n/a)',
                         description: 'Will appear under Second Dimension title',
                         type: 'string'
                     },
                     {
-                        name: 'sizePrice',
+                        name: 'price',
                         title: 'Price (if different)',
                         type: 'number'
                     },
                     {
-                        name: 'sizeInventory',
+                        name: 'inventory',
                         title: 'Inventory',
                         type: 'number'
                     }

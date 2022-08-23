@@ -12,38 +12,43 @@ import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/s
 const Product = ({ product, products }) => {
 
   //console.log({product, products});
-  const { images, name, seoDescription, mainImage, defaultDimensions, defaultSecondDimensions } = product;
+  const { images, name, seoDescription, mainImage  } = product;
 
-
-  const defaultDimensionsList = defaultDimensions ? defaultDimensions : []
+  const defaultChildVariantList = product?.childObj?.defaultChildArray ? product.childObj.defaultChildArray : []
 
   const [allImages, setAllImages] = useState([mainImage, ...images])
-  const [dimensionList, setDimensionList] = useState(defaultDimensionsList);
+  const [childVariantList, setChildVariantList] = useState(defaultChildVariantList);
 
   //Dimensions only
-  const defaultSecondDimensionList = defaultSecondDimensions ? defaultSecondDimensions : []
-  const [secondDimensionList, setSecondDimensionList] = useState(defaultSecondDimensionList);
+  // const defaultSecondDimensionList = defaultSecondDimensions ? defaultSecondDimensions : []
+  // const [secondDimensionList, setSecondDimensionList] = useState(defaultSecondDimensionList);
 
    
-
+  //not tested without child variants
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
     const newImages = v.variantImages
-    const newDimensions = v.dimensions
-    setAllImages([newImage, ...newImages]);
-    setDimensionList(newDimensions);
+    const newChildVariantList = v.childArray ? v.childArray : []
+
+    if (!newImage && !newImages) {
+      setAllImages([mainImage, ...images])
+    } else {
+
+      setAllImages([newImage, ...newImages]);
+    }
+    setChildVariantList(newChildVariantList);
   }
-  const defaultAesthetic = () => {
+  const defaultVariantHandler = () => {
     setAllImages([mainImage, ...images])
-    setDimensionList(defaultDimensionsList)
+    setChildVariantList(defaultChildVariantList)
   }
-  const dimensionHandler = (d) => {
-    const newSecondDimensions = d.secondDimensions
-    setSecondDimensionList(newSecondDimensions)
-  }
-  const defaultDimensionHandler = () => {
-    setSecondDimensionList(defaultSecondDimensionList)
-  }
+  // const dimensionHandler = (d) => {
+  //   const newSecondDimensions = d.secondDimensions
+  //   setSecondDimensionList(newSecondDimensions)
+  // }
+  // const defaultDimensionHandler = () => {
+  //   setSecondDimensionList(defaultSecondDimensionList)
+  // }
 
   //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
   // const colorProducts = products.filter((el) => {
@@ -53,7 +58,6 @@ const Product = ({ product, products }) => {
   // })
 
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(dimensionList)
   //console.log(() => variantHandler(variants[0]))
 
   return (
@@ -98,13 +102,14 @@ const Product = ({ product, products }) => {
           <Grid item xs={12} md={4}>
             <Div sx={{m: 'auto'}}>
               <ProductDescription 
-                product={product}
-                variantHandler={variantHandler}
-                dimensionList={dimensionList}
-                defaultAesthetic={defaultAesthetic}
-                dimensionHandler={dimensionHandler}
-                defaultDimensionHandler={defaultDimensionHandler}
-                secondDimensionList={secondDimensionList}
+              props={{
+                product,
+                variantHandler,
+                childVariantList,
+                defaultVariantHandler
+                
+              }}
+                
                 /> 
             </Div>
           </Grid>

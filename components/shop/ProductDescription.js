@@ -13,12 +13,13 @@ import { urlFor } from '../../lib/sanity';
 import { ConstructionOutlined } from '@mui/icons-material';
 
 
-const ProductDescription = ({ product, variantHandler, dimensionList, defaultAesthetic, defaultDimensionHandler, dimensionHandler, secondDimensionList }) => {
+const ProductDescription = ({props}) => {
+    const { product, variantHandler, defaultVariantHandler, childVariantList } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
     const variants = product.variants ? product.variants : []
-    const dimensionVariants = product.dimensionVariants ? product.dimensionVariants : []
+    //const dimensionVariants = product.dimensionVariants ? product.dimensionVariants : []
 
     //Aesthetic and Dimension states
     const [anchorElVar, setAnchorElVar] = useState(null);
@@ -44,33 +45,33 @@ const ProductDescription = ({ product, variantHandler, dimensionList, defaultAes
         setVarDiOpen(true);
     }
 
-    //Dimension states
-    const [anchorElDim, setAnchorElDim] = useState(null);
-    const [anchorElSecDim, setAnchorElSecDim] = useState(null);
+    // //Dimension states
+    // const [anchorElDim, setAnchorElDim] = useState(null);
+    // const [anchorElSecDim, setAnchorElSecDim] = useState(null);
 
-    const [dimOpen, setDimOpen] = useState(false);
-    const [secDimOpen, setSecDimOpen] = useState(false);
+    // const [dimOpen, setDimOpen] = useState(false);
+    // const [secDimOpen, setSecDimOpen] = useState(false);
  
-    const handleDimClose = () => {
-        setAnchorElDim(null);
-        setDimOpen(false);
-    }
-    const handleDimClick = (e) => {
-        setAnchorElDim(e.currentTarget);
-        setDimOpen(true);
-    }
-    const handleSecDimClose = () => {
-        setAnchorElSecDim(null);
-        setSecDimOpen(false);
-    }
-    const handleSecDimClick = (e) => {
-        setAnchorElSecDim(e.currentTarget);
-        setSecDimOpen(true);
-    }
+    // const handleDimClose = () => {
+    //     setAnchorElDim(null);
+    //     setDimOpen(false);
+    // }
+    // const handleDimClick = (e) => {
+    //     setAnchorElDim(e.currentTarget);
+    //     setDimOpen(true);
+    // }
+    // const handleSecDimClose = () => {
+    //     setAnchorElSecDim(null);
+    //     setSecDimOpen(false);
+    // }
+    // const handleSecDimClick = (e) => {
+    //     setAnchorElSecDim(e.currentTarget);
+    //     setSecDimOpen(true);
+    // }
 
 
-   console.log(dimensionVariants)
-   console.log(secondDimensionList)
+   //console.log(dimensionVariants)
+   //console.log(secondDimensionList)
     
     
   return (
@@ -145,16 +146,16 @@ const ProductDescription = ({ product, variantHandler, dimensionList, defaultAes
                             sx={{color: 'text.dark'}}   
                             endIcon={<ArrowDropDownIcon />}                
                         >
-                            {product.aestheticTitle ? product.aestheticTitle : "Aesthetic"}
+                            {product.parentTitle}
                         </Button>
                         <Menu anchorEl={anchorElVar} open={varOpen} onClose={handleVarClose}  >
                             <Paper elevation={0} sx={{ width: 250, maxWidth: '100%' }}>
                                 <MenuList>
                                     <MenuItem  onClick={handleVarClose} sx={{ width: '100%'}} >
                                                 
-                                        <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={defaultAesthetic}>
+                                        <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={defaultVariantHandler}>
                                             <Typography sx={{width: '100%'}} align='center' variant='body1'>
-                                                {product.defaultAesthetic ? product.defaultAesthetic : "Default Aesthetic"}
+                                                {product.defaultParentValue}
                                             </Typography>
                                         </Button>
                                             
@@ -181,7 +182,9 @@ const ProductDescription = ({ product, variantHandler, dimensionList, defaultAes
 
                         
                     </Div>
-                    <Div sx={{ p: 1}}>
+                    {
+                        product.childObj &&
+                        <Div sx={{ p: 1}}>
                         <Button 
                             variant="outlined"
                             onClick={handleVarDiClick}
@@ -192,23 +195,23 @@ const ProductDescription = ({ product, variantHandler, dimensionList, defaultAes
                             sx={{color: 'text.dark'}}   
                             endIcon={<ArrowDropDownIcon />}                
                         >
-                            {product.dimensionTitle ? product.dimensionTitle : "Dimension"}
-                            {product.secondDimensionTitle ? ` & ${product.secondDimensionTitle}` : ""}
+                            {product.childObj.childTitleA}
+                            {product.childObj.childTitleB ? ` & ${product.childObj.childTitleB}` : ""}
                         </Button>
                         <Menu anchorEl={anchorElVarD} open={varDiOpen} onClose={handleVarDiClose}  >
                             <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
                                 <MenuList>
                                     {
-                                        dimensionList.map((x) => (
+                                        childVariantList.map((x) => (
                                             <MenuItem key={x._key} onClick={handleVarDiClose} sx={{ width: '100%'}} >
                                                 
                                                 <Button variant='text' sx={{textTransform: 'capitalize', width: '100%', color: 'text.dark', py: 0}} onClick={handleVarDiClose} >
                                                     <Typography sx={{width: '100%'}} align='center' variant='body1'>
-                                                    {product.secondDimensionTitle ? `${product.dimensionTitle}: ` : ""}
-                                                    {x.firstDimension}{product.secondDimensionTitle ? " | " : ""}
-                                                    {product.secondDimensionTitle ? `${product.secondDimensionTitle}: ` : ""}
-                                                    {x.secondDimension ? x.secondDimension : ""}
-                                                    {x.sizePrice ? ` (${currencyConverter.format(x.sizePrice)})` : ""}
+                                                    {product.childObj.childTitleB ? `${product.childObj.childTitleA}: ` : ""}
+                                                    {x.childA}{product.childObj.childTitleB ? " | " : ""}
+                                                    {product.childObj.childTitleB ? `${product.childObj.childTitleB}: ` : ""}
+                                                    {x.childB ? x.childB : ""}
+                                                    {x.price ? ` (${currencyConverter.format(x.price)})` : ""}
                                                     </Typography>
                                                 </Button>
                                                    
@@ -225,11 +228,13 @@ const ProductDescription = ({ product, variantHandler, dimensionList, defaultAes
                         
                         
                     </Div>
+                    }
+                    
                             
                         
                     </React.Fragment>
                 }
-                {
+                {/* {
                     product.dimensionVariants && 
                         <React.Fragment>
                             <Div sx={{ p: 1}}>
@@ -319,7 +324,7 @@ const ProductDescription = ({ product, variantHandler, dimensionList, defaultAes
                                 
                             </Div>
                         </React.Fragment>
-                }
+                } */}
                 <Div sx={{ p: 1}}>
                     <Button
                         type="button"

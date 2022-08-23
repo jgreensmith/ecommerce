@@ -26,7 +26,6 @@ export default {
         {
             title: 'Default Available Second Dimensions',
             name: 'secondDimensions',
-            description: 'second dimension values that have the same first dimension',
             type: 'array',
             of: [{  
                 type: 'object',
