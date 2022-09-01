@@ -42,7 +42,7 @@ export const CustomComponent = React.forwardRef((props, ref) => {
         },
         [onChange]
       )
-      //console.log(value)
+      console.log(props)
       //console.log(paletteList)
 return (
   <FormField

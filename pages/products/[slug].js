@@ -24,7 +24,6 @@ const Product = ({ product, products }) => {
   // const [secondDimensionList, setSecondDimensionList] = useState(defaultSecondDimensionList);
 
    
-  //not tested without child variants
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
     const newImages = v.variantImages

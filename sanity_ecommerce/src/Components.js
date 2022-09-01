@@ -21,8 +21,17 @@ export const Button = styled.button`
     &:focus {
         border: 5px solid #28c3d1
 
+    }  
+`
+export const ListButton = styled.button`
+    width: 100%;
+    padding: 7px 15px;
+    &:hover {
+        cursor: pointer;
+        border: 2px solid #28c3d1
     }
-    
-    
-    
+    &:focus {
+        border: 5px solid #28c3d1
+
+    } 
 `

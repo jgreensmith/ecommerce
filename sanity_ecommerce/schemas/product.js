@@ -1,4 +1,6 @@
 import { FiShoppingBag } from "react-icons/fi";
+import Variants from "../src/Variants";
+import VariantTitle from "../src/VariantTitle";
 
 const hideUnless = (x, y) => {
     if(x) {
@@ -352,5 +354,91 @@ export default {
             type: 'text',
             description: 'brief description of page for Search Engine Optimization'
         },
+        {
+            name: 'primaryVarTitle',
+            title: 'Primary Variant Title',
+            type: 'string',
+        },
+        {
+            name: 'primaryVar',
+            title: 'Primary variants',
+            type: 'array',
+            of: [
+                {
+                    type: 'string'
+                    
+                }
+            ]
+        },
+        {
+            name: 'secondaryVarTitle',
+            title: 'Secondary Variant Title',
+            type: 'string',
+        },
+        {
+            name: 'secondaryVar',
+            title: 'Secondary variants',
+            type: 'array',
+            of: [
+                {
+                    type: 'string'
+                    
+                }
+            ]
+        },
+        {
+            name: 'tertiaryVarTitle',
+            title: 'Tertiary Variant Title',
+            type: 'string',
+        },
+        {
+            name: 'tertiaryVar',
+            title: 'Tertiary variants',
+            type: 'array',
+            of: [
+                {
+                    type: 'string'
+                    
+                }
+            ]
+        },
+        {
+            name: 'newVarList',
+            title: 'Manage Inventory',
+            type: 'array',
+            validation: Rule => Rule.unique().custom((obj) => obj.newValue),
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'newValue',
+                            type: 'string',
+                            //readOnly: true,
+                            inputComponent: VariantTitle
+                        },
+                        {
+                            name: 'varSelect',
+                            title: 'Select Variant Combination',
+                            type: 'string',
+                            inputComponent: Variants 
+                        },
+                        {
+                            name: 'price',
+                            title: 'Price of One Product (without symbol)',
+                            type: 'number'
+                        },
+                        {
+                            name: 'inventory',
+                            title: 'Inventory',
+                            type: 'number'
+                        }
+                    ]
+                }
+            ],
+            
+        }
+        
+
     ]
 }
