@@ -28,9 +28,9 @@ export const Variants = React.forwardRef((props, ref) => {
     const inputId = useId();
     //const [addVariant, setAddVariant] = useState({price: 0, quantity: 0})
 
-    const primaryVariants = document?.primaryVar ? document.primaryVar : []
-    const secondaryVariants = document?.secondaryVar ? document.secondaryVar : []
-    const tertiaryVariants = document?.tertiaryVar ? document.tertiaryVar : []
+    const primaryVariants = !document?.primaryVariants ? [] : document.primaryVariants.map((x) => x.variantValue)
+    const secondaryVariants = document?.secondaryVariants ? document.secondaryVariants : []
+    const tertiaryVariants = document?.tertiaryVariants ? document.tertiaryVariants : []
 
     const newArray = primaryVariants.flatMap((x) => {
         return secondaryVariants.flatMap((y) => {
@@ -58,7 +58,7 @@ export const Variants = React.forwardRef((props, ref) => {
         },
         [onChange]
       )
-      //console.log(props)
+      console.log(primaryVariants)
       //console.log(newArray)
 return (
   <FormField

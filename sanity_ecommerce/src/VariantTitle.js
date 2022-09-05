@@ -32,19 +32,17 @@ export const Variants = React.forwardRef((props, ref) => {
     let newValue = 'Select a Variant Combination'
     
 
-    const variantKey = document.newVarList.find(x => x._key === parent._key)
+    const variantKey = document.variantComboList.find(x => x._key === parent._key)
     const selectedCombo = variantKey.varSelect
 
-    // const handleChange = (b) => {
-        
-    //         onChange(PatchEvent.from(set(b)))
-        
-    // }
+  
 
     
     useEffect(() => {
         if(!selectedCombo) {
             newValue = 'Select a Variant Combination'
+            onChange(PatchEvent.from(unset()))
+
         } else {
             const parsed = JSON.parse(selectedCombo)
     

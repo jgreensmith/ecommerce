@@ -14,20 +14,45 @@ const Product = ({ product, products }) => {
   //console.log({product, products});
   const { images, name, seoDescription, mainImage  } = product;
 
-  const defaultChildVariantList = product?.childObj?.defaultChildArray ? product.childObj.defaultChildArray : []
+ //create new variants array that parses the varSelect and includes inventory, key and price
+  const variantsNew = !product.variantComboList ? [] : product.variantComboList.map((x) => {
+    const parsedObj = JSON.parse(x.varSelect)
+    return {...parsedObj, price: x.price, inventory: x.inventory, key: x._key}
+})
 
+// default value for primary variant (item dragged to top of array in sanity)
+  const defaultVariantValue = product?.primaryVariants ? product.primaryVariants[0].variantValue : {}
+  const secondaryVariants = product?.secondaryVariants ? product.secondaryVariants : []
+
+//filter variantsNew with default primary variant
+  const defaultVariantObjectList = variantsNew.filter((obj) => obj.priVar === defaultVariantValue)
+
+  //filter secondary variants to avoid duplicates in selection list
+  const defaultSecondaryVariantList = secondaryVariants.filter((x) => {
+    return defaultVariantObjectList.some((obj) => {
+      return obj.secVar === x
+    })
+  })
+
+  const [imageIndex, setImageIndex] = useState(0);
   const [allImages, setAllImages] = useState([mainImage, ...images])
-  const [childVariantList, setChildVariantList] = useState(defaultChildVariantList);
+  const [secondaryVariantList, setSecondaryVariantList] = useState(defaultSecondaryVariantList);
 
-  //Dimensions only
-  // const defaultSecondDimensionList = defaultSecondDimensions ? defaultSecondDimensions : []
-  // const [secondDimensionList, setSecondDimensionList] = useState(defaultSecondDimensionList);
+  const filterVariants = (v) => {
+    const filteredObjects = variantsNew.filter((obj) => obj.priVar === v)
+    const newSecondaryVariantList = secondaryVariants.filter((x) => {
+      return filteredObjects.some((obj) => {
+        return obj.secVar === x
+      })
+    })
+    setSecondaryVariantList(newSecondaryVariantList) 
+  }
 
-   
+    
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
     const newImages = v.variantImages
-    const newChildVariantList = v.childArray ? v.childArray : []
+    const value = v.variantValue
 
     if (!newImage && !newImages) {
       setAllImages([mainImage, ...images])
@@ -35,29 +60,21 @@ const Product = ({ product, products }) => {
 
       setAllImages([newImage, ...newImages]);
     }
-    setChildVariantList(newChildVariantList);
+    if(value === defaultVariantValue) {
+      setSecondaryVariantList(defaultSecondaryVariantList)
+    } else {
+      filterVariants(value)
+    }
   }
   const defaultVariantHandler = () => {
     setAllImages([mainImage, ...images])
-    setChildVariantList(defaultChildVariantList)
+    //setChildVariantList(defaultChildVariantList)
   }
-  // const dimensionHandler = (d) => {
-  //   const newSecondDimensions = d.secondDimensions
-  //   setSecondDimensionList(newSecondDimensions)
-  // }
-  // const defaultDimensionHandler = () => {
-  //   setSecondDimensionList(defaultSecondDimensionList)
-  // }
+  
+  
 
-  //compare the two arrays and return elements which _id in products matches _ref in colorRef (if present)
-  // const colorProducts = products.filter((el) => {
-  //   return colorRef?.some((r) => {
-  //     return r._ref === el._id
-  //   })
-  // })
-
-  const [imageIndex, setImageIndex] = useState(0);
-  //console.log(() => variantHandler(variants[0]))
+  //console.log(defaultVariantObjectList)
+  console.log(secondaryVariantList)
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -104,7 +121,7 @@ const Product = ({ product, products }) => {
               props={{
                 product,
                 variantHandler,
-                childVariantList,
+                secondaryVariantList,
                 defaultVariantHandler
                 
               }}

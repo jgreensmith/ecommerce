@@ -119,6 +119,11 @@ export const FlexSpace = styled('div')({
   justifyContent: 'space-between',
   width: '100%'
 });
+export const FlexEven = styled('div')({
+  display: 'flex', 
+  justifyContent: 'space-even',
+  width: '100%'
+});
 
 
 export const CenteredGrid = styled(Grid)({

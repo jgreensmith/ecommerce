@@ -2,15 +2,15 @@ import { FiShoppingBag } from "react-icons/fi";
 import Variants from "../src/Variants";
 import VariantTitle from "../src/VariantTitle";
 
-const hideUnless = (x, y) => {
-    if(x) {
-        return false
-    } else if(y) {
-        return false
-    } else {
-        return true
-    }
-}
+// const hideUnless = (x, y) => {
+//     if(x) {
+//         return false
+//     } else if(y) {
+//         return false
+//     } else {
+//         return true
+//     }
+// }
 
 
 export default {
@@ -225,94 +225,94 @@ export default {
         //         },
         //     ],
         // },
-        {
-            title:  'Parent Variant Title',
-            name: 'parentTitle',
-            type: 'string',
-            hidden: ({document}) => !document?.variantBool,
-            validation: Rule => Rule.custom((field, context) => (context.document.variantBool && field === undefined) ? "This field must not be empty." : true),
-            description: 'dropdown list'
-        },
-        {
-            title: 'Default Parent Variant Value',
-            name: 'defaultParentValue',
-            description: 'variant value of current product',
-            hidden: ({document}) => !document?.variantBool,
-            validation: Rule => Rule.custom((field, context) => (context.document.variantBool && field === undefined) ? "This field must not be empty." : true),
-            type: 'string'
-        },
-        {
-            title: 'Add up to two more custom variants as Child Variants',
-            name: 'childObj',
-            type: 'object',
-            hidden: ({document}) => !document?.variantBool,
-            description: 'when the user adjusts the parent variant, a new list of child variants (if any) will be generated',
-            options: {
-                collapsible: true,
-                collapsed: true
-            },
-            fields: [
-                {
-                    title: 'Child Variant Title - A',
-                    name: 'childTitleA',
-                    type: 'string',
-                    description: 'dropdown'
-                },
-                {
-                    title: 'Child Variant Title - B',
-                    name: 'childTitleB',
-                    type: 'string',
-                    description: 'dropdown'
-                },
-                {
-                    title: 'Default Available Child Variants',
-                    name: 'defaultChildArray',
-                    description: 'list default child variants that will be applied to the current product',
-                    type: 'array',
-                    of: [{  
-                        type: 'object',
-                        fields: [
-                            {
-                                name: 'childA',
-                                title: 'Child Variant Value A',
-                                description: 'Will appear under Child Variant Title - A',
-                                type: 'string'
-                            },
-                            {
-                                name: 'childB',
-                                title: 'Child Variant Value B',
-                                description: 'Will appear under Child Variant Title - B',
-                                type: 'string'
-                            },
-                            {
-                                name: 'price',
-                                title: 'Price (if different)',
-                                type: 'number'
-                            },
-                            {
-                                name: 'inventory',
-                                title: 'Inventory',
-                                type: 'number'
-                            }
-                        ]
-                    }] 
-                }
+        // {
+        //     title:  'Parent Variant Title',
+        //     name: 'parentTitle',
+        //     type: 'string',
+        //     hidden: ({document}) => !document?.variantBool,
+        //     validation: Rule => Rule.custom((field, context) => (context.document.variantBool && field === undefined) ? "This field must not be empty." : true),
+        //     description: 'dropdown list'
+        // },
+        // {
+        //     title: 'Default Parent Variant Value',
+        //     name: 'defaultParentValue',
+        //     description: 'variant value of current product',
+        //     hidden: ({document}) => !document?.variantBool,
+        //     validation: Rule => Rule.custom((field, context) => (context.document.variantBool && field === undefined) ? "This field must not be empty." : true),
+        //     type: 'string'
+        // },
+        // {
+        //     title: 'Add up to two more custom variants as Child Variants',
+        //     name: 'childObj',
+        //     type: 'object',
+        //     hidden: ({document}) => !document?.variantBool,
+        //     description: 'when the user adjusts the parent variant, a new list of child variants (if any) will be generated',
+        //     options: {
+        //         collapsible: true,
+        //         collapsed: true
+        //     },
+        //     fields: [
+        //         {
+        //             title: 'Child Variant Title - A',
+        //             name: 'childTitleA',
+        //             type: 'string',
+        //             description: 'dropdown'
+        //         },
+        //         {
+        //             title: 'Child Variant Title - B',
+        //             name: 'childTitleB',
+        //             type: 'string',
+        //             description: 'dropdown'
+        //         },
+        //         {
+        //             title: 'Default Available Child Variants',
+        //             name: 'defaultChildArray',
+        //             description: 'list default child variants that will be applied to the current product',
+        //             type: 'array',
+        //             of: [{  
+        //                 type: 'object',
+        //                 fields: [
+        //                     {
+        //                         name: 'childA',
+        //                         title: 'Child Variant Value A',
+        //                         description: 'Will appear under Child Variant Title - A',
+        //                         type: 'string'
+        //                     },
+        //                     {
+        //                         name: 'childB',
+        //                         title: 'Child Variant Value B',
+        //                         description: 'Will appear under Child Variant Title - B',
+        //                         type: 'string'
+        //                     },
+        //                     {
+        //                         name: 'price',
+        //                         title: 'Price (if different)',
+        //                         type: 'number'
+        //                     },
+        //                     {
+        //                         name: 'inventory',
+        //                         title: 'Inventory',
+        //                         type: 'number'
+        //                     }
+        //                 ]
+        //             }] 
+        //         }
 
-           ]
-        },
-        {
-            title: 'Variant Values',
-            name: 'variants',
-            type: 'array',
-            hidden: ({document}) => !document?.variantBool,
-            validation: Rule => Rule.custom((field, context) => (context.document.variantBool && field === undefined) ? "This field must not be empty." : true),
-            of: [
-                {
-                title: 'Variant',
-                type: 'productVariant',
-                },
-            ],
-        },
+        //    ]
+        // },
+        // {
+        //     title: 'Variant Values',
+        //     name: 'variants',
+        //     type: 'array',
+        //     hidden: ({document}) => !document?.variantBool,
+        //     validation: Rule => Rule.custom((field, context) => (context.document.variantBool && field === undefined) ? "This field must not be empty." : true),
+        //     of: [
+        //         {
+        //         title: 'Variant',
+        //         type: 'productVariant',
+        //         },
+        //     ],
+        // },
         
         // {
         //     title: 'Dimension Variant Values',
@@ -358,25 +358,68 @@ export default {
             name: 'primaryVarTitle',
             title: 'Primary Variant Title',
             type: 'string',
+            //hidden: ({document}) => !document?.variantBool,
         },
         {
-            name: 'primaryVar',
+            name: 'primaryVariants',
             title: 'Primary variants',
             type: 'array',
+            description: 'drag default variant to top of array',
             of: [
                 {
-                    type: 'string'
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'imageBool',
+                            title: 'Would you like to add differrent images for this variant? - if left blank, default images will be used',
+                            type: 'boolean',
+                            description: 'recommended for aesthetic variants (colour/ finish)'
+                        },
+                        {
+                            name: 'variantValue',
+                            title: 'Variant Value',
+                            type: 'string',
+                        
+                        },
+                        {
+                            name: 'variantMainImage',
+                            title: 'Variant Main Image',
+                            type: 'image',
+                            hidden: ({parent}) => !parent?.imageBool,
+                            validation: Rule => Rule.custom((field, context) => (context.parent.imageBool && field === undefined) ? "This field must not be empty." : true),
+                            options: {
+                                hotspot: true
+                            }
+                        },
+                        {
+                            name: 'variantImages',
+                            title: 'Images',
+                            type: 'array',
+                            hidden: ({parent}) => !parent?.imageBool,
+                            validation: Rule => Rule.custom((field, context) => (context.parent.imageBool && field === undefined) ? "This field must not be empty." : true),
+                            description: 'must have a least one alternative image',
+                            of: [
+                              {
+                                type: 'image',
+                                options: {
+                                  hotspot: true,
+                                },
+                              },
+                            ],
+                        },
+                    ]
                     
                 }
             ]
         },
+        
         {
             name: 'secondaryVarTitle',
             title: 'Secondary Variant Title',
             type: 'string',
         },
         {
-            name: 'secondaryVar',
+            name: 'secondaryVariants',
             title: 'Secondary variants',
             type: 'array',
             of: [
@@ -392,7 +435,7 @@ export default {
             type: 'string',
         },
         {
-            name: 'tertiaryVar',
+            name: 'tertiaryVariants',
             title: 'Tertiary variants',
             type: 'array',
             of: [
@@ -403,10 +446,10 @@ export default {
             ]
         },
         {
-            name: 'newVarList',
+            name: 'variantComboList',
             title: 'Manage Inventory',
             type: 'array',
-            validation: Rule => Rule.unique().custom((obj) => obj.newValue),
+            //validation: Rule => Rule.unique().custom((obj) => obj.newValue),
             of: [
                 {
                     type: 'object',
