@@ -32,18 +32,37 @@ export const Variants = React.forwardRef((props, ref) => {
     const secondaryVariants = document?.secondaryVariants ? document.secondaryVariants : []
     const tertiaryVariants = document?.tertiaryVariants ? document.tertiaryVariants : []
 
-    const newArray = primaryVariants.flatMap((x) => {
-        return secondaryVariants.flatMap((y) => {
-            return tertiaryVariants.map((z) => {
-                return {
-                    priVar: x,
-                    secVar: y,
-                    tertVar: z
-                }
+    const newArray =  !tertiaryVariants.length ?
+
+        primaryVariants.flatMap((x) => {
+            return secondaryVariants.flatMap((y) => {
+                
+                    return {
+                        priVar: x,
+                        secVar: y
+                        
+                    }
+                
             })
         })
-    })
-
+   
+    :
+        primaryVariants.flatMap((x) => {
+            return secondaryVariants.flatMap((y) => {
+                return tertiaryVariants.map((z) => {
+                    return {
+                        priVar: x,
+                        secVar: y,
+                        tertVar: z
+                    }
+                })
+            })
+        })
+        
+        
+    
+     
+    
     
     
         
@@ -58,8 +77,8 @@ export const Variants = React.forwardRef((props, ref) => {
         },
         [onChange]
       )
-      console.log(primaryVariants)
-      //console.log(newArray)
+      //console.log(primaryVariants)
+      console.log(newArray)
 return (
   <FormField
     description={type.description}  // Creates description from schema
@@ -80,15 +99,27 @@ return (
                 id={inputId}
             >
                 <option value="" disabled selected hidden>Select Variant Combination</option>
-
-                {newArray.map((x, i) => (
-                    <option 
-                        key={i}
-                        value={JSON.stringify(x)}
-                    >
-                        {`${x.priVar}, ${x.secVar}, ${x.tertVar}`} 
-                    </option>
-                ))}
+                {!tertiaryVariants.length ? 
+                    newArray.map((x, i) => (
+                        <option 
+                            key={i}
+                            value={JSON.stringify(x)}
+                        >
+                            {`${x.priVar}, ${x.secVar}`} 
+                        </option>
+                    ))
+                    
+                : 
+                    newArray.map((x, i) => (
+                        <option 
+                            key={i}
+                            value={JSON.stringify(x)}
+                        >
+                            {`${x.priVar}, ${x.secVar}, ${x.tertVar}`} 
+                        </option>
+                    ))
+                    
+                }
             
             </Select>
 

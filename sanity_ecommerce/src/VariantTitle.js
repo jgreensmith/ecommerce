@@ -46,7 +46,7 @@ export const Variants = React.forwardRef((props, ref) => {
         } else {
             const parsed = JSON.parse(selectedCombo)
     
-            newValue = `${parsed.priVar}, ${parsed.secVar}, ${parsed.tertVar}`
+            newValue = `${parsed.priVar}, ${parsed.secVar}${parsed.tertVar ? ', ' : ''}${parsed.tertVar ? parsed.tertVar : ''}`
             //setNewValue(`${parsed.priVar}, ${parsed.secVar}, ${parsed.tertVar}`)    
             
             
