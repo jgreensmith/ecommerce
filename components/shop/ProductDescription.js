@@ -14,7 +14,7 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 
 const ProductDescription = ({props}) => {
-    const { product, variantHandler, defaultVariantHandler, secondaryVariantList } = props
+    const { product, variantHandler, defaultVariantHandler, secondaryVariantList, secondaryVariantHandler, tertiaryVariantList } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
@@ -95,12 +95,28 @@ const ProductDescription = ({props}) => {
                     <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.secondaryVarTitle}</Typography>
                     <FlexEven >
                         {secondaryVariantList.map((x, i) => (
-                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
+                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => secondaryVariantHandler(x)}>
                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
 
                             </Button>
                         ))}
                     </FlexEven>
+                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
+                    {!tertiaryVariantList.length ? 
+                        <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
+                            <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> Select {product.secondaryVarTitle}</Typography>
+                        </Button>
+                    :
+
+                        <FlexEven >
+                            {tertiaryVariantList.map((x, i) => (
+                                <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
+                                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
+
+                                </Button>
+                            ))}
+                        </FlexEven>
+                    }
 
                 </Paper>
 

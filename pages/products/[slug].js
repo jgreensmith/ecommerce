@@ -21,7 +21,7 @@ const Product = ({ product, products }) => {
 })
 
 // default value for primary variant (item dragged to top of array in sanity)
-  const defaultVariantValue = product?.primaryVariants ? product.primaryVariants[0].variantValue : {}
+  const defaultVariantValue = product?.primaryVariants ? product.primaryVariants[0].variantValue : ''
   const secondaryVariants = product?.secondaryVariants ? product.secondaryVariants : []
 
 //filter variantsNew with default primary variant
@@ -37,6 +37,8 @@ const Product = ({ product, products }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [allImages, setAllImages] = useState([mainImage, ...images])
   const [secondaryVariantList, setSecondaryVariantList] = useState(defaultSecondaryVariantList);
+  const [tertiaryVariantList, setTertiaryVariantList] = useState([]);
+  const [primaryValue, setPrimaryValue] = useState(defaultVariantValue)
 
   const filterVariants = (v) => {
     const filteredObjects = variantsNew.filter((obj) => obj.priVar === v)
@@ -62,13 +64,24 @@ const Product = ({ product, products }) => {
     }
     if(value === defaultVariantValue) {
       setSecondaryVariantList(defaultSecondaryVariantList)
+      setPrimaryValue(defaultVariantValue)
     } else {
       filterVariants(value)
+      setPrimaryValue(value)
     }
+    setTertiaryVariantList([])
   }
-  const defaultVariantHandler = () => {
-    setAllImages([mainImage, ...images])
-    //setChildVariantList(defaultChildVariantList)
+
+  const tertiaryVariants = product?.tertiaryVariants ? product.tertiaryVariants : []
+
+  const secondaryVariantHandler = (v) => {
+    const filteredObjects = variantsNew.filter((obj) => obj.secVar === v && obj.priVar === primaryValue)
+    const newTertiaryVariantList = tertiaryVariants.filter((x) => {
+      return filteredObjects.some((obj) => {
+        return obj.tertVar === x
+      })
+    })
+    setTertiaryVariantList(newTertiaryVariantList)
   }
   
   
@@ -122,7 +135,8 @@ const Product = ({ product, products }) => {
                 product,
                 variantHandler,
                 secondaryVariantList,
-                defaultVariantHandler
+                secondaryVariantHandler,
+                tertiaryVariantList
                 
               }}
                 
