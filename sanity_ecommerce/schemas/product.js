@@ -2,15 +2,15 @@ import { FiShoppingBag } from "react-icons/fi";
 import Variants from "../src/Variants";
 import VariantTitle from "../src/VariantTitle";
 
-// const hideUnless = (x, y) => {
-//     if(x) {
-//         return false
-//     } else if(y) {
-//         return false
-//     } else {
-//         return true
-//     }
-// }
+const hideUnless = (x, y) => {
+    if(x) {
+        return false
+    } else if(y) {
+        return false
+    } else {
+        return true
+    }
+}
 
 
 export default {
@@ -32,7 +32,7 @@ export default {
             description: 'Choose one of the options below. If there are no variants, leave blank',
             options: {
                 collapsible: true,
-                collapsed: true
+                collapsed: false
             },
             fields: [
                 {
@@ -126,13 +126,15 @@ export default {
         {
             name: 'variantTitle',
             title: 'Variant Title',
+            hidden: ({document}) => !document?.boolObj?.oneVarBool,
             type: 'string',
         },
         {
             name: 'variants',
             title: 'Variants',
             type: 'array',
-            description: 'drag default variant to top of array',
+            hidden: ({document}) => !document?.boolObj?.oneVarBool,
+            description: 'make sure to include the default variant! - drag default variant to top of array',
             of: [
                 {
                     type: 'object',
@@ -184,14 +186,15 @@ export default {
             name: 'primaryVarTitle',
             title: 'Primary Variant Title',
             type: 'string',
-            //hidden: ({document}) => !document?.variantBool,
+            hidden: ({document}) => hideUnless(document?.boolObj?.twoVarBool, document?.boolObj?.threeVarBool)
         },
         
         {
             name: 'primaryVariants',
             title: 'Primary variants',
             type: 'array',
-            description: 'drag default variant to top of array',
+            hidden: ({document}) => hideUnless(document?.boolObj?.twoVarBool, document?.boolObj?.threeVarBool),
+            description: 'make sure to include the default variant! - drag default variant to top of array',
             of: [
                 {
                     type: 'object',
@@ -254,11 +257,13 @@ export default {
             name: 'secondaryVarTitle',
             title: 'Secondary Variant Title',
             type: 'string',
+            hidden: ({document}) => hideUnless(document?.boolObj?.twoVarBool, document?.boolObj?.threeVarBool)
         },
         {
             name: 'secondaryVariants',
             title: 'Secondary variants',
             type: 'array',
+            hidden: ({document}) => hideUnless(document?.boolObj?.twoVarBool, document?.boolObj?.threeVarBool),
             of: [
                 {
                     type: 'string'
@@ -270,11 +275,13 @@ export default {
             name: 'tertiaryVarTitle',
             title: 'Tertiary Variant Title',
             type: 'string',
+            hidden: ({document}) => !document?.boolObj?.threeVarBool
         },
         {
             name: 'tertiaryVariants',
             title: 'Tertiary variants',
             type: 'array',
+            hidden: ({document}) => !document?.boolObj?.threeVarBool,
             of: [
                 {
                     type: 'string'
@@ -286,6 +293,7 @@ export default {
             name: 'variantComboList',
             title: 'Manage Inventory',
             type: 'array',
+            hidden: ({document}) => hideUnless(document?.boolObj?.twoVarBool, document?.boolObj?.threeVarBool),
             of: [
                 {
                     type: 'object',
