@@ -95,22 +95,30 @@ export default {
             name: 'categories',
             title: 'Categories',
             type: 'array',
-            validation: Rule => Rule.required(),
+            //validation: Rule => Rule.required(),
             of: [{type: 'reference', to: {type: 'category'}}],
         },    
         {
             name: 'slug',
             title: 'Slug',
             type: 'slug',
+            validation: Rule => Rule.required(),
             options: {
                 source: 'name',
                 maxLength: 90
             }
         },
-        { 
+        {
             name: 'price',
             title: 'Price',
             type: 'number',
+            hidden: ({document}) => document?.boolObj?.oneVarBool || document?.boolObj?.twoVarBool || document?.boolObj?.threeVarBool
+        },
+        {
+            name: 'inventory',
+            title: 'Inventory',
+            type: 'number',
+            hidden: ({document}) => document?.boolObj?.oneVarBool || document?.boolObj?.twoVarBool || document?.boolObj?.threeVarBool
         },
         {
             name: 'body',
@@ -177,6 +185,16 @@ export default {
                               },
                             ],
                         },
+                        {
+                            name: 'price',
+                            title: 'Price of One Product (without symbol)',
+                            type: 'number'
+                        },
+                        {
+                            name: 'inventory',
+                            title: 'Inventory',
+                            type: 'number'
+                        }
                     ]
                     
                 }
@@ -237,16 +255,7 @@ export default {
                               },
                             ],
                         },
-                        {
-                            name: 'price',
-                            title: 'Price of One Product (without symbol)',
-                            type: 'number'
-                        },
-                        {
-                            name: 'inventory',
-                            title: 'Inventory',
-                            type: 'number'
-                        }
+                        
                     ]
                     
                 }
