@@ -40,21 +40,21 @@ export default {
                     name: 'oneVarBool',
                     type: 'boolean',
                     hidden: ({ parent, value }) => !value && parent?.twoVarBool || parent?.threeVarBool,
-                    description: 'Colour/ Material/ finish'
+                    //description: 'Colour/ Material/ finish'
                 },
                 {
                     title: 'Two Variants - e.g Colour and Size',
                     name: 'twoVarBool',
                     type: 'boolean',
                     hidden: ({ parent, value }) => !value && parent?.oneVarBool || parent?.threeVarBool,
-                    description: 'Size / length / weight'
+                    //description: 'Size / length / weight'
                 },
                 {
                     title: 'Three Variants - e.g Colour, Size and Weight',
                     name: 'threeVarBool',
                     type: 'boolean',
                     hidden: ({ parent, value }) => !value && parent?.oneVarBool || parent?.twoVarBool,
-                    description: 'Size / length / weight'
+                    //description: 'Size / length / weight'
                 },
                     
                
@@ -124,11 +124,69 @@ export default {
             description: 'brief description of page for Search Engine Optimization'
         },
         {
+            name: 'variantTitle',
+            title: 'Variant Title',
+            type: 'string',
+        },
+        {
+            name: 'variants',
+            title: 'Variants',
+            type: 'array',
+            description: 'drag default variant to top of array',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'imageBool',
+                            title: 'Would you like to add differrent images for this variant? - if left blank, default images will be used',
+                            type: 'boolean',
+                            description: 'recommended for aesthetic variants (colour/ finish)'
+                        },
+                        {
+                            name: 'variantValue',
+                            title: 'Variant Value',
+                            type: 'string',
+                        
+                        },
+                        {
+                            name: 'variantMainImage',
+                            title: 'Variant Main Image',
+                            type: 'image',
+                            hidden: ({parent}) => !parent?.imageBool,
+                            validation: Rule => Rule.custom((field, context) => (context.parent.imageBool && field === undefined) ? "This field must not be empty." : true),
+                            options: {
+                                hotspot: true
+                            }
+                        },
+                        {
+                            name: 'variantImages',
+                            title: 'Images',
+                            type: 'array',
+                            hidden: ({parent}) => !parent?.imageBool,
+                            validation: Rule => Rule.custom((field, context) => (context.parent.imageBool && field === undefined) ? "This field must not be empty." : true),
+                            description: 'must have a least one alternative image',
+                            of: [
+                              {
+                                type: 'image',
+                                options: {
+                                  hotspot: true,
+                                },
+                              },
+                            ],
+                        },
+                    ]
+                    
+                }
+            ]
+        },
+        {
             name: 'primaryVarTitle',
             title: 'Primary Variant Title',
             type: 'string',
             //hidden: ({document}) => !document?.variantBool,
         },
+        
         {
             name: 'primaryVariants',
             title: 'Primary variants',
@@ -176,6 +234,16 @@ export default {
                               },
                             ],
                         },
+                        {
+                            name: 'price',
+                            title: 'Price of One Product (without symbol)',
+                            type: 'number'
+                        },
+                        {
+                            name: 'inventory',
+                            title: 'Inventory',
+                            type: 'number'
+                        }
                     ]
                     
                 }

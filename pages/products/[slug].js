@@ -15,7 +15,7 @@ const Product = ({ product, products }) => {
   const { images, name, seoDescription, mainImage  } = product;
 
  //create new variants array that parses the varSelect and includes inventory, key and price
-  const variantsNew = !product.variantComboList ? [] : product.variantComboList.map((x) => {
+  const variantsNew = !product?.variantComboList ? [] : product.variantComboList.map((x) => {
     const parsedObj = JSON.parse(x.varSelect)
     return {...parsedObj, price: x.price, inventory: x.inventory, key: x._key}
 })
@@ -33,12 +33,14 @@ const Product = ({ product, products }) => {
       return obj.secVar === x
     })
   })
-
+  //state for primary variant handler
   const [imageIndex, setImageIndex] = useState(0);
   const [allImages, setAllImages] = useState([mainImage, ...images])
   const [secondaryVariantList, setSecondaryVariantList] = useState(defaultSecondaryVariantList);
   const [tertiaryVariantList, setTertiaryVariantList] = useState([]);
   const [primaryValue, setPrimaryValue] = useState(defaultVariantValue)
+
+  //filter for variant handler
 
   const filterVariants = (v) => {
     const filteredObjects = variantsNew.filter((obj) => obj.priVar === v)
@@ -50,7 +52,7 @@ const Product = ({ product, products }) => {
     setSecondaryVariantList(newSecondaryVariantList) 
   }
 
-    
+  //handles primary variant
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
     const newImages = v.variantImages
@@ -62,12 +64,14 @@ const Product = ({ product, products }) => {
 
       setAllImages([newImage, ...newImages]);
     }
-    if(value === defaultVariantValue) {
-      setSecondaryVariantList(defaultSecondaryVariantList)
-      setPrimaryValue(defaultVariantValue)
-    } else {
-      filterVariants(value)
-      setPrimaryValue(value)
+    if(!product?.boolObj?.oneVarBool) {
+      if(value === defaultVariantValue) {
+        setSecondaryVariantList(defaultSecondaryVariantList)
+        setPrimaryValue(defaultVariantValue)
+      } else {
+        filterVariants(value)
+        setPrimaryValue(value)
+      }
     }
     setTertiaryVariantList([])
   }

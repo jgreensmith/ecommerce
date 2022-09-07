@@ -18,7 +18,9 @@ const ProductDescription = ({props}) => {
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     const inventory = 13
-    const variants = product.variants ? product.variants : []
+    const variants = product?.variants ? product.variants : []
+    const oneVarBool = product?.boolObj?.oneVarBool
+    const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
     
     
     
@@ -83,42 +85,55 @@ const ProductDescription = ({props}) => {
                 </Div>
                 
                 <Div sx={{ p: 1}}>
-                <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
-                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.primaryVarTitle}</Typography>
-                    <FlexEven >
-                        {product.primaryVariants.map((x) => (
-                            <Button color='inherit' key={x._key} size='small' variant='outlined' sx={{m: 1}} onClick={() => variantHandler(x)} >
-                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x.variantValue}</Typography>
-                            </Button>
-                        ))}
-                    </FlexEven>
-                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.secondaryVarTitle}</Typography>
-                    <FlexEven >
-                        {secondaryVariantList.map((x, i) => (
-                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => secondaryVariantHandler(x)}>
-                                <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
-
-                            </Button>
-                        ))}
-                    </FlexEven>
-                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
-                    {!tertiaryVariantList.length ? 
-                        <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
-                            <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> Select {product.secondaryVarTitle}</Typography>
-                        </Button>
-                    :
-
+                {oneVarBool ? 
+                    <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
+                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.variantTitle}</Typography>
                         <FlexEven >
-                            {tertiaryVariantList.map((x, i) => (
-                                <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
+                            {variants.map((x) => (
+                                <Button color='inherit' key={x._key} size='small' variant='outlined' sx={{m: 1}} onClick={() => variantHandler(x)} >
+                                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x.variantValue}</Typography>
+                                </Button>
+                            ))}
+                        </FlexEven>
+                    </Paper>
+                :
+                    <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
+                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.primaryVarTitle}</Typography>
+                        <FlexEven >
+                            {primaryVariants.map((x) => (
+                                <Button color='inherit' key={x._key} size='small' variant='outlined' sx={{m: 1}} onClick={() => variantHandler(x)} >
+                                    <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x.variantValue}</Typography>
+                                </Button>
+                            ))}
+                        </FlexEven>
+                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.secondaryVarTitle}</Typography>
+                        <FlexEven >
+                            {secondaryVariantList.map((x, i) => (
+                                <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => secondaryVariantHandler(x)}>
                                     <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
 
                                 </Button>
                             ))}
                         </FlexEven>
-                    }
+                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
+                        {!tertiaryVariantList.length ? 
+                            <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
+                                <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> Select {product.secondaryVarTitle}</Typography>
+                            </Button>
+                        :
 
-                </Paper>
+                            <FlexEven >
+                                {tertiaryVariantList.map((x, i) => (
+                                    <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
+                                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
+
+                                    </Button>
+                                ))}
+                            </FlexEven>
+                        }
+
+                    </Paper>
+                }
 
                 </Div>
 
