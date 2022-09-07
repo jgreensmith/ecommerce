@@ -20,6 +20,7 @@ const ProductDescription = ({props}) => {
     const inventory = 13
     const variants = product?.variants ? product.variants : []
     const oneVarBool = product?.boolObj?.oneVarBool
+    const twoVarBool = product?.boolObj?.twoVarBool
     const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
     
     
@@ -115,21 +116,26 @@ const ProductDescription = ({props}) => {
                                 </Button>
                             ))}
                         </FlexEven>
-                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
-                        {!tertiaryVariantList.length ? 
-                            <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
-                                <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> Select {product.secondaryVarTitle}</Typography>
-                            </Button>
-                        :
-
-                            <FlexEven >
-                                {tertiaryVariantList.map((x, i) => (
-                                    <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
-                                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
-
+                        {
+                            !twoVarBool &&
+                            <React.Fragment>
+                                <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
+                                {!tertiaryVariantList.length ? 
+                                    <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
+                                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> Select {product.secondaryVarTitle}</Typography>
                                     </Button>
-                                ))}
-                            </FlexEven>
+                                :
+                                
+                                <FlexEven >
+                                        {tertiaryVariantList.map((x, i) => (
+                                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
+                                                <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
+
+                                            </Button>
+                                        ))}
+                                    </FlexEven>
+                                }
+                            </React.Fragment>
                         }
 
                     </Paper>
