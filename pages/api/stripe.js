@@ -19,13 +19,12 @@ export default async function handler(req, res) {
               { shipping_rate: "shr_1L3KSvJQzZCeROhUPWnMm2wN" },
             ],
             line_items: req.body.map((item) => {
-                const img = item.image[0].asset._ref;
-                const newImage = img.replace('image-', `https://cdn.sanity.io/images/${process.env.SANITY_STUDIO_API_PROJECT_ID}/production/`)
+                const img = item.mainImage.asset._ref;
+                const newImage = img.replace('image-', `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/`)
                 .replace("-webp", ".webp")
                 .replace("-png", ".png")
                 .replace("-jpg", ".jpg"); 
                  
-                //console.log(newImage);
 
                 return {
                   price_data: { 
@@ -50,6 +49,7 @@ export default async function handler(req, res) {
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
       res.status(200).json(session);
+
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
