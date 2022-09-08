@@ -14,10 +14,10 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 
 const ProductDescription = ({props}) => {
-    const { product, variantHandler, defaultVariantHandler, secondaryVariantList, secondaryVariantHandler, tertiaryVariantList } = props
+    const { product, variantHandler, selectVariant, secondaryVariantList, secondaryVariantHandler, tertiaryVariantList, newProduct } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
-    const inventory = 13
+    //const inventory = 13
     const variants = product?.variants ? product.variants : []
     const oneVarBool = product?.boolObj?.oneVarBool
     const twoVarBool = product?.boolObj?.twoVarBool
@@ -46,23 +46,30 @@ const ProductDescription = ({props}) => {
                         pr: 1
                         }}
                     >
-                        {currencyConverter.format(product.price) }
+                        {currencyConverter.format(newProduct.price) }
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    {inventory > 0 ? (
-                        <Alert icon={false} severity="success">
-                            In Stock
-                        </Alert>
-                    ) : (
-                        <Alert icon={false} severity="error">
-                            Unavailable
-                        </Alert>
-                    )}
+                    {
+                        !product.inventory && newProduct === product ? (
+                            <Alert icon={false} severity="info">
+                                Select Variant
+                            </Alert>
+                        ) : 
+                        newProduct.inventory > 0 ? (
+                            <Alert icon={false} severity="success">
+                                In Stock
+                            </Alert>
+                        ) : (
+                            <Alert icon={false} severity="error">
+                                Unavailable
+                            </Alert>
+                        )
+                    }
                 </Grid>
             </Grid>
         </Div>
-        {inventory > 0 && (
+        {newProduct.inventory > 0 && (
             <React.Fragment>
                 <Div sx={{ p: 1}}>
                     <FormControl fullWidth>
@@ -76,7 +83,7 @@ const ProductDescription = ({props}) => {
                             onChange={(e) => setQty(e.target.value)}
                             inputProps={{MenuProps: {disableScrollLock: true}}}
                         >
-                            {[...Array(inventory).keys()].map((x) => (
+                            {[...Array(newProduct.inventory).keys()].map((x) => (
                                 <MenuItem key={x + 1} value={x + 1}>
                                     {x + 1}
                                 </MenuItem>
@@ -84,7 +91,9 @@ const ProductDescription = ({props}) => {
                         </Select>
                     </FormControl>     
                 </Div>
-                
+            </React.Fragment>
+        )}
+        <Div sx={{ p: 1}}>
                 <Div sx={{ p: 1}}>
                 {oneVarBool ? 
                     <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
@@ -122,13 +131,13 @@ const ProductDescription = ({props}) => {
                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
                                 {!tertiaryVariantList.length ? 
                                     <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
-                                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> Select {product.secondaryVarTitle}</Typography>
+                                        <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> * Select {product.secondaryVarTitle} *</Typography>
                                     </Button>
                                 :
                                 
                                 <FlexEven >
                                         {tertiaryVariantList.map((x, i) => (
-                                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} >
+                                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => selectVariant(x)} >
                                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
 
                                             </Button>
@@ -144,21 +153,22 @@ const ProductDescription = ({props}) => {
                 </Div>
 
 
-                
-                <Div sx={{ p: 1}}>
-                    <Button
-                        type="button"
-                        fullWidth
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => onAdd(product, qty)}
-                    >
-                        Add to cart
-                    </Button>
-                </Div>
-            </React.Fragment>
-        )}
-        <Div sx={{ p: 1}}>
+                {
+                    newProduct.inventory > 0 &&
+               
+                        <Div sx={{ p: 1}}>
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => onAdd(newProduct, qty)}
+                            >
+                                Add to cart
+                            </Button>
+                        </Div>
+                }
+          
             
                 <PortableText
                     value={product.body}

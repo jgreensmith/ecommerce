@@ -9,15 +9,16 @@ import { urlFor } from '../../lib/sanity';
 import { getClient, sanityClient } from '../../lib/sanity.server';
 import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
-const Product = ({ product, products }) => {
+const Product = ({ product  }) => {
 
   //console.log({product, products});
   const { images, name, seoDescription, mainImage  } = product;
+  const [newProduct, setNewProduct] = useState(product)
 
  //create new variants array that parses the varSelect and includes inventory, key and price
   const variantsNew = !product?.variantComboList ? [] : product.variantComboList.map((x) => {
     const parsedObj = JSON.parse(x.varSelect)
-    return {...parsedObj, price: x.price, inventory: x.inventory, key: x._key}
+    return {...parsedObj, price: x.price, inventory: x.inventory, key: x._key }
 })
 
 // default value for primary variant (item dragged to top of array in sanity)
@@ -36,6 +37,7 @@ const Product = ({ product, products }) => {
   //state for primary variant handler
   const [imageIndex, setImageIndex] = useState(0);
   const [allImages, setAllImages] = useState([mainImage, ...images])
+  const [cartImage, setCartImage] = useState(mainImage)
   const [secondaryVariantList, setSecondaryVariantList] = useState(defaultSecondaryVariantList);
   const [tertiaryVariantList, setTertiaryVariantList] = useState([]);
   const [primaryValue, setPrimaryValue] = useState(defaultVariantValue)
@@ -60,9 +62,11 @@ const Product = ({ product, products }) => {
 
     if (!newImage && !newImages) {
       setAllImages([mainImage, ...images])
-    } else {
+      setCartImage(mainImage)
 
+    } else {
       setAllImages([newImage, ...newImages]);
+      setCartImage(newImage)
     }
     if(!product?.boolObj?.oneVarBool) {
       if(value === defaultVariantValue) {
@@ -74,9 +78,12 @@ const Product = ({ product, products }) => {
       }
     }
     setTertiaryVariantList([])
+    setNewProduct(product)
   }
+  //secondary variant handler logic
 
   const tertiaryVariants = product?.tertiaryVariants ? product.tertiaryVariants : []
+  const [secondaryValue, setSecondaryValue] = useState('')
 
   const secondaryVariantHandler = (v) => {
     const filteredObjects = variantsNew.filter((obj) => obj.secVar === v && obj.priVar === primaryValue)
@@ -86,12 +93,27 @@ const Product = ({ product, products }) => {
       })
     })
     setTertiaryVariantList(newTertiaryVariantList)
+    setSecondaryValue(v)
+  }
+  // select variant logic
+  const selectVariant = (v) => {
+    const foundObject = variantsNew.find((obj) => obj.tertVar === v && obj.secVar === secondaryValue && obj.priVar === primaryValue)
+    const selectedVariant = {
+      name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}, ${product.tertiaryVarTitle}: ${foundObject.tertVar}`,
+      _id: product._id.concat(`-${foundObject.key}`),
+      price: foundObject.price,
+      mainImage: cartImage,
+      inventory: foundObject.inventory
+
+    }
+    setNewProduct(selectedVariant)
+    console.log(selectedVariant)
   }
   
   
 
   //console.log(defaultVariantObjectList)
-  console.log(secondaryVariantList)
+  console.log(product)
 
   return (
     <Layout title={name} seo={seoDescription}>
@@ -140,7 +162,9 @@ const Product = ({ product, products }) => {
                 variantHandler,
                 secondaryVariantList,
                 secondaryVariantHandler,
-                tertiaryVariantList
+                tertiaryVariantList,
+                selectVariant,
+                newProduct
                 
               }}
                 
@@ -186,7 +210,7 @@ export const getStaticProps = async ({ params: { slug }, preview = false }) => {
   //console.log(product);
 
   return {
-    props: { product, products }
+    props: { product }
   }
 }
 

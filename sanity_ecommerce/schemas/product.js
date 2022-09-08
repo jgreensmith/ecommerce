@@ -112,7 +112,8 @@ export default {
             name: 'price',
             title: 'Price',
             type: 'number',
-            hidden: ({document}) => document?.boolObj?.oneVarBool || document?.boolObj?.twoVarBool || document?.boolObj?.threeVarBool
+            description: 'if this product has variants, this will be the default price'
+            //hidden: ({document}) => document?.boolObj?.oneVarBool || document?.boolObj?.twoVarBool || document?.boolObj?.threeVarBool
         },
         {
             name: 'inventory',
@@ -188,9 +189,10 @@ export default {
                         {
                             name: 'price',
                             title: 'Price of One Product (without symbol)',
-                            type: 'number'
+                            type: 'number',
+                            description: 'leave blank to use default price'
                         },
-                        {
+                        { 
                             name: 'inventory',
                             title: 'Inventory',
                             type: 'number'
@@ -322,7 +324,8 @@ export default {
                         {
                             name: 'price',
                             title: 'Price of One Product (without symbol)',
-                            type: 'number'
+                            type: 'number',
+                            description: 'leave blank to use default price'
                         },
                         {
                             name: 'inventory',
