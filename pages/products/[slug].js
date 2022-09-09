@@ -86,20 +86,30 @@ const Product = ({ product  }) => {
   const [secondaryValue, setSecondaryValue] = useState('')
 
   const secondaryVariantHandler = (v) => {
-    const filteredObjects = variantsNew.filter((obj) => obj.secVar === v && obj.priVar === primaryValue)
-    const newTertiaryVariantList = tertiaryVariants.filter((x) => {
-      return filteredObjects.some((obj) => {
-        return obj.tertVar === x
+    if(product?.boolObj?.twoVarBool) {
+      selectVariant(v)
+    } else {
+
+      const filteredObjects = variantsNew.filter((obj) => obj.secVar === v && obj.priVar === primaryValue)
+      const newTertiaryVariantList = tertiaryVariants.filter((x) => {
+        return filteredObjects.some((obj) => {
+          return obj.tertVar === x
+        })
       })
-    })
-    setTertiaryVariantList(newTertiaryVariantList)
-    setSecondaryValue(v)
+      setTertiaryVariantList(newTertiaryVariantList)
+      setSecondaryValue(v)
+    }
   }
   // select variant logic
   const selectVariant = (v) => {
-    const foundObject = variantsNew.find((obj) => obj.tertVar === v && obj.secVar === secondaryValue && obj.priVar === primaryValue)
+    let foundObject
+    if(product?.boolObj?.twoVarBool) {
+      foundObject = variantsNew.find((obj) => obj.secVar === v && obj.priVar === primaryValue)     
+    } else {
+      foundObject = variantsNew.find((obj) => obj.tertVar === v && obj.secVar === secondaryValue && obj.priVar === primaryValue)
+    }
     const selectedVariant = {
-      name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}, ${product.tertiaryVarTitle}: ${foundObject.tertVar}`,
+  name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}${product?.tertiaryVariants ? `, ${product.tertiaryVarTitle}: ${foundObject.tertVar}` : ''}`,
       _id: product._id.concat(`-${foundObject.key}`),
       price: foundObject.price,
       mainImage: cartImage,
@@ -112,8 +122,8 @@ const Product = ({ product  }) => {
   
   
 
-  //console.log(defaultVariantObjectList)
-  console.log(product)
+  console.log(newProduct)
+  //console.log(product)
 
   return (
     <Layout title={name} seo={seoDescription}>
