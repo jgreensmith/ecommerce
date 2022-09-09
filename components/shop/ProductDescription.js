@@ -9,12 +9,23 @@ import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 import { useState } from 'react';
 import styled, { css } from 'styled-components'
 import { Div, FlexEven, StyledList, StyledUnList } from '../../utils/styles';
-import { urlFor } from '../../lib/sanity';
+import { useTheme } from '@mui/material/styles';
 import { ConstructionOutlined } from '@mui/icons-material';
 
 
 const ProductDescription = ({props}) => {
-    const { product, variantHandler, selectVariant, secondaryVariantList, secondaryVariantHandler, tertiaryVariantList, newProduct, primaryValue, secondaryValue } = props
+    const { 
+        product, 
+        variantHandler, 
+        selectVariant, 
+        secondaryVariantList, 
+        secondaryVariantHandler, 
+        tertiaryVariantList, 
+        newProduct, 
+        primaryValue, 
+        secondaryValue,
+        tertiaryValue
+    } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     //const inventory = 13
@@ -22,10 +33,11 @@ const ProductDescription = ({props}) => {
     const oneVarBool = product?.boolObj?.oneVarBool
     const twoVarBool = product?.boolObj?.twoVarBool
     const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
+    const theme = useTheme()
 
     const checkEqual = (v, check) => {
         if(v === check) {
-            return '5px solid #28c3d1';
+            return `5px solid ${theme.palette.secondary.main}`;
         } else {
             return '';
         }
@@ -148,14 +160,14 @@ const ProductDescription = ({props}) => {
                             <React.Fragment>
                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
                                 {!tertiaryVariantList.length ? 
-                                    <StyledButton color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
+                                    <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
                                         <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> * Select {product.secondaryVarTitle} *</Typography>
-                                    </StyledButton>
+                                    </Button>
                                 :
                                 
                                 <FlexEven >
                                         {tertiaryVariantList.map((x, i) => (
-                                            <StyledButton color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => selectVariant(x)} >
+                                            <StyledButton key={i} isActive={checkEqual(x, tertiaryValue)} onClick={() => selectVariant(x)} >
                                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
 
                                             </StyledButton>

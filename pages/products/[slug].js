@@ -41,6 +41,8 @@ const Product = ({ product  }) => {
   const [secondaryVariantList, setSecondaryVariantList] = useState(defaultSecondaryVariantList);
   const [tertiaryVariantList, setTertiaryVariantList] = useState([]);
   const [primaryValue, setPrimaryValue] = useState(defaultVariantValue)
+  const [secondaryValue, setSecondaryValue] = useState('')
+  const [tertiaryValue, setTertiaryValue] = useState('')
 
   //filter for variant handler
 
@@ -88,11 +90,12 @@ const Product = ({ product  }) => {
       setNewProduct(selectedSingleVariant)
     }
     setPrimaryValue(value)
+    setSecondaryValue('')
+    setTertiaryValue('')
   }
   //secondary variant handler logic - if onl 2 variants, selects variant, else creates tertiary list
 
   const tertiaryVariants = product?.tertiaryVariants ? product.tertiaryVariants : []
-  const [secondaryValue, setSecondaryValue] = useState('')
 
   const secondaryVariantHandler = (v) => {
     if(product?.boolObj?.twoVarBool) {
@@ -108,6 +111,7 @@ const Product = ({ product  }) => {
       setTertiaryVariantList(newTertiaryVariantList)
     }
     setSecondaryValue(v)
+    setTertiaryValue('')
   }
   // select variant logic - find object depending on 2 or 3 variants
   const selectVariant = (v) => {
@@ -116,6 +120,7 @@ const Product = ({ product  }) => {
       foundObject = variantsNew.find((obj) => obj.secVar === v && obj.priVar === primaryValue)     
     } else {
       foundObject = variantsNew.find((obj) => obj.tertVar === v && obj.secVar === secondaryValue && obj.priVar === primaryValue)
+      setTertiaryValue(v)
     }
     const selectedVariant = {
       name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}${product?.tertiaryVariants ? `, ${product.tertiaryVarTitle}: ${foundObject.tertVar}` : ''}`,
@@ -185,7 +190,8 @@ const Product = ({ product  }) => {
                 selectVariant,
                 newProduct,
                 primaryValue,
-                secondaryValue
+                secondaryValue,
+                tertiaryValue
                 
               }}
                 
