@@ -43,6 +43,7 @@ const Product = ({ product  }) => {
   const [primaryValue, setPrimaryValue] = useState(defaultVariantValue)
   const [secondaryValue, setSecondaryValue] = useState('')
   const [tertiaryValue, setTertiaryValue] = useState('')
+  
 
   //filter for variant handler
 

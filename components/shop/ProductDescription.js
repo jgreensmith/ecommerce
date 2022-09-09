@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PortableText } from '@portabletext/react';
 
 import { Alert, Button, FormControl, Grid, InputLabel, Menu, MenuItem, MenuList, Paper, Select, Typography } from '@mui/material';
@@ -6,11 +6,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
-import { useState } from 'react';
 import styled, { css } from 'styled-components'
 import { Div, FlexEven, StyledList, StyledUnList } from '../../utils/styles';
 import { useTheme } from '@mui/material/styles';
 import { ConstructionOutlined } from '@mui/icons-material';
+import { useEffect } from 'react';
 
 
 const ProductDescription = ({props}) => {
@@ -34,6 +34,21 @@ const ProductDescription = ({props}) => {
     const twoVarBool = product?.boolObj?.twoVarBool
     const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
     const theme = useTheme()
+    const [isVariants, setIsVariants] = useState(false)
+    
+    useEffect(() => {
+        if(product.variants) {
+            return setIsVariants(true)
+        } else if(product.variantComboList) {
+            return setIsVariants(true)
+        } else {
+            return setIsVariants(false)
+        }
+    }, [])
+    
+    
+  
+  
 
     const checkEqual = (v, check) => {
         if(v === check) {
@@ -52,7 +67,7 @@ const ProductDescription = ({props}) => {
             border: 5px solid #28c3d1
         }
     `
-    console.log(variants)
+    console.log(isVariants)
     
     
   return (
@@ -80,21 +95,22 @@ const ProductDescription = ({props}) => {
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    {
+                    { isVariants ? 
                         !product.inventory && newProduct === product ? (
-                            <Alert icon={false} severity="info">
-                                Select Variant
-                            </Alert>
+                            <Alert icon={false} severity="info">Select Variant</Alert>
                         ) : 
                         newProduct.inventory > 0 ? (
-                            <Alert icon={false} severity="success">
-                                In Stock
-                            </Alert>
+                            <Alert icon={false} severity="success">In Stock</Alert>
                         ) : (
-                            <Alert icon={false} severity="error">
-                                Unavailable
-                            </Alert>
+                            <Alert icon={false} severity="error">Unavailable</Alert>
                         )
+                    : 
+                        newProduct.inventory > 0 ? (
+                            <Alert icon={false} severity="success">In Stock</Alert>
+                        ) : (
+                            <Alert icon={false} severity="error">Unavailable</Alert>
+                        )
+
                     }
                 </Grid>
             </Grid>
@@ -124,6 +140,8 @@ const ProductDescription = ({props}) => {
             </React.Fragment>
         )}
         <Div sx={{ p: 1}}>
+            {isVariants &&
+            
                 <Div sx={{ p: 1}}>
                 {oneVarBool ? 
                     <Paper elevation={0} sx={{ width: 350, maxWidth: '100%' }}>
@@ -182,7 +200,7 @@ const ProductDescription = ({props}) => {
 
                 </Div>
 
-
+            }
                 {
                     newProduct.inventory > 0 &&
                
