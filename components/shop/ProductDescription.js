@@ -7,14 +7,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 import { useState } from 'react';
-import Link from 'next/link';
+import styled, { css } from 'styled-components'
 import { Div, FlexEven, StyledList, StyledUnList } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
 import { ConstructionOutlined } from '@mui/icons-material';
 
 
 const ProductDescription = ({props}) => {
-    const { product, variantHandler, selectVariant, secondaryVariantList, secondaryVariantHandler, tertiaryVariantList, newProduct } = props
+    const { product, variantHandler, selectVariant, secondaryVariantList, secondaryVariantHandler, tertiaryVariantList, newProduct, primaryValue, secondaryValue } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     //const inventory = 13
@@ -22,7 +22,25 @@ const ProductDescription = ({props}) => {
     const oneVarBool = product?.boolObj?.oneVarBool
     const twoVarBool = product?.boolObj?.twoVarBool
     const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
-    
+
+    const checkEqual = (v, check) => {
+        if(v === check) {
+            return '5px solid #28c3d1';
+        } else {
+            return '';
+        }
+    }
+
+
+    const StyledButton = styled.button`
+        margin: 8px;
+        padding: 4px 15px;
+        border: ${props => props.isActive};
+        &:focus {
+            border: 5px solid #28c3d1
+        }
+    `
+    console.log(variants)
     
     
   return (
@@ -100,9 +118,9 @@ const ProductDescription = ({props}) => {
                     <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.variantTitle}</Typography>
                         <FlexEven >
                             {variants.map((x) => (
-                                <Button color='inherit' key={x._key} size='small' variant='outlined' sx={{m: 1}} onClick={() => variantHandler(x)} >
+                                <StyledButton key={x._key} isActive={checkEqual(x.variantValue, primaryValue)} onClick={() => variantHandler(x)} >
                                     <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x.variantValue}</Typography>
-                                </Button>
+                                </StyledButton>
                             ))}
                         </FlexEven>
                     </Paper>
@@ -111,18 +129,18 @@ const ProductDescription = ({props}) => {
                         <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.primaryVarTitle}</Typography>
                         <FlexEven >
                             {primaryVariants.map((x) => (
-                                <Button color='inherit' key={x._key} size='small' variant='outlined' sx={{m: 1}} onClick={() => variantHandler(x)} >
+                                <StyledButton key={x._key} isActive={checkEqual(x.variantValue, primaryValue)} onClick={() => variantHandler(x)} >
                                     <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x.variantValue}</Typography>
-                                </Button>
+                                </StyledButton>
                             ))}
                         </FlexEven>
                         <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.secondaryVarTitle}</Typography>
                         <FlexEven >
                             {secondaryVariantList.map((x, i) => (
-                                <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => secondaryVariantHandler(x)}>
+                                <StyledButton  key={i} size='small' isActive={checkEqual(x, secondaryValue)} onClick={() => secondaryVariantHandler(x)}>
                                     <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
 
-                                </Button>
+                                </StyledButton>
                             ))}
                         </FlexEven>
                         {
@@ -130,17 +148,17 @@ const ProductDescription = ({props}) => {
                             <React.Fragment>
                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {product.tertiaryVarTitle}</Typography>
                                 {!tertiaryVariantList.length ? 
-                                    <Button color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
+                                    <StyledButton color='inherit' size='small' variant='text' sx={{m: 1}} disabled={true}>
                                         <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> * Select {product.secondaryVarTitle} *</Typography>
-                                    </Button>
+                                    </StyledButton>
                                 :
                                 
                                 <FlexEven >
                                         {tertiaryVariantList.map((x, i) => (
-                                            <Button color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => selectVariant(x)} >
+                                            <StyledButton color='inherit' key={i} size='small' variant='outlined' sx={{m: 1}} onClick={() => selectVariant(x)} >
                                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}> {x}</Typography>
 
-                                            </Button>
+                                            </StyledButton>
                                         ))}
                                     </FlexEven>
                                 }

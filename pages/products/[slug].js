@@ -71,10 +71,8 @@ const Product = ({ product  }) => {
     if(!product?.boolObj?.oneVarBool) {
       if(value === defaultVariantValue) {
         setSecondaryVariantList(defaultSecondaryVariantList)
-        setPrimaryValue(defaultVariantValue)
       } else {
         filterVariants(value)
-        setPrimaryValue(value)
       }
       setTertiaryVariantList([])
       setNewProduct(product)
@@ -88,8 +86,8 @@ const Product = ({ product  }) => {
 
       }
       setNewProduct(selectedSingleVariant)
-      
     }
+    setPrimaryValue(value)
   }
   //secondary variant handler logic - if onl 2 variants, selects variant, else creates tertiary list
 
@@ -108,8 +106,8 @@ const Product = ({ product  }) => {
         })
       })
       setTertiaryVariantList(newTertiaryVariantList)
-      setSecondaryValue(v)
     }
+    setSecondaryValue(v)
   }
   // select variant logic - find object depending on 2 or 3 variants
   const selectVariant = (v) => {
@@ -185,7 +183,9 @@ const Product = ({ product  }) => {
                 secondaryVariantHandler,
                 tertiaryVariantList,
                 selectVariant,
-                newProduct
+                newProduct,
+                primaryValue,
+                secondaryValue
                 
               }}
                 
