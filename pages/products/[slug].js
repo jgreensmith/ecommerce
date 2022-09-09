@@ -54,7 +54,7 @@ const Product = ({ product  }) => {
     setSecondaryVariantList(newSecondaryVariantList) 
   }
 
-  //handles primary variant
+  //handles primary variant if only one variant, creates a new product, else makes new secondary list
   const variantHandler = (v) => {
     const newImage = v.variantMainImage
     const newImages = v.variantImages
@@ -76,11 +76,22 @@ const Product = ({ product  }) => {
         filterVariants(value)
         setPrimaryValue(value)
       }
+      setTertiaryVariantList([])
+      setNewProduct(product)
+    } else {
+      const selectedSingleVariant = {
+        name: `${product.name} - ${product.variantTitle}: ${value}`,
+        _id: product._id.concat(`-${v._key}`),
+        price: v.price ? v.price : product.price,
+        mainImage: newImage ? newImage : mainImage,
+        inventory: v.inventory
+
+      }
+      setNewProduct(selectedSingleVariant)
+      
     }
-    setTertiaryVariantList([])
-    setNewProduct(product)
   }
-  //secondary variant handler logic
+  //secondary variant handler logic - if onl 2 variants, selects variant, else creates tertiary list
 
   const tertiaryVariants = product?.tertiaryVariants ? product.tertiaryVariants : []
   const [secondaryValue, setSecondaryValue] = useState('')
@@ -100,7 +111,7 @@ const Product = ({ product  }) => {
       setSecondaryValue(v)
     }
   }
-  // select variant logic
+  // select variant logic - find object depending on 2 or 3 variants
   const selectVariant = (v) => {
     let foundObject
     if(product?.boolObj?.twoVarBool) {
@@ -109,9 +120,9 @@ const Product = ({ product  }) => {
       foundObject = variantsNew.find((obj) => obj.tertVar === v && obj.secVar === secondaryValue && obj.priVar === primaryValue)
     }
     const selectedVariant = {
-  name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}${product?.tertiaryVariants ? `, ${product.tertiaryVarTitle}: ${foundObject.tertVar}` : ''}`,
+      name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}${product?.tertiaryVariants ? `, ${product.tertiaryVarTitle}: ${foundObject.tertVar}` : ''}`,
       _id: product._id.concat(`-${foundObject.key}`),
-      price: foundObject.price,
+      price: foundObject.price ? foundObject.price : product.price,
       mainImage: cartImage,
       inventory: foundObject.inventory
 
@@ -123,7 +134,7 @@ const Product = ({ product  }) => {
   
 
   console.log(newProduct)
-  //console.log(product)
+  //console.log(product.variants)
 
   return (
     <Layout title={name} seo={seoDescription}>
