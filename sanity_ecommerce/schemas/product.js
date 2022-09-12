@@ -1,6 +1,5 @@
 import { FiShoppingBag } from "react-icons/fi";
 import Variants from "../src/Variants";
-import VariantTitle from "../src/VariantTitle";
 
 const hideUnless = (x, y) => {
     if(x) {
@@ -310,12 +309,6 @@ export default {
                     type: 'object',
                     fields: [
                         {
-                            name: 'newValue',
-                            type: 'string',
-                            //readOnly: true,
-                            inputComponent: VariantTitle
-                        },
-                        {
                             name: 'varSelect',
                             title: 'Select Variant Combination',
                             type: 'string',
@@ -332,7 +325,21 @@ export default {
                             title: 'Inventory',
                             type: 'number'
                         }
-                    ]
+                    ],
+                    preview : {
+                        select: {
+                            title: 'varSelect',
+                            inventory: 'inventory'
+                        },
+                        prepare(selection) {
+                            const parsed = JSON.parse(selection.title)
+                            const variantTitle = `${parsed.priVar}, ${parsed.secVar}${parsed.tertVar ? ', ' : ''}${parsed.tertVar ? parsed.tertVar : ''}`
+                            return {
+                                title: variantTitle,
+                                subtitle: `${selection.inventory} in stock`
+                            }
+                        }
+                    }
                 }
             ],
             
