@@ -47,7 +47,7 @@ const Success = () => {
       getOrder(sessionId);
     }, [sessionId]);
 
-    //console.log(order);
+    //console.log(order)
   return (
     <Layout title="success">
 
