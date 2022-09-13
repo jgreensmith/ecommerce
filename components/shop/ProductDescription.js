@@ -84,6 +84,7 @@ const ProductDescription = ({props}) => {
         <Div sx={{ p: 1}}>
             <Grid container>
                 <Grid item xs={6}>
+                    { newProduct.price && 
                     <Typography 
                         sx={{
                         fontWeight: 700,
@@ -93,6 +94,7 @@ const ProductDescription = ({props}) => {
                     >
                         {currencyConverter.format(newProduct.price) }
                     </Typography>
+                    }
                 </Grid>
                 <Grid item xs={6}>
                     { isVariants ? 
