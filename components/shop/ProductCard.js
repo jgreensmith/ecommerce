@@ -13,12 +13,16 @@ import { useStateContext } from '../../utils/context/StateContext';
 const ProductCard = ({product}) => {
     const { currencyConverter } = useCurrencyContext();
     const { onAdd, setQty, qty } = useStateContext();
+    const oneVarArr = !product?.variants ? [] : product.variants.map((x) =>  x.price)
+    const twoThreeVarArr = !product?.variantComboList ? [] : product.variantComboList.map((x) => x.price)
+    const oneVarLowest = Math.min(...oneVarArr)
+    const twoThreeVarLowest = Math.min(...twoThreeVarArr)
 
     const addOne = (x) => {
         setQty(1);
         onAdd(x, qty);
     };
-
+    //console.log(oneVarLowest)
   return (
     <Slide
      direction="up" in={true}>
@@ -34,16 +38,20 @@ const ProductCard = ({product}) => {
                         >
                         {product.name}
                     </Typography>
-                    <Typography 
-                        variant='subtitle1' 
-                        align='right'
-                        sx={{
-                            color: 'primary.text',
-                            pt: '3px'
-                        }}
-                        >
-                        {currencyConverter.format(product.price)}
-                    </Typography>
+                    {
+                        product.price ? 
+                            <Typography variant='subtitle1' align='right'sx={{color: 'primary.text',pt: '3px'}}>
+                                {currencyConverter.format(product.price)}
+                            </Typography>
+                        : product?.variants ?
+                            <Typography variant='subtitle1' align='right'sx={{color: 'primary.text',pt: '3px'}}>
+                                From {currencyConverter.format(oneVarLowest)}
+                            </Typography>
+                        :
+                            <Typography variant='subtitle1' align='right'sx={{color: 'primary.text',pt: '3px'}}>
+                                From {currencyConverter.format(twoThreeVarLowest)}
+                            </Typography>
+                    }
                 </FlexSpace>
             </CardBanner>
             <PortfolioCardBody>
@@ -64,11 +72,13 @@ const ProductCard = ({product}) => {
                 }}
                 >
                 <FlexSpace sx={{p: 1}}>                                      
-                    <Tooltip title="Add to Basket">  
-                        <IconButton color='secondary' onClick={() => addOne(product)}>
-                            <AddShoppingCartIcon />
-                        </IconButton>
-                    </Tooltip>
+                    { product.price &&
+                        <Tooltip title="Add to Basket">  
+                            <IconButton color='secondary' onClick={() => addOne(product)}>
+                                <AddShoppingCartIcon />
+                            </IconButton>
+                        </Tooltip>
+                    }
                     
                     
                         <Button disableElevation color='secondary' href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
