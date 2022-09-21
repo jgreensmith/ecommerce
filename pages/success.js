@@ -42,14 +42,21 @@ const Success = () => {
 
      const updated = await Promise.all(
         order?.items?.data.map(async (item) => {
+          let id
+          let key
           const fullId = item.price.product.metadata.product_id
-          const idArr = fullId.split('_')
-          const id = idArr[0]
-          const key = idArr[1]
-          const quan = item.quantity
+          if (fullId.includes("_")) {
+            const idArr = fullId.split('_')
+            id = idArr[0]
+            key = idArr[1]
+          } else {
+            id = fullId
+            key = ""
+          }
+          const quantity = item.quantity
           await fetch('/api/manage-inventory', {
             method: 'POST',
-            body: JSON.stringify({id, key, quan})
+            body: JSON.stringify({id, key, quantity})
           })
           
         }) 

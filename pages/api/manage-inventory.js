@@ -1,13 +1,15 @@
 import { inventoryClient } from "../../lib/sanity.server"
 
+
 export default async function manageInventory(req, res) {
     try {
-        const { id, key, quan } = JSON.parse(req.body)
+        const { id, key, quantity } = JSON.parse(req.body)
+        const query = key === "" ? `inventory` : `variantComboList[_key == "${key}"].inventory`
 
          await inventoryClient
             .patch(id)
             .dec({
-                [`variantComboList[_key == "${key}"].inventory`] : quan
+                [query] : quantity
             })
             .commit()
         return res.status(200).json({message: 'works'})
