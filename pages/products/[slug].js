@@ -82,7 +82,7 @@ const Product = ({ product  }) => {
     } else {
       const selectedSingleVariant = {
         name: `${product.name} - ${product.variantTitle}: ${value}`,
-        _id: product._id.concat(`-${v._key}`),
+        _id: product._id.concat(`_${v._key}`),
         price: v.price ? v.price : product.price,
         mainImage: newImage ? newImage : mainImage,
         inventory: v.inventory
@@ -125,7 +125,7 @@ const Product = ({ product  }) => {
     }
     const selectedVariant = {
       name: `${product.name} - ${product.primaryVarTitle}: ${foundObject.priVar}, ${product.secondaryVarTitle}: ${foundObject.secVar}${product?.tertiaryVariants ? `, ${product.tertiaryVarTitle}: ${foundObject.tertVar}` : ''}`,
-      _id: product._id.concat(`-${foundObject.key}`),
+      _id: product._id.concat(`_${foundObject.key}`),
       price: foundObject.price ? foundObject.price : product.price,
       mainImage: cartImage,
       inventory: foundObject.inventory

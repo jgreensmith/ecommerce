@@ -22,7 +22,6 @@ const Success = () => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-
     const getOrder = async (id) => {
        if (id) {
             const data = await fetch(`/api/success?session_id=${id}`, {
@@ -33,9 +32,31 @@ const Success = () => {
 
             const newDataArr = [data];
             setOrder(newDataArr[0]);
+            updateInventory(newDataArr[0])
         } 
 
 
+    }
+
+    const updateInventory = async (order) => {
+
+     const updated = await Promise.all(
+        order?.items?.data.map(async (item) => {
+          const fullId = item.price.product.metadata.product_id
+          const idArr = fullId.split('_')
+          const id = idArr[0]
+          const key = idArr[1]
+          const quan = item.quantity
+          await fetch('/api/manage-inventory', {
+            method: 'POST',
+            body: JSON.stringify({id, key, quan})
+          })
+          
+        }) 
+      )
+      
+       return updated 
+      
     }
     
 
@@ -47,7 +68,21 @@ const Success = () => {
       getOrder(sessionId);
     }, [sessionId]);
 
-    //console.log(order)
+    
+      // const handleInventory = () => {
+      //   order?.items.data.map((item) => {
+      //     let fullId = item.price.product.metadata.product_id
+      //     const idArr = fullId.split('_')
+      //     const id = idArr[0]
+      //     const key = idArr[1]
+      //     return  updateInventory(id, key, item.quantity)
+          
+          
+      //   })
+      // }
+    
+
+    console.log(order)
   return (
     <Layout title="success">
 
@@ -67,6 +102,9 @@ const Success = () => {
           <Button variant='contained' sx={{m:3}} onClick={() => setModalOpen(true)}>
               view order details
           </Button>
+          {/* <Button variant='contained' sx={{m:3}} onClick={handleInventory()}>
+              inventory
+          </Button> */}
           
           
           <Link href="/products" passHref>
