@@ -5,13 +5,21 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import Layout from '../../components/common/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
-import { urlFor } from '../../lib/sanity';
+import { urlFor, usePreviewSubscription } from '../../lib/sanity';
 import { getClient, sanityClient } from '../../lib/sanity.server';
 import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
-const Product = ({ product  }) => {
+const Product = ({ data = {}, preview  }) => {
 
-  //console.log({product, products});
+  const slug = data?.product?.slug
+
+  const {data: product } = usePreviewSubscription(data?.query, {
+    params: { slug },
+    initialData: data,
+    enabled: preview && slug
+  })
+
+  console.log({product});
   const { images, name, seoDescription, mainImage  } = product;
   const [newProduct, setNewProduct] = useState(product)
 
@@ -231,14 +239,14 @@ export const getStaticProps = async ({ params: { slug }, preview = false }) => {
   const query = groq`*[_type == "product" && slug.current == '${slug}'][0]`;
   const product = await getClient(preview).fetch(query);
 
-  const productsQuery = groq`*[_type == "product" ]`;
-  const products = await getClient(preview).fetch(productsQuery);
+  if (!product) return {notFound: true}
 
-
-  //console.log(product);
 
   return {
-    props: { product }
+    props: { 
+      preview,
+      data: {product, query} 
+    }
   }
 }
 

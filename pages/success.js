@@ -38,6 +38,7 @@ const Success = () => {
 
     }
 
+    //update inventory with every item in cart
     const updateInventory = async (order) => {
 
      const updated = await Promise.all(
@@ -76,20 +77,9 @@ const Success = () => {
     }, [sessionId]);
 
     
-      // const handleInventory = () => {
-      //   order?.items.data.map((item) => {
-      //     let fullId = item.price.product.metadata.product_id
-      //     const idArr = fullId.split('_')
-      //     const id = idArr[0]
-      //     const key = idArr[1]
-      //     return  updateInventory(id, key, item.quantity)
-          
-          
-      //   })
-      // }
     
 
-    console.log(order)
+    //console.log(order)
   return (
     <Layout title="success">
 
