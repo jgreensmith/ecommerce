@@ -98,7 +98,7 @@ const ProductDescription = ({props}) => {
                 </Grid>
                 <Grid item xs={6}>
                     { isVariants ? 
-                        !product.inventory && newProduct === product ? (
+                        !product.inventory || newProduct === product ? (
                             <Alert icon={false} severity="info">Select Variant</Alert>
                         ) : 
                         newProduct.inventory > 0 ? (
