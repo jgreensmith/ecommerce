@@ -9,15 +9,35 @@ import { urlFor, usePreviewSubscription } from '../../lib/sanity';
 import { getClient, sanityClient } from '../../lib/sanity.server';
 import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
-const Product = ({ data = {}, preview  }) => {
+function filterDataToSingleItem(data, preview) {
+  if (!Array.isArray(data)) {
+    return data
+  }
+
+  if (data.length === 1) {
+    return data[0]
+  }
+
+  if (preview) {
+    return data.find((item) => item._id.startsWith(`drafts.`)) || data[0]
+  }
+
+  return data[0]
+}
+
+
+const Product = ({ data, preview  }) => {
 
   const slug = data?.product?.slug
+  //const product = data?.product
 
-  const {data: product } = usePreviewSubscription(data?.query, {
+  const {data: previewProduct } = usePreviewSubscription(data?.query, {
     params: { slug },
-    initialData: data,
+    initialData: data?.product,
     enabled: preview && slug
   })
+  const product = filterDataToSingleItem(previewProduct, preview)
+
 
   console.log({product});
   const { images, name, seoDescription, mainImage  } = product;
@@ -237,9 +257,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug }, preview = false }) => {
   const query = groq`*[_type == "product" && slug.current == '${slug}'][0]`;
-  const product = await getClient(preview).fetch(query);
+  const data = await getClient(preview).fetch(query);
 
-  if (!product) return {notFound: true}
+  if (!data) return {notFound: true}
+
+  const product = filterDataToSingleItem(data, preview)
 
 
   return {
