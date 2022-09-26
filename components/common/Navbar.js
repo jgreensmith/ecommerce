@@ -28,7 +28,6 @@ import { Box } from '@mui/system';
 import { LogoImg, MainButton } from '../../utils/styles';
 import Cart from '../shop/Cart';
 import { useStateContext } from '../../utils/context/StateContext';
-import SettingsContext from '../../utils/context/SettingsContext';
 
 
 
@@ -52,12 +51,11 @@ const cartWidth = 500;
 
 const Navbar = (props) => {
 
-    const { window } = props;
+    const { window, settings } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
     const { totalQuantities } = useStateContext();
-    const { settings } = useContext(SettingsContext);
-    const companyName = settings[0].title;
+    const companyName = settings?.title;
 
 
 

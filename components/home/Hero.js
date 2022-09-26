@@ -28,7 +28,7 @@ const params = {
     }
 };
 
-const Hero = ({ heroData }) => {
+const Hero = ({ heroData, settings }) => {
 
     
     return (
@@ -43,7 +43,7 @@ const Hero = ({ heroData }) => {
                             backgroundImage: `url("${urlFor(hero).quality(90).fit("min").url()}")`
                         }} 
                     >
-                        <Links />
+                        <Links settings={settings} />
                     </HeroSlide>
                 </SwiperSlide>
             ))}

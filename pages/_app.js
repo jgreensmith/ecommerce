@@ -9,19 +9,42 @@ import { CurrencyContext } from '../utils/context/CurrencyContext';
 import SettingsContext from '../utils/context/SettingsContext';
 import { getClient } from '../lib/sanity.server';
 import { groq } from 'next-sanity';
+import { usePreviewSubscription } from '../lib/sanity';
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
+// function filterDataToSingleItem(data, preview) {
+//   if (!Array.isArray(data)) {
+//     return data
+//   }
+
+//   if (data.length === 1) {
+//     return data[0]
+//   }
+
+//   if (preview) {
+//     return data.find((item) => item._id.startsWith(`drafts.`)) || data[0]
+//   }
+
+//   return data[0]
+// }
+
 
 export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps, settings } = props;
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   
+  // const {data: previewSettings } = usePreviewSubscription(data?.query, {
+  //   initialData: data?.settings,
+  //   enabled: preview
+  // })
+  // const settings = filterDataToSingleItem(previewSettings, preview)
  
+  // console.log(settings)
   return (
     <CacheProvider value={emotionCache}>
-          <SettingsContext.Provider value={{ settings }} >
+          {/* <SettingsContext.Provider value={{ settings }} > */}
           <Head>
             <meta name="viewport" content="initial-scale=1, width=device-width" />
           </Head>
@@ -32,7 +55,7 @@ export default function MyApp(props) {
             </CurrencyContext>
           </StateContext>
           
-    </SettingsContext.Provider>
+    {/* </SettingsContext.Provider> */}
         </CacheProvider>
   );
 }
@@ -43,14 +66,20 @@ MyApp.propTypes = {
   pageProps: PropTypes.object.isRequired,
 };
 
-MyApp.getInitialProps = async ({ preview = false }) => {
-  const query = groq`*[_type == "siteSettings"]`
-  const settings = await getClient(preview).fetch(query)
+// MyApp.getInitialProps = async ({ preview = false }) => {
+//   const query = groq`*[_type == "siteSettings"]`
+//   const data = await getClient(preview).fetch(query)
 
-  if (!settings) return {notFound: true}
+//   if (!data) return {notFound: true}
 
-  return {
-       settings 
-  }
+//   const settings = filterDataToSingleItem(data, preview)
+
+
+//   return { 
+//     props: { 
+//       preview, 
+//       data: { settings, query }
+//     } 
+// }
   
-};
+// };

@@ -8,10 +8,10 @@ import SettingsContext from "../../utils/context/SettingsContext";
 import { FaTiktok } from "react-icons/fa";
 
 
-export default function Footer() {
-    const { settings } = useContext(SettingsContext);
-    const companyName = settings[0].title;
-    const contact = settings[0].contactObj;
+export default function Footer({settings}) {
+    //const { settings } = useContext(SettingsContext);
+    const companyName = settings.title;
+    const contact = settings.contactObj;
     const email = contact.email;
     const subject = contact.subject;
     const insta = contact.instagram;

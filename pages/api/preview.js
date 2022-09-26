@@ -1,4 +1,14 @@
-export default function preview(req, res) {
+import { previewClient } from "../../lib/sanity.server"
+
+function redirectToPreview(res, Location) {
+  // Enable Preview Mode by setting the cookies
+  res.setPreviewData({})
+  // Redirect to a preview capable route
+  res.writeHead(307, { Location })
+  res.end()
+}
+
+export default async function preview(req, res) {
     if (!req?.query?.secret) {
       return res.status(401).json({message: 'No secret token'})
     }
@@ -10,15 +20,20 @@ export default function preview(req, res) {
     }
   
     if (!req.query.slug) {
-      return res.status(401).json({message: 'No slug'})
+      return redirectToPreview(res, '/') 
+    }
+    
+    //check if slug exists
+    const productQuery = `*[_type == "product" && slug.current == $slug][0]`
+    const product = await previewClient.fetch(productQuery, {
+      slug: req.query.slug
+    })
+
+    if(!product) {
+      return res.status(401).json({message: 'Invalid slug'})
     }
   
-    // Enable Preview Mode by setting the cookies
-    res.setPreviewData({})
-  
-    // Redirect to the path from the fetched post
-    // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-    res.writeHead(307, {Location: `/products/${req?.query?.slug}` ?? `/`})
-  
-    return res.end()
+     // Redirect to the path from the fetched post
+  // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
+  redirectToPreview(res, `/products/${req?.query?.slug}`)
 }

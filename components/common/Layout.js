@@ -1,18 +1,28 @@
 import React, { useContext } from 'react';
 import Head  from 'next/head';
+import useSWR from 'swr'
 import { Box, ThemeProvider } from '@mui/system';
 import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import SettingsContext from '../../utils/context/SettingsContext';
 
 const Layout = ({ children, title, seo }) => {
-    const { settings } = useContext(SettingsContext);
-    // //themes chosen from default palette
     
-    const companyName = settings[0].title;
-    const customColors = settings[0].colorThemes;
-    const chosenPalette = JSON.parse(settings[0].defaultThemes);
+    
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+    const { data, error } = useSWR('/api/sanity-settings', fetcher)
+
+    if (error) return <div>Failed to load</div>
+    if (!data) return <div>Loading...</div>
+
+
+    //console.log(settings)
+    console.log(error)
+    //themes chosen from default palette
+    
+    const companyName = data[0]?.title;
+    const customColors = data[0]?.colorThemes;
+    const chosenPalette = JSON.parse(data[0]?.defaultThemes);
 
     const contrastText = (h, dark, light) => {
       //convert hex to rgb
@@ -175,6 +185,7 @@ const Layout = ({ children, title, seo }) => {
                   name="viewport"
                   content="width=device-width, initial-scale=1, shrink-to-fit=no"
               />
+              <link rel="preload" href="/api/sanity-settings" as="fetch" crossorigin="anonymous"></link>
               <meta name="title" property="og:title" content={`${title} ${companyName}`} />
               <meta name="description" property="og:description" content={seo} />
             </Head>
@@ -183,11 +194,11 @@ const Layout = ({ children, title, seo }) => {
 
                 <CssBaseline />
 
-                <Navbar />
+                <Navbar settings={data[0]} />
                 <Container maxWidth="100%" disableGutters={true} sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} >
                     <Toolbar />
                         {children}
-                    <Footer />
+                    <Footer settings={data[0]} />
                 </Container >
             </ThemeProvider>
 

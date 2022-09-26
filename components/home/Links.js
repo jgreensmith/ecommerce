@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import NextLink from 'next/link';
 
 import { Link } from '@mui/material';
-import SettingsContext from '../../utils/context/SettingsContext';
+//import SettingsContext from '../../utils/context/SettingsContext';
 import SvgButton from '../svg/ButtonSvg';
 
 
-const Links = () => {
-    const { settings } = useContext(SettingsContext);
+const Links = ({settings}) => {
+    //const { settings } = useContext(SettingsContext);
     const contact = settings[0].contactObj;
     const email = contact.email;
     const subject = contact.subject;

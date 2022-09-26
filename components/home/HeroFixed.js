@@ -4,7 +4,7 @@ import { HeroBox, HeroSlide } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
 
 
-const HeroFixed = ({heroFixed}) => {
+const HeroFixed = ({heroFixed, settings}) => {
   return (
     <HeroBox>          
         <HeroSlide
@@ -13,7 +13,7 @@ const HeroFixed = ({heroFixed}) => {
                 backgroundImage: `url("${urlFor(heroFixed).quality(90).fit("min").url()}")`
             }} 
         >
-            <Links />
+            <Links settings={settings} />
         </HeroSlide>         
     </HeroBox>
   )

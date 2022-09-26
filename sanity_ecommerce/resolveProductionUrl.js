@@ -12,7 +12,9 @@ export default function resolveProductionUrl(doc) {
 
   previewUrl.pathname = `/api/preview`
   previewUrl.searchParams.append(`secret`, previewSecret)
-  previewUrl.searchParams.append(`slug`, doc?.slug?.current ?? `/`)
+  if(doc?.slug?.current) {
+    previewUrl.searchParams.append(`slug`, doc?.slug?.current ?? `/`)
+  }
 
   return previewUrl.toString()
 }

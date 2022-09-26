@@ -27,7 +27,7 @@ export default () =>
         .title('Site Settings')
         .icon(FiSettings)
         .child(
-            S.document()
+            getDefaultDocumentNode()
             .schemaType('siteSettings')
             .documentId('siteSettings')
             ),
