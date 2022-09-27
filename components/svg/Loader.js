@@ -1,3 +1,4 @@
+import { Container } from '@mui/material'
 import Head from 'next/head'
 import React from 'react'
 import { CenteredDiv } from '../../utils/styles'
@@ -11,12 +12,12 @@ const Loader = () => {
         <meta version="1.0" encoding="utf-8"/>
 
     </Head>
-    <body style={{background: '#f1f3fa', height: '100vh', width: '100%', margin: 0, pading: 0, boxSizing: 'border-box', overflow: 'hidden'}}>
+    <div style={{background: '#f1f3fa', height: '100vh', width: '100%', margin: 0, pading: 0, boxSizing: 'border-box', overflow: 'hidden'}}>
         <CenteredDiv sx={{pt: 22}}>
             <svg style={{margin: 'auto', background: 'inherit', display: 'block', shapeRendering: 'auto'}} width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
         <g transform="translate(80,50)">
         <g transform="rotate(0)">
-        <circle cx="0" cy="0" r="6" fill="#d4c3e9" fillOpacity-="1">
+        <circle cx="0" cy="0" r="6" fill="#d4c3e9" fillOpacity="1">
         <animateTransform attributeName="transform" type="scale" begin="-0.875s" values="1.5 1.5;1 1" keyTimes="0;1" dur="1s" repeatCount="indefinite"></animateTransform>
         <animate attributeName="fillOpacity" keyTimes="0;1" dur="1s" repeatCount="indefinite" values="1;0" begin="-0.875s"></animate>
         </circle>
@@ -73,7 +74,7 @@ const Loader = () => {
         </g>
         </svg>
         </CenteredDiv>
-    </body>
+    </div>
     </React.Fragment>
   )
 }
