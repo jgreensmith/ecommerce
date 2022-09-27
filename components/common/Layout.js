@@ -5,6 +5,7 @@ import { Box, ThemeProvider } from '@mui/system';
 import { Container, createTheme, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Loader from '../svg/Loader';
 
 const Layout = ({ children, title, seo }) => {
     
@@ -13,7 +14,7 @@ const Layout = ({ children, title, seo }) => {
     const { data, error } = useSWR('/api/sanity-settings', fetcher)
 
     if (error) return <div>Failed to load</div>
-    if (!data) return <div>Loading...</div>
+    if (!data) return <Loader/>
 
 
     //console.log(settings)
@@ -185,7 +186,6 @@ const Layout = ({ children, title, seo }) => {
                   name="viewport"
                   content="width=device-width, initial-scale=1, shrink-to-fit=no"
               />
-              <link rel="preload" href="/api/sanity-settings" as="fetch" crossorigin="anonymous"></link>
               <meta name="title" property="og:title" content={`${title} ${companyName}`} />
               <meta name="description" property="og:description" content={seo} />
             </Head>

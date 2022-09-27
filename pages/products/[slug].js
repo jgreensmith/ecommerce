@@ -7,23 +7,10 @@ import Layout from '../../components/common/Layout';
 import ProductDescription from '../../components/shop/ProductDescription';
 import { urlFor, usePreviewSubscription } from '../../lib/sanity';
 import { getClient, sanityClient } from '../../lib/sanity.server';
+import filterDataToSingleItem from '../../utils/functions';
 import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
 
-function filterDataToSingleItem(data, preview) {
-  if (!Array.isArray(data)) {
-    return data
-  }
 
-  if (data.length === 1) {
-    return data[0]
-  }
-
-  if (preview) {
-    return data.find((item) => item._id.startsWith(`drafts.`)) || data[0]
-  }
-
-  return data[0]
-}
 
 
 const Product = ({ data, preview  }) => {
