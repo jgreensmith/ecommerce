@@ -343,6 +343,19 @@ export default {
                 }
             ],
             
+        },
+        {
+            name: 'personalisationBool',
+            title: 'Enable Optional Personalistion Text Box',
+            type: 'boolean',
+            
+        },
+        {
+            name: 'personalisationTitle',
+            title: 'Personalisation Box Title',
+            type: 'string',
+            description: 'describe what you would like the customer to put in the personalisation box',
+            hidden: ({document}) => !document?.personalisationBool
         }
         
 

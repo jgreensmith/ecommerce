@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PortableText } from '@portabletext/react';
 
-import { Alert, Button, FormControl, Grid, InputLabel, Menu, MenuItem, MenuList, Paper, Select, Typography } from '@mui/material';
+import { Alert, Button, FormControl, Grid, InputLabel, Menu, MenuItem, MenuList, Paper, Select, TextField, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { useStateContext } from '../../utils/context/StateContext';
@@ -32,6 +32,8 @@ const ProductDescription = ({props}) => {
     const variants = product?.variants ? product.variants : []
     const oneVarBool = product?.boolObj?.oneVarBool
     const twoVarBool = product?.boolObj?.twoVarBool
+    const personalBool = product?.personalisationBool
+    const personalTitle = product?.personalisationTitle
     const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
     const theme = useTheme()
     const [isVariants, setIsVariants] = useState(false)
@@ -205,6 +207,16 @@ const ProductDescription = ({props}) => {
             }
                 {
                     newProduct.inventory > 0 &&
+                    <React.Fragment>
+
+                       
+                        { personalBool && 
+                            <Div sx={{mb: 2}}>
+                                <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}>{personalTitle}</Typography>
+                                <TextField multiline maxRows={4} fullWidth gutterBottom/>
+                            </Div>
+                        }
+                        
                
                         <Div sx={{ p: 1}}>
                             <Button
@@ -213,10 +225,11 @@ const ProductDescription = ({props}) => {
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => onAdd(newProduct, qty)}
-                            >
+                                >
                                 Add to cart
                             </Button>
                         </Div>
+                    </React.Fragment>
                 }
           
             
