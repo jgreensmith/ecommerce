@@ -100,7 +100,8 @@ const Product = ({ data, preview  }) => {
         _id: product._id.concat(`_${v._key}`),
         price: v.price ? v.price : product.price,
         mainImage: newImage ? newImage : mainImage,
-        inventory: v.inventory
+        inventory: v.inventory,
+        ...(newProduct.personalMessage && {personalMessage: newProduct.personalMessage})
 
       }
       setNewProduct(selectedSingleVariant)
@@ -143,7 +144,8 @@ const Product = ({ data, preview  }) => {
       _id: product._id.concat(`_${foundObject.key}`),
       price: foundObject.price ? foundObject.price : product.price,
       mainImage: cartImage,
-      inventory: foundObject.inventory
+      inventory: foundObject.inventory,
+      ...(newProduct.personalMessage && {personalMessage: newProduct.personalMessage})
 
     }
     setNewProduct(selectedVariant)
@@ -205,6 +207,7 @@ const Product = ({ data, preview  }) => {
                 tertiaryVariantList,
                 selectVariant,
                 newProduct,
+                setNewProduct,
                 primaryValue,
                 secondaryValue,
                 tertiaryValue

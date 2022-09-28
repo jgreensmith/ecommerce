@@ -24,7 +24,8 @@ const ProductDescription = ({props}) => {
         newProduct, 
         primaryValue, 
         secondaryValue,
-        tertiaryValue
+        tertiaryValue,
+        setNewProduct
     } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
@@ -49,7 +50,12 @@ const ProductDescription = ({props}) => {
     }, [])
     
     
-  
+    const handleChange = (e) => {
+        setNewProduct({
+            ...newProduct,
+            personalMessage: e.target.value
+        })
+    }
   
 
     const checkEqual = (v, check) => {
@@ -69,7 +75,7 @@ const ProductDescription = ({props}) => {
             border: 5px solid #28c3d1
         }
     `
-    console.log(isVariants)
+    console.log(newProduct)
     
     
   return (
@@ -100,9 +106,10 @@ const ProductDescription = ({props}) => {
                 </Grid>
                 <Grid item xs={6}>
                     { isVariants ? 
-                        !product.inventory || newProduct === product ? (
+                        !product.inventory && newProduct === product ? (
                             <Alert icon={false} severity="info">Select Variant</Alert>
-                        ) : 
+                        ) 
+                        : 
                         newProduct.inventory > 0 ? (
                             <Alert icon={false} severity="success">In Stock</Alert>
                         ) : (
@@ -213,7 +220,7 @@ const ProductDescription = ({props}) => {
                         { personalBool && 
                             <Div sx={{mb: 2}}>
                                 <Typography variant='subtitle1' sx={{textTransform: 'capitalize'}}>{personalTitle}</Typography>
-                                <TextField multiline maxRows={4} fullWidth gutterBottom/>
+                                <TextField multiline maxRows={4} fullWidth value={newProduct.message} onChange={handleChange}/>
                             </Div>
                         }
                         

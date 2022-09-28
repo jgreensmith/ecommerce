@@ -33,6 +33,7 @@ export default async function handler(req, res) {
                       name: item.name,
                       images: [newImage],
                       metadata: {product_id : item._id},
+                      ...(item.personalMessage && {description: `personalisation message: ${item.personalMessage}`}) 
                     },
                     unit_amount: item.price * 100,
                   },
