@@ -1,5 +1,4 @@
-import { groq } from "next-sanity"
-import { useRouter } from "next/router"
+
 import { getClient, sanityClient } from "../../lib/sanity.server"
 import filterDataToSingleItem from "../../utils/functions"
 
