@@ -25,9 +25,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from '@mui/system';
 
-import { LogoImg, MainButton } from '../../utils/styles';
+import { Div, LogoImg, MainButton } from '../../utils/styles';
 import Cart from '../shop/Cart';
 import { useStateContext } from '../../utils/context/StateContext';
+import { urlFor } from '../../lib/sanity';
 
 
 
@@ -109,12 +110,29 @@ const Navbar = (props) => {
                         >
                             <MenuIcon />
                         </IconButton>
+                        <Div sx ={{width: '100%', maxWidth: '200px'}}>
+
                         <NextLink href="/">
-                            <MainButton >
-                                {companyName}
-                                
-                            </MainButton>
+                            {settings?.logo ?  
+                                <button
+                                style={{
+                                    background: `url("${urlFor(settings.logo).url()}") center center/cover`,
+                                    height: '60px',
+                                    width: '100%',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    margin: '6px 0'
+                                    
+                                }} >                                    
+                                </button>
+                                : 
+                                <MainButton>
+
+                                    {companyName}
+                                </MainButton>
+                            }
                         </NextLink>
+                        </Div>
                         <List sx={{ display: { sm: "flex", xs: "none" }, ml: 'auto', mr: 3 }}>
                             {Object.keys(links).map((link) => (
                                 <NextLink key={link} href={`/${link}`}>

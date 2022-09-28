@@ -30,6 +30,15 @@ export default {
             validation: Rule => Rule.required()        
         },
         {
+            name: 'logo',
+            title: 'Company Logo/ Brand Name',
+            type: 'image',
+            options: {
+                hotspot: true
+            },
+            description: 'must be horizontal logo - height should not exceed 200px'
+        },
+        {
             name: 'contactObj',
             title: 'Contact and Social media Settings',
             type: 'object',
