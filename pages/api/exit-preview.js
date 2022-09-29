@@ -1,5 +1,7 @@
-export default function exit(req, res) {
+export default function exit(_, res) {
     res.clearPreviewData()
   
-    res.writeHead(307, {Location: req?.query?.slug ?? `/`})
+    res.writeHead(307, {Location: `/`})
+    res.end()
+
   }

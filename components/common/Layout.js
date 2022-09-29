@@ -29,8 +29,8 @@ const Layout = ({ children, title, seo }) => {
   if (!data) return <Loader/>
 
 
-  console.log(settings)
-  console.log(data)
+  //console.log(settings)
+  console.log(preview)
   //themes chosen from default palette
   
   const companyName = settings?.title;
