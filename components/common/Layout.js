@@ -9,6 +9,8 @@ import Loader from '../svg/Loader';
 import { useRouter } from 'next/router';
 import { usePreviewSubscription } from '../../lib/sanity';
 import filterDataToSingleItem from '../../utils/functions';
+import SettingsContext from '../../utils/context/SettingsContext';
+
 
 const Layout = ({ children, title, seo }) => {
 
@@ -209,7 +211,9 @@ const Layout = ({ children, title, seo }) => {
                 <Navbar settings={settings} />
                 <Container maxWidth="100%" disableGutters={true} sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} >
                     <Toolbar />
+
                         {children}
+
                     <Footer settings={settings} />
                 </Container >
             </ThemeProvider>

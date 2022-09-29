@@ -1,15 +1,23 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Grid, Link, Paper, Slide, Toolbar, Typography } from "@mui/material";
 import { PortableText } from "@portabletext/react";
 import Layout from "../components/common/Layout";
-import { urlFor } from "../lib/sanity";
+import { urlFor, usePreviewSubscription } from "../lib/sanity";
 import { ContentContainer, ProfileImg } from "../utils/styles";
 import { getClient } from "../lib/sanity.server";
 import { groq } from "next-sanity";
+import filterDataToSingleItem from "../utils/functions";
 
 
-const About = ({settings}) => {
-    //console.log(settings)
-    const s = settings[0];
+const About = ({preview, data}) => {
+    
+    const { data: previewSettings } = usePreviewSubscription(data?.query, {
+        initialData: data?.settings,
+        enabled: preview
+    })
+
+    const settings = filterDataToSingleItem(previewSettings, preview)
+
+
     return(
     <Layout title="About" >
 
@@ -33,7 +41,7 @@ const About = ({settings}) => {
                         mt: 8 
                         }}
                         >
-                        <ProfileImg src={urlFor(s.profileImage)} 
+                        <ProfileImg src={urlFor(settings.profileImage)} 
                         sx={{ 
                             width: { sm: '300px', xs: '230px'},
                             height: { sm: '300px', xs: '230px'},
@@ -47,12 +55,12 @@ const About = ({settings}) => {
                         sx={{ p: 4, m: 2 }}
                     >
                         <Typography variant='h1'>
-                        About {s.title}
+                        About {settings.title}
                         </Typography>
                         {/* <UnstyledButtonCustom /> */}
                         
                             <PortableText
-                                value={s.about}
+                                value={settings.about}
                             />
                         
                         
@@ -70,13 +78,18 @@ const About = ({settings}) => {
 
 export const getStaticProps = async ({preview = false}) => {
     const query = groq`*[_type == "siteSettings"]`
-    const settings = await getClient(preview).fetch(query)
+    const data = await getClient(preview).fetch(query)
 
-    if (!settings) return {notFound: true}
+    if (!data) return {notFound: true}
+
+    const settings = filterDataToSingleItem(data, preview)
 
 
     return {
-        props: { settings }
+        props: { 
+            preview,
+            data: {settings, query}
+         }
     }
     
 }

@@ -8,14 +8,14 @@ import SvgButton from '../svg/ButtonSvg';
 
 const Links = ({settings}) => {
     //const { settings } = useContext(SettingsContext);
-    const contact = settings[0].contactObj;
-    const email = contact.email;
-    const subject = contact.subject;
-    const insta = contact.instagram;
-    const facebook = contact.facebook;
-    const twitter = contact.twitter;
-    const tiktok = contact.tiktok;
-    const customLinks = contact.customLinks;
+    const contact = settings?.contactObj;
+    const email = contact?.email;
+    const subject = contact?.subject;
+    const insta = contact?.instagram;
+    const facebook = contact?.facebook;
+    const twitter = contact?.twitter;
+    const tiktok = contact?.tiktok;
+    const customLinks = contact?.customLinks;
 
   return (
     <React.Fragment>

@@ -6,35 +6,22 @@ import HeroFixed from "../components/home/HeroFixed";
 import Links from "../components/home/Links";
 import { CenteredDiv } from "../utils/styles";
 import { usePreviewSubscription } from "../lib/sanity";
-
-// function filterDataToSingleItem(data, preview) {
-//   if (!Array.isArray(data)) {
-//     return data
-//   }
-
-//   if (data.length === 1) {
-//     return data[0]
-//   }
-
-//   if (preview) {
-//     return data.find((item) => item._id.startsWith(`drafts.`)) || data[0]
-//   }
-
-//   return data[0]
-// }
+import filterDataToSingleItem from "../utils/functions";
 
 
-const Home = ({ settings }) => {
 
-  // const {data: previewSettings } = usePreviewSubscription(data?.query, {
-  //   initialData: data?.settings,
-  //   enabled: preview
-  // })
-  // const settings = filterDataToSingleItem(previewSettings, preview)
 
-  const seo = settings[0].seoDescription
-  const hero = settings[0].heroImages
-  const heroFixed = settings[0].heroFixed
+const Home = ({ data, preview }) => {
+
+  const {data: previewSettings } = usePreviewSubscription(data?.query, {
+    initialData: data?.settings,
+    enabled: preview
+  })
+  const settings = filterDataToSingleItem(previewSettings, preview)
+
+  const seo = settings?.seoDescription
+  const hero = settings?.heroImages
+  const heroFixed = settings?.heroFixed
 
   //console.log(settings)
   return (
@@ -42,7 +29,7 @@ const Home = ({ settings }) => {
       {hero && <Hero settings={settings} heroData={hero} />}
       {heroFixed && <HeroFixed settings={settings} heroFixed={heroFixed} />}
       {!hero && !heroFixed ? 
-      <CenteredDiv>
+      <CenteredDiv sx={{mt: 4}}>
 
         <Links settings={settings} /> 
       </CenteredDiv>
@@ -54,20 +41,18 @@ const Home = ({ settings }) => {
 
 export const getStaticProps = async ({ preview = false }) => {
   const query = groq`*[_type == "siteSettings"]`
-  const settings = await getClient(preview).fetch(query)
+  const data = await getClient(preview).fetch(query)
 
-  if (!settings) return {notFound: true}
+  if (!data) return {notFound: true}
 
-  //const settings = filterDataToSingleItem(data, preview)
+  const settings = filterDataToSingleItem(data, preview)
 
 
   return { 
     props: { 
-      settings
-    } 
+      preview,
+      data: { settings, query } 
+    }
+  }
 }
-  
-  
-}
-
 export default Home;
