@@ -1,17 +1,15 @@
-import Layout from "../components/common/Layout";
-import Hero from "../components/home/Hero";
+import Layout from "../../../components/common/Layout";
+import Hero from "../../../components/home/Hero";
 import { groq } from "next-sanity";
-import { getClient } from "../lib/sanity.server";
-import HeroFixed from "../components/home/HeroFixed";
-import Links from "../components/home/Links";
-import { CenteredDiv } from "../utils/styles";
-import { usePreviewSubscription } from "../lib/sanity";
-import filterDataToSingleItem from "../utils/functions";
+import { getClient } from "../../../lib/sanity.server";
+import HeroFixed from "../../../components/home/HeroFixed";
+import Links from "../../../components/home/Links";
+import { CenteredDiv } from "../../../utils/styles";
+import { usePreviewSubscription } from "../../../lib/sanity";
+import filterDataToSingleItem from "../../../utils/functions";
 
 
-
-
-const Home = ({ data, preview }) => {
+const Home = ({ data, preview, currentPid }) => {
 
   const {data: previewSettings } = usePreviewSubscription(data?.query, {
     initialData: data?.settings,
@@ -20,22 +18,25 @@ const Home = ({ data, preview }) => {
   const settings = filterDataToSingleItem(previewSettings, preview)
 
   const seo = settings?.seoDescription
-  const hero = settings?.heroImages
+  const heroData = settings?.heroImages
   const heroFixed = settings?.heroFixed
 
-  //console.log(settings)
+  console.log(currentPid)
   return (
-    <Layout title="Home" seo={seo}>
-      {hero && <Hero settings={settings} heroData={hero} />}
-      {heroFixed && <HeroFixed settings={settings} heroFixed={heroFixed} />}
-      {!hero && !heroFixed ? 
-      <CenteredDiv sx={{mt: 4}}>
+    // <Layout title="Home" seo={seo}>
+    <CenteredDiv>
 
-        <Links settings={settings} /> 
+      {heroData && <Hero props={{settings, heroData, currentPid}} />}
+      {heroFixed && <HeroFixed props={{settings, heroFixed, currentPid}} />}
+      {!heroData && !heroFixed ? 
+      <CenteredDiv sx={{mt: 4}}>
+        links
+        {/* <Links settings={settings} />  */}
       </CenteredDiv>
       : null}
       
-    </Layout>
+      </CenteredDiv>
+    // </Layout>
   )
 }
 export const getStaticPaths = async () => {
@@ -46,12 +47,12 @@ export const getStaticPaths = async () => {
     
   return {
     paths,
-    fallback: 'false'
+    fallback: 'blocking'
   }
 
 }
 
-export const getStaticProps = async (context, { preview = false }) => {
+export const getStaticProps = async ({ params: { pid }, preview = false }) => {
 
   const merchantArr = [
     {
@@ -65,7 +66,8 @@ export const getStaticProps = async (context, { preview = false }) => {
       preview_mode: "skpQhwhL8a9CIEz8vLuPmnnwSgLlB2WQGeHbAzCBFR61z8UolZjGsSdtmMJUjqQ3aoIDki1oicmqoJg3M1yWPfW0ZvtVA6bykm3mQBNWUJHVSX2aAbkjbRu1cAIKiNK0EwDozDjcJtLHaQHwlZse8nkmN0uCoabXro9D4NK0RCLJSxgCEWke"
     }
   ]
-  const currentPid = merchantArr.find(x => x.pid === context.params.pid)
+  const currentPid = merchantArr.find(x => x.pid === pid)
+  console.log(currentPid)
 
   const query = groq`*[_type == "siteSettings"]`
   const data = await getClient(currentPid, preview).fetch(query)
@@ -77,6 +79,7 @@ export const getStaticProps = async (context, { preview = false }) => {
 
   return { 
     props: { 
+      currentPid,
       preview,
       data: { settings, query } 
     }

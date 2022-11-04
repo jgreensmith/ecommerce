@@ -28,8 +28,8 @@ const params = {
     }
 };
 
-const Hero = ({ heroData, settings }) => {
-
+const Hero = ({props}) => {
+    const { heroData, settings, currentPid } = props
     
     return (
         <HeroBox>
@@ -40,10 +40,11 @@ const Hero = ({ heroData, settings }) => {
                     <HeroSlide
                         role="img"
                         sx={{
-                            backgroundImage: `url("${urlFor(hero).quality(90).fit("min").url()}")`
+                            backgroundImage: `url("${urlFor(hero).projectId(currentPid.pid).url()}")`
                         }} 
                     >
-                        <Links settings={settings} />
+                        links
+                        {/* <Links settings={settings} /> */}
                     </HeroSlide>
                 </SwiperSlide>
             ))}
