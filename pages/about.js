@@ -55,7 +55,7 @@ const About = ({preview, data}) => {
                         sx={{ p: 4, m: 2 }}
                     >
                         <Typography variant='h1'>
-                        About {settings.title}
+                        About {settings.title} - small change to test new branch
                         </Typography>
                         {/* <UnstyledButtonCustom /> */}
                         
