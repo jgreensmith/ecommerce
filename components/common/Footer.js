@@ -48,7 +48,7 @@ export default function Footer({settings}) {
                     target="_blank" 
                     rel="noreferrer"
                     >
-                        DefaultCommerce
+                        Greensmith Merchants
                     </Button>
                 </Typography>
             </Box>

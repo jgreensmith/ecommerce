@@ -236,7 +236,7 @@ const Layout = ({ children, title, seo, settings }) => {
 
                         {children}
 
-                    {/* <Footer settings={settings} /> */}
+                    <Footer settings={settings} />
                 </Container >
             </ThemeProvider>
 

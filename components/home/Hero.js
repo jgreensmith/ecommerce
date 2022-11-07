@@ -42,7 +42,7 @@ const Hero = ({props}) => {
                     <HeroSlide
                         role="img"
                         sx={{
-                            backgroundImage: `url("${urlFor(currentPid.pid, hero).url()}")`
+                            backgroundImage: `url("${urlFor(currentPid.pid, hero).quality(90).fit("min").url()}")`
                         }} 
                     >
                         <Links settings={settings} />
