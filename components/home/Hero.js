@@ -30,21 +30,22 @@ const params = {
 
 const Hero = ({props}) => {
     const { heroData, settings, currentPid } = props
+
+    console.log(heroData)
     
     return (
         <HeroBox>
 
             <Swiper modules={[EffectFade, Autoplay]} {...params} effect='fade'>
             {heroData.map((hero) => (
-                <SwiperSlide key={hero._id}>
+                <SwiperSlide key={hero._key}>
                     <HeroSlide
                         role="img"
                         sx={{
-                            backgroundImage: `url("${urlFor(hero).projectId(currentPid.pid).url()}")`
+                            backgroundImage: `url("${urlFor(currentPid.pid, hero).url()}")`
                         }} 
                     >
-                        links
-                        {/* <Links settings={settings} /> */}
+                        <Links settings={settings} />
                     </HeroSlide>
                 </SwiperSlide>
             ))}

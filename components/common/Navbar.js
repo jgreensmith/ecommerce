@@ -29,11 +29,13 @@ import { Div, LogoImg, MainButton } from '../../utils/styles';
 import Cart from '../shop/Cart';
 import { useStateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/sanity';
+import { useRouter } from 'next/router';
 
 
 
 function HideOnScroll(props) {
     const { children, window } = props;
+    
     const trigger = useScrollTrigger({
         target: window ? window() : undefined,
     });
@@ -57,6 +59,8 @@ const Navbar = (props) => {
     const [cartOpen, setCartOpen] = useState(false);
     const { totalQuantities } = useStateContext();
     const companyName = settings?.title;
+    const router = useRouter()
+    const pid = router.query.pid 
 
 
 
@@ -82,7 +86,7 @@ const Navbar = (props) => {
             <Divider />
             <List>
                 {Object.keys(links).map((link) => (
-                    <NextLink key={link} href={`/${link}`} >
+                    <NextLink key={link} href={ `/merchants/${pid}/${link}`} >
                         <ListItemButton href={`/${link}`}>
                             <ListItemText primary={links[link]} />
                         </ListItemButton>
@@ -116,7 +120,7 @@ const Navbar = (props) => {
                             {settings?.logo ?  
                                 <button
                                 style={{
-                                    background: `url("${urlFor(settings.logo).url()}") center center/cover`,
+                                    background: `url("${urlFor(pid, settings.logo).url()}") center center/cover`,
                                     height: '60px',
                                     width: '100%',
                                     border: 'none',
@@ -135,7 +139,7 @@ const Navbar = (props) => {
                         </Div>
                         <List sx={{ display: { sm: "flex", xs: "none" }, ml: 'auto', mr: 3 }}>
                             {Object.keys(links).map((link) => (
-                                <NextLink key={link} href={`/${link}`}>
+                                <NextLink key={link} href={`/merchants/${pid}/${link}`}>
                                     <ListItemButton href={`/${link}`} >
                                         <ListItemText 
                                             primary={links[link]} 

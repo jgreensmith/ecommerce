@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Head  from 'next/head';
 import useSWR from 'swr'
 import { Box, ThemeProvider } from '@mui/system';
@@ -12,27 +12,49 @@ import filterDataToSingleItem from '../../utils/functions';
 import SettingsContext from '../../utils/context/SettingsContext';
 
 
-const Layout = ({ children, title, seo }) => {
+const Layout = ({ children, title, seo, settings }) => {
 
-  const router = useRouter()
-  const preview = router.isPreview
-  const fetcher = (args) => fetch(args).then((res) => res.json())
-  const { data, error } = useSWR(['/api/sanity-settings', preview],fetcher )
+  // const router = useRouter()
+  // const preview = router.isPreview
+  // const [data, setData] = useState(null)
+  // const [isLoading, setLoading] = useState(false)
+  // // const fetcher = (args) => fetch(args).then((res) => res.json())
+  // // const { data, error } = useSWR(['/api/sanity-settings', preview],fetcher )
 
-  const { data: previewSettings } = usePreviewSubscription(data?.query, {
-    initialData: data?.settings,
-    enabled: preview
-  })
+  // const getLayout = async () => {
+  //   await fetch('/api/sanity-settings', {
+  //     method: 'POST',
+  //     body: JSON.stringify({ preview, pid})
+  //   })
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     if(data.error) {
+  //       console.log(data.error)
+  //     } else {
+  //       setData(data)
+  //       setLoading(false)
+  //     }
+  //   })
+  // }
+  // useEffect(() => {
+  //   setLoading(true)
+  //   getLayout()
+  // }, [])
+  
 
-  const settings = filterDataToSingleItem(previewSettings, preview)
+  // const { data: previewSettings } = usePreviewSubscription(data?.query, {
+  //   initialData: data?.settings,
+  //   enabled: preview
+  // })
 
-  if (error) return <div>Failed to load</div>
+  //const settings = filterDataToSingleItem(previewSettings, preview)
+
   //const data = null
-  if (!data) return <Loader/>
+  //if (isLoading) return <Loader/>
 
 
   //console.log(settings)
-  console.log(preview)
+  //console.log(preview)
   //themes chosen from default palette
   
   const companyName = settings?.title;
@@ -214,7 +236,7 @@ const Layout = ({ children, title, seo }) => {
 
                         {children}
 
-                    <Footer settings={settings} />
+                    {/* <Footer settings={settings} /> */}
                 </Container >
             </ThemeProvider>
 

@@ -5,9 +5,9 @@ import filterDataToSingleItem from "../../utils/functions"
 export default async function sanitySettings(req, res) {
     
     try {
-        const { preview } = req
+        const { preview, pid } = req
         const query =`*[_type == "siteSettings"]`
-        const data = await getClient(preview).fetch(query)
+        const data = await getClient(pid, preview).fetch(query)
 
         const settings = filterDataToSingleItem(data, preview)
 

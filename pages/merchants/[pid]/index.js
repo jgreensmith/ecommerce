@@ -21,22 +21,22 @@ const Home = ({ data, preview, currentPid }) => {
   const heroData = settings?.heroImages
   const heroFixed = settings?.heroFixed
 
-  console.log(currentPid)
+  console.log(settings)
   return (
-    // <Layout title="Home" seo={seo}>
+      <Layout title="Home" seo={seo} settings={settings}>
     <CenteredDiv>
 
       {heroData && <Hero props={{settings, heroData, currentPid}} />}
       {heroFixed && <HeroFixed props={{settings, heroFixed, currentPid}} />}
       {!heroData && !heroFixed ? 
       <CenteredDiv sx={{mt: 4}}>
-        links
-        {/* <Links settings={settings} />  */}
+        
+        <Links settings={settings} /> 
       </CenteredDiv>
       : null}
       
       </CenteredDiv>
-    // </Layout>
+     </Layout>
   )
 }
 export const getStaticPaths = async () => {
