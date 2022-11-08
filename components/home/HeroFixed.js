@@ -4,13 +4,15 @@ import { HeroBox, HeroSlide } from '../../utils/styles';
 import { urlFor } from '../../lib/sanity';
 
 
-const HeroFixed = ({heroFixed, settings, currentPid}) => {
+const HeroFixed = ({props}) => {
+  const {heroFixed, settings, currentPid} = props
+  console.log(currentPid)
   return (
     <HeroBox>          
         <HeroSlide
             role="img"
             sx={{
-                backgroundImage: `url("${urlFor(heroFixed).projectId(currentPid.pid).url()}")`
+                backgroundImage: `url("${urlFor(currentPid.pid, heroFixed).url()}")`
             }} 
         >
             <Links settings={settings} />

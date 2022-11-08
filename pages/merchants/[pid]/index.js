@@ -21,10 +21,9 @@ const Home = ({ data, preview, currentPid }) => {
   const heroData = settings?.heroImages
   const heroFixed = settings?.heroFixed
 
-  console.log(settings)
+  console.log(currentPid)
   return (
       <Layout title="Home" seo={seo} settings={settings}>
-    <CenteredDiv>
 
       {heroData && <Hero props={{settings, heroData, currentPid}} />}
       {heroFixed && <HeroFixed props={{settings, heroFixed, currentPid}} />}
@@ -35,7 +34,6 @@ const Home = ({ data, preview, currentPid }) => {
       </CenteredDiv>
       : null}
       
-      </CenteredDiv>
      </Layout>
   )
 }
@@ -67,7 +65,6 @@ export const getStaticProps = async ({ params: { pid }, preview = false }) => {
     }
   ]
   const currentPid = merchantArr.find(x => x.pid === pid)
-  console.log(currentPid)
 
   const query = groq`*[_type == "siteSettings"]`
   const data = await getClient(currentPid, preview).fetch(query)
