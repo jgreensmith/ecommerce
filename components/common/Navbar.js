@@ -116,7 +116,7 @@ const Navbar = (props) => {
                         </IconButton>
                         <Div sx ={{width: '100%', maxWidth: '200px'}}>
 
-                        <NextLink href="/">
+                        <NextLink href={`/merchants/${pid}`}>
                             {settings?.logo ?  
                                 <button
                                 style={{

@@ -10,7 +10,8 @@ import { urlFor } from '../../lib/sanity';
 import { useStateContext } from '../../utils/context/StateContext';
 
 
-const ProductCard = ({product}) => {
+const ProductCard = ({pid, product}) => {
+    console.log(pid)
     const { currencyConverter } = useCurrencyContext();
     const { onAdd, setQty, qty } = useStateContext();
     const oneVarArr = !product?.variants ? [] : product.variants.map((x) =>  x.price)
@@ -56,7 +57,7 @@ const ProductCard = ({product}) => {
             </CardBanner>
             <PortfolioCardBody>
                 <PortfolioImg
-                    src={urlFor(product.mainImage).size(600, 600).quality(90).fit("min").url()}
+                    src={urlFor(pid, product.mainImage).size(600, 600).quality(90).fit("min").url()}
                     alt={product.name}
                     loading="lazy"
                     />
@@ -81,7 +82,7 @@ const ProductCard = ({product}) => {
                     }
                     
                     
-                        <Button disableElevation color='secondary' href={`/products/${product.slug.current}`} variant='contained'>View Product</Button>
+                        <Button disableElevation color='secondary' href={`merchants/${pid}/products/${product.slug.current}`} variant='contained'>View Product</Button>
                 </FlexSpace>
             </CardBanner>
         </PortfolioCard>
