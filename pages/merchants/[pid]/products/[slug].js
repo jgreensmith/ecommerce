@@ -1,19 +1,20 @@
 import { Container, Grid, Grow, Toolbar } from '@mui/material';
 import { Box } from '@mui/system';
 import { groq } from 'next-sanity';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import Layout from '../../components/common/Layout';
-import ProductDescription from '../../components/shop/ProductDescription';
-import { urlFor, usePreviewSubscription } from '../../lib/sanity';
-import { getClient, sanityClient } from '../../lib/sanity.server';
-import filterDataToSingleItem from '../../utils/functions';
-import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../utils/styles';
+import Layout from '../../../../components/common/Layout';
+import ProductDescription from '../../../../components/shop/ProductDescription';
+import { urlFor, usePreviewSubscription } from '../../../../lib/sanity';
+import { getClient, sanityClient } from '../../../../lib/sanity.server';
+import filterDataToSingleItem from '../../../../utils/functions';
+import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../../../utils/styles';
 
 
 
 
-const Product = ({ data, preview  }) => {
+const Product = ({ currentPid, data, preview, settings  }) => {
 
   const slug = data?.product?.slug
   //const product = data?.product
@@ -158,7 +159,7 @@ const Product = ({ data, preview  }) => {
   //console.log(product.variants)
 
   return (
-    <Layout title={name} seo={seoDescription}>
+    <Layout title={name} seo={seoDescription} settings={settings}>
       <Toolbar />
       <ContentContainer maxWidth="xl">
         <Grid container spacing={3}>
@@ -167,7 +168,7 @@ const Product = ({ data, preview  }) => {
               <ThumbnailButton 
                 key={i}
                 sx={{
-                    background: `url("${urlFor(item).size(100, 100).quality(90).fit("min").url()}") center center/cover`,
+                    background: `url("${urlFor(currentPid.pid, item).size(100, 100).quality(90).fit("min").url()}") center center/cover`,
                     display: { xs: 'none', vs: 'block' },
                 }}
                 onClick={ () => setImageIndex(i)} 
@@ -179,7 +180,7 @@ const Product = ({ data, preview  }) => {
             <Grow in>
               <Container maxWidth="sm" >
                 <StyledImg 
-                  src={urlFor(allImages && allImages[imageIndex]).size(600, 600).quality(90).fit("min").url()}
+                  src={urlFor(currentPid.pid, allImages && allImages[imageIndex]).size(600, 600).quality(90).fit("min").url()}
                   alt={name}
                   sx={{ display: { xs: 'none', vs: 'block' } }}
                 />
@@ -187,7 +188,7 @@ const Product = ({ data, preview  }) => {
                     {allImages?.map((item, i) => (
                         <StyledImg
                           key={i}
-                          src={urlFor(item).size(600, 600).quality(90).fit("min").url()}
+                          src={urlFor(currentPid.pid, item).size(600, 600).quality(90).fit("min").url()}
                           alt={name}
                           sx={{ marginRight: 5 }}
                         />  
@@ -224,19 +225,42 @@ const Product = ({ data, preview  }) => {
 }
 //adds path to params
 export const getStaticPaths = async () => {
-  const query = groq`*[_type == "product"] {
-    slug {
-      current
-    }
-  }`;
-  const products = await sanityClient.fetch(query);
-  //put current product slug in params
 
-  const paths = products.map((product) => ({
-    params: {
-      slug: product.slug.current
+  const arr = [
+    { pid: "smq0a814" },
+    { pid: "2uh6xbh5" }
+  ]
+
+  const newArr = await Promise.all(
+    arr.map(async(x) => {
+
+    const query = groq`*[_type == "product"] {
+      slug {
+        current
+      }
+    }`;
+    
+    const products = await sanityClient(x.pid).fetch(query)
+
+    return products.map((product) => {
+      return {
+        pid: x.pid,
+        product: product
+      }
+    })
+    
+  }))
+  const finArr = newArr.flat(1)
+
+  const paths = finArr.map((obj) => {
+    return {
+      params: {
+        pid: obj.pid,
+        slug: obj.product.slug.current
+      }
     }
-  }));
+  })
+  
   return {
     paths,
     fallback: 'blocking'
@@ -245,17 +269,39 @@ export const getStaticPaths = async () => {
 }
 //groq filter slug that matches current slug
 
-export const getStaticProps = async ({ params: { slug }, preview = false }) => {
+export const getStaticProps = async ({ params: { pid, slug }, preview = false }) => {
+
+  const merchantArr = [
+    {
+      pid: "smq0a814",
+      manage_inventory: "skfPeWq0M7kraPIOqR6zDBFOy4dxKcCFCFUygNo6mRRv8o07EANR4EHj8YzEPPGymEAYI3jPnOOTXHbE9nv4F4YpzTwpygzOHWf8PjT5zCZC1hlX7L32ERcjyKZMD2DT8MBEDHFq74wz6uJJAZqhS8GyB9j0XEl8j1gWm0Ku2E41gtVjnNri",
+      preview_mode: "sk5nbekTGsBdlroyOVxCozaLgttmT8l4zhzf8XNaQfix96HYtyWg7bJ5vYqgcdC3eVQpRDgpHGNEsDM4Ar6lZnplmA227GVmMKIvuOFOeSydIeh7mrePnZDBj0hqFLJFsh7Fto3RxZlMAGd7jBFa22rZ5pNSiOPSVkobxcdAsQmP3KuaFWTD"
+    },
+    {
+      pid: "2uh6xbh5",
+      manage_inventory: "skjMhFSaHSzLAmLDSwOaGTCzy5WvVRWV3GkIJKCcX40gfmFCxBcnXB296X9NHqMegx0GtMGfbNPBw8ctGNYR8JMmEXFa1rFxoSi7b34H92EnnXwN6HQylqkjwH0VPDqTQu5L0XTatSoPHK589qZXKxwbl8HJpUsQCU0NdDxB94hxMGtlgziP",
+      preview_mode: "skpQhwhL8a9CIEz8vLuPmnnwSgLlB2WQGeHbAzCBFR61z8UolZjGsSdtmMJUjqQ3aoIDki1oicmqoJg3M1yWPfW0ZvtVA6bykm3mQBNWUJHVSX2aAbkjbRu1cAIKiNK0EwDozDjcJtLHaQHwlZse8nkmN0uCoabXro9D4NK0RCLJSxgCEWke"
+    }
+  ]
+  const currentPid = merchantArr.find(x => x.pid === pid)
+
   const query = groq`*[_type == "product" && slug.current == '${slug}'][0]`;
-  const data = await getClient(preview).fetch(query);
+  const settingsQuery = groq`*[_type == "siteSettings"]`
+
+  const settingsData = await getClient(currentPid, preview).fetch(settingsQuery)
+  const data = await getClient(currentPid, preview).fetch(query);
 
   if (!data) return {notFound: true}
 
   const product = filterDataToSingleItem(data, preview)
+  const settings = filterDataToSingleItem(settingsData, preview)
+
 
 
   return {
     props: { 
+      currentPid,
+      settings,
       preview,
       data: {product, query} 
     }

@@ -82,7 +82,7 @@ const ProductCard = ({pid, product}) => {
                     }
                     
                     
-                        <Button disableElevation color='secondary' href={`merchants/${pid}/products/${product.slug.current}`} variant='contained'>View Product</Button>
+                        <Button disableElevation color='secondary' href={`/merchants/${pid}/products/${product.slug.current}`} variant='contained'>View Product</Button>
                 </FlexSpace>
             </CardBanner>
         </PortfolioCard>
