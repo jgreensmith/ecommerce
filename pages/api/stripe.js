@@ -6,6 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
     if (req.method === 'POST') {
     try {
+      const {cartItems, pid} = req.body
+      //const connectAccountId = await mongodb! 
         const params = {
             submit_type: "pay",
             mode: "payment",
@@ -18,9 +20,9 @@ export default async function handler(req, res) {
               { shipping_rate: "shr_1L3KQkJQzZCeROhUPCLHPGGZ" },
               { shipping_rate: "shr_1L3KSvJQzZCeROhUPWnMm2wN" },
             ],
-            line_items: req.body.map((item) => {
+            line_items: cartItems.map((item) => {
                 const img = item.mainImage.asset._ref;
-                const newImage = img.replace('image-', `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/`)
+                const newImage = img.replace('image-', `https://cdn.sanity.io/images/${pid}/production/`)
                 .replace("-webp", ".webp")
                 .replace("-png", ".png")
                 .replace("-jpg", ".jpg"); 

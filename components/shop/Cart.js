@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 import { CartImg, CenteredDiv, FlexStart } from '../../utils/styles';
 import Link from 'next/link';
 import { Box } from '@mui/system';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 import { useStateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/sanity';
@@ -18,8 +18,8 @@ import toast from 'react-hot-toast';
 function Cart(props) {
     const { handleCartToggle } = props;
     const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
-    //const cartRef = useRef();
-
+    const router = useRouter()
+    const pid = router.query.pid 
 
     const checkoutHandler = async () => {
         const stripe = await getStripe();
@@ -29,7 +29,7 @@ function Cart(props) {
             headers: {
                 'Content-Type': 'application/json',
               },
-            body: JSON.stringify(cartItems),
+            body: JSON.stringify({cartItems, pid}),
         });
 
         if(response.statusCode === 500) return;
