@@ -21,7 +21,6 @@ const Home = ({ data, preview, currentPid }) => {
   const heroData = settings?.heroImages
   const heroFixed = settings?.heroFixed
 
-  console.log(currentPid)
   return (
       <Layout title="Home" seo={seo} settings={settings}>
 
@@ -51,6 +50,7 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params: { pid }, preview = false }) => {
+
 
   const merchantArr = [
     {
