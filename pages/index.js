@@ -7,7 +7,7 @@ const Home = ({projects}) => {
     console.log(projects)
   return (
     <CenteredDiv>
-projects
+projects in Console
     </CenteredDiv>
   )
 }
@@ -20,12 +20,14 @@ export const getServerSideProps = async () => {
      
     const projects = await client.db('test').collection('users').find({}).toArray()
 
-    if(!projects) return {notFound: true}
+    const filteredProjects = projects.filter(plop => plop.pid)
+
+    if(!filteredProjects) return {notFound: true}
     
    
     return {
       props: {
-        projects: JSON.parse(JSON.stringify(projects)),
+        projects: JSON.parse(JSON.stringify(filteredProjects)),
       }
     }
   } catch (e) {

@@ -31,7 +31,7 @@ const params = {
 const Hero = ({props}) => {
     const { heroData, settings, currentPid } = props
 
-    console.log(heroData)
+    //console.log(heroData)
     
     return (
         <HeroBox>
