@@ -1,4 +1,4 @@
-import clientPromise from "../../../lib/mongodb"; 
+import { getPidObj, getPids } from "../../../lib/mongoHelpers"
 
 import Layout from "../../../components/common/Layout";
 import Hero from "../../../components/home/Hero";
@@ -42,23 +42,17 @@ const Home = ({ data, preview, currentPid }) => {
 }
 export const getStaticPaths = async () => {
   try {
-    const client = await clientPromise
-     
-    const projects = await client.db('test').collection('users').find({}, {projection: {pid: 1, _id: 0}}).toArray()
 
-    const filteredProjects = projects.filter(plop => plop.pid)
+    const pids = await getPids()   
 
-    const parsedProjects = JSON.parse(JSON.stringify(filteredProjects)) 
-    console.log(parsedProjects)   
-
-      const paths = parsedProjects.map((proj) => {
-        return {params: { pid: proj.pid }}
-      })
-        
-      return {
-        paths,
-        fallback: 'blocking'
-      }
+    const paths = pids.map((proj) => {
+      return {params: { pid: proj.pid }}
+    })
+      
+    return {
+      paths,
+      fallback: 'blocking'
+    }
     
   } catch (e) {
     console.log(e)
@@ -71,14 +65,8 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { pid }, preview = false }) => {
 
   try {
-    const client = await clientPromise
-     
-    const pidObj = await client.db('test').collection('users').findOne(
-        {pid : { $eq: pid }},
-        {projection: {pid: 1, manage_inventory: 1, preview_mode: 1, _id: 0}}
-      )       
-
-    const currentPid = JSON.parse(JSON.stringify(pidObj))
+   
+    const currentPid = await getPidObj(pid)
 
     const query = groq`*[_type == "siteSettings"]`
     const data = await getClient(currentPid, preview).fetch(query)
