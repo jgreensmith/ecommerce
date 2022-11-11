@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { Alert, Button, Dialog, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-import Layout from "../components/common/Layout";
-import { CenteredDiv } from '../utils/styles';
-import Order from '../components/shop/Order';
-import { useStateContext } from '../utils/context/StateContext';
+import Layout from "../../../components/common/Layout";
+import { CenteredDiv } from '../../../utils/styles';
+import Order from '../../../components/shop/Order';
+import { useStateContext } from '../../../utils/context/StateContext';
 
-const Success = () => {
+const Success = ({settings}) => {
     const [order, setOrder] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
@@ -81,7 +81,7 @@ const Success = () => {
 
     //console.log(order)
   return (
-    <Layout title="success">
+    <Layout title="success" settings={settings}>
 
       { !order && (
         <CenteredDiv>
@@ -125,3 +125,50 @@ const Success = () => {
 }
 
 export default Success
+
+export const getStaticPaths = async () => {
+  try {
+
+    const pids = await getPids()   
+
+    const paths = pids.map((proj) => {
+      return {params: { pid: proj.pid }}
+    })
+      
+    return {
+      paths,
+      fallback: 'blocking'
+    }
+    
+  } catch (e) {
+    console.log(e)
+
+  }
+  
+
+}
+
+export const getStaticProps = async ({ params: { pid }, preview = false }) => {
+
+  try {
+   
+    const currentPid = await getPidObj(pid)
+
+    const query = groq`*[_type == "siteSettings"]`
+    const data = await getClient(currentPid, preview).fetch(query)
+
+    if (!data) return {notFound: true}
+
+    const settings = filterDataToSingleItem(data, preview)
+
+
+    return { 
+      props: { 
+        settings
+      }
+    }
+  } catch (e) {
+    console.log(e)
+
+  }
+}

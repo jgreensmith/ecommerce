@@ -157,6 +157,8 @@ const Products = ({currentPid, products, categories, settings}) => {
   )
 }
 
+export default Products;
+
 export const getStaticPaths = async () => {
     try {
 
@@ -205,4 +207,3 @@ export const getStaticProps = async ({ params: { pid }, preview = false }) => {
     }
 }
 
-export default Products;

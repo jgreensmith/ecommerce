@@ -40,6 +40,9 @@ const Home = ({ data, preview, currentPid }) => {
      </Layout>
   )
 }
+
+export default Home;
+
 export const getStaticPaths = async () => {
   try {
 
@@ -88,4 +91,3 @@ export const getStaticProps = async ({ params: { pid }, preview = false }) => {
 
   }
 }
-export default Home;

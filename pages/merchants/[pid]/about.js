@@ -78,7 +78,8 @@ const About = ({preview, data, currentPid}) => {
         </ContentContainer>
     </Layout>
     )
-}
+  }
+  export default About;
 
 export const getStaticPaths = async () => {
   try {
@@ -127,5 +128,3 @@ export const getStaticPaths = async () => {
   
     }
   }
-
-export default About;

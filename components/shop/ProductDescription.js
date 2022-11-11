@@ -25,7 +25,8 @@ const ProductDescription = ({props}) => {
         primaryValue, 
         secondaryValue,
         tertiaryValue,
-        setNewProduct
+        setNewProduct,
+        currentPid
     } = props
     const { onAdd, qty, setQty } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
@@ -48,6 +49,15 @@ const ProductDescription = ({props}) => {
             return setIsVariants(false)
         }
     }, [])
+
+
+    const handleOnAdd = (newProduct, qty) => {
+        const plop = setNewProduct({
+            ...newProduct,
+            pid: currentPid.pid
+        })
+        onAdd(plop, qty)
+    }
     
     
     const handleChange = (e) => {
@@ -231,7 +241,7 @@ const ProductDescription = ({props}) => {
                                 fullWidth
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => onAdd(newProduct, qty)}
+                                onClick={() => handleOnAdd(newProduct, qty)}
                                 >
                                 Add to cart
                             </Button>

@@ -212,7 +212,8 @@ const Product = ({ currentPid, data, preview, settings  }) => {
                 setNewProduct,
                 primaryValue,
                 secondaryValue,
-                tertiaryValue
+                tertiaryValue,
+                currentPid
                 
               }}
                 
@@ -224,6 +225,8 @@ const Product = ({ currentPid, data, preview, settings  }) => {
     </Layout>
   )
 }
+
+export default Product;
 //adds path to params
 export const getStaticPaths = async () => {
 
@@ -294,4 +297,3 @@ export const getStaticProps = async ({ params: { pid, slug }, preview = false })
   }
 }
 
-export default Product;

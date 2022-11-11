@@ -20,3 +20,14 @@ export async function getPidObj(pid: string) {
 
     return JSON.parse(JSON.stringify(pidObj))
 }
+
+export async function getConnectId(pid: string) {
+    const client = await clientPromise
+     
+    const connectId = await client.db('test').collection('users').findOne(
+        {pid : { $eq: pid }},
+        {projection: {connected_account_id: 1, _id: 0}}
+      )       
+
+    return JSON.parse(JSON.stringify(connectId))
+}

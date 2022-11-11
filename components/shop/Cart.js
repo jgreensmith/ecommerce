@@ -85,7 +85,7 @@ function Cart(props) {
                                     align='left' 
                                     sx={{ width: '80px', padding: '5px' }} 
                                 >
-                                    <CartImg src={urlFor(cartItem?.mainImage)} />
+                                    <CartImg src={urlFor(pid, cartItem?.mainImage)} />
                                 </TableCell>
                                 <TableCell>
                                     <Grid container>

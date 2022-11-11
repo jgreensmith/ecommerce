@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { getConnectId } from "../../lib/mongoHelpers"
 import { countryCodesArray } from "../../utils/countryCodes";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -7,8 +8,11 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
     try {
       const {cartItems, pid} = req.body
-      //const connectAccountId = await mongodb! 
+      const connectAccountId = await getConnectId() 
         const params = {
+            payment_intent_data: {
+              application_fee_amount: 600,
+            },            
             submit_type: "pay",
             mode: "payment",
             payment_method_types: ["card"],
@@ -48,7 +52,7 @@ export default async function handler(req, res) {
             }
 
       // Create Checkout Sessions from body params.
-      const session = await stripe.checkout.sessions.create(params);
+      const session = await stripe.checkout.sessions.create(params, {stripeAccount: connectAccountId});
       res.status(200).json(session);
 
     } catch (err) {
