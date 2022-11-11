@@ -13,7 +13,7 @@ import filterDataToSingleItem from "../../../utils/functions";
 
 const Home = ({ data, preview, currentPid }) => {
 
-  const {data: previewSettings } = usePreviewSubscription(data?.query, {
+  const {data: previewSettings } = usePreviewSubscription(currentPid.pid)(data?.query, {
     initialData: data?.settings,
     enabled: preview
   })
