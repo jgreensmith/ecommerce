@@ -28,7 +28,7 @@ const Product = ({ currentPid, data, preview, settings  }) => {
   const product = filterDataToSingleItem(previewProduct, preview)
 
 
-  console.log({product});
+  //console.log({product});
   const { images, name, seoDescription, mainImage  } = product;
   const [newProduct, setNewProduct] = useState(product)
 

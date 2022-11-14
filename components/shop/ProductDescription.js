@@ -51,9 +51,9 @@ const ProductDescription = ({props}) => {
     }, [])
 
 
-    const handleOnAdd = (newProduct, qty) => {
+    const handleOnAdd = (butt, qty) => {
         const plop = setNewProduct({
-            ...newProduct,
+            ...butt,
             pid: currentPid.pid
         })
         onAdd(plop, qty)

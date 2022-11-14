@@ -20,8 +20,12 @@ const ProductCard = ({pid, product}) => {
     const twoThreeVarLowest = Math.min(...twoThreeVarArr)
 
     const addOne = (x) => {
+        const plop = {
+            ...x,
+            pid: pid
+        }
         setQty(1);
-        onAdd(x, qty);
+        onAdd(plop, qty);
     };
     //console.log(oneVarLowest)
   return (

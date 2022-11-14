@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -11,14 +12,17 @@ export const StateContext = (props) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
+    const router = useRouter()
+    const piddy = router.query.pid
 
     let foundProduct;
-    let index;
 
     useEffect(() => {
       if (localStorage.getItem("cart")) {
-        setCartItems(JSON.parse(localStorage.getItem("cart")));
-        JSON.parse(localStorage.getItem("cart")).map((item) => {
+        const arr = JSON.parse(localStorage.getItem("cart"))
+        const filteredArr = arr.filter(x => x.pid === piddy)
+        setCartItems(filteredArr);
+        filteredArr.map((item) => {
           setTotalQuantities(
             (prevTotalQuantities) => prevTotalQuantities + item.quantity
           );

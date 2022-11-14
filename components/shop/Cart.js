@@ -49,7 +49,7 @@ function Cart(props) {
         } 
           
       }
-    //console.log(cartItems)
+    console.log(cartItems)
     return (
         
         <Container fixed  >
