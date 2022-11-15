@@ -8,11 +8,8 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
     try {
       const {cartItems, pid} = req.body
-      const connectAccountId = await getConnectId() 
-        const params = {
-            payment_intent_data: {
-              application_fee_amount: 600,
-            },            
+      const connectAccountObj = await getConnectId(pid) 
+        const params = {            
             submit_type: "pay",
             mode: "payment",
             payment_method_types: ["card"],
@@ -20,10 +17,10 @@ export default async function handler(req, res) {
             shipping_address_collection: {
               allowed_countries: countryCodesArray,
             },
-            shipping_options: [
-              { shipping_rate: "shr_1L3KQkJQzZCeROhUPCLHPGGZ" },
-              { shipping_rate: "shr_1L3KSvJQzZCeROhUPWnMm2wN" },
-            ],
+            // shipping_options: [
+            //   { shipping_rate: "shr_1L3KQkJQzZCeROhUPCLHPGGZ" },
+            //   { shipping_rate: "shr_1L3KSvJQzZCeROhUPWnMm2wN" },
+            // ],
             line_items: cartItems.map((item) => {
                 const img = item.mainImage.asset._ref;
                 const newImage = img.replace('image-', `https://cdn.sanity.io/images/${pid}/production/`)
@@ -49,10 +46,13 @@ export default async function handler(req, res) {
               allow_promotion_codes: true,
               success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
               cancel_url: `${req.headers.origin}/cancelled`,
+              ...( !connectAccountObj.customerId && {payment_intent_data: {
+                application_fee_amount: 600,
+              }})
             }
 
       // Create Checkout Sessions from body params.
-      const session = await stripe.checkout.sessions.create(params, {stripeAccount: connectAccountId});
+      const session = await stripe.checkout.sessions.create(params, {stripeAccount: connectAccountObj.connected_account_id});
       res.status(200).json(session);
 
     } catch (err) {

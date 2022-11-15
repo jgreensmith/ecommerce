@@ -22,23 +22,29 @@ function Cart(props) {
     const pid = router.query.pid 
 
     const checkoutHandler = async () => {
-        const stripe = await getStripe();
+        //const stripe = await getStripe();
 
-        const response = await fetch('/api/stripe', {
+        await fetch('/api/stripe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
               },
             body: JSON.stringify({cartItems, pid}),
-        });
+        })
+        .then((res) => res.json)
+        .then((data) => {
+            if(data.error) {
+                console.log(data.error)
+            }
+        })
 
-        if(response.statusCode === 500) return;
+        // if(response.statusCode === 500) return;
 
-        const data = await response.json();
+        // const data = await response.json();
 
         toast.loading('Redirecting...');
 
-        stripe.redirectToCheckout({ sessionId: data.id });
+        //stripe.redirectToCheckout({ sessionId: data.id });
     }
 
     const calcItems = (items) => {

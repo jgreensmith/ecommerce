@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import clientPromise from "../lib/mongodb"; 
+import { getConnectId } from '../lib/mongoHelpers';
 import { CenteredDiv } from '../utils/styles'
 
-const Home = ({projects}) => {
+const Home = ({projects, plopped}) => {
   
-    console.log(projects)
+    console.log(plopped)
   return (
     <CenteredDiv>
 projects in Console
@@ -23,11 +24,14 @@ export const getServerSideProps = async () => {
     const filteredProjects = projects.filter(plop => plop.pid)
 
     if(!filteredProjects) return {notFound: true}
+
+    const plopped = await getConnectId('2uh6xbh5')
     
    
     return {
       props: {
         projects: JSON.parse(JSON.stringify(filteredProjects)),
+        plopped
       }
     }
   } catch (e) {

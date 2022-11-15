@@ -21,18 +21,19 @@ export default async function preview(req, res) {
     const pidObj = await client.db('test').collection('users').findOne(
         {preview_mode : { $eq: req.query.secret }},
         {projection: {pid: 1, preview_mode: 1, _id: 0}}
-      )       
+      )  
+    const pidded = JSON.parse(JSON.stringify(pidObj))     
     // if (req.query.secret !== "skpQhwhL8a9CIEz8vLuPmnnwSgLlB2WQGeHbAzCBFR61z8UolZjGsSdtmMJUjqQ3aoIDki1oicmqoJg3M1yWPfW0ZvtVA6bykm3mQBNWUJHVSX2aAbkjbRu1cAIKiNK0EwDozDjcJtLHaQHwlZse8nkmN0uCoabXro9D4NK0RCLJSxgCEWke") {
     //   return res.status(401).json({message: 'Invalid secret token'})
     // }
   
     if (!req.query.slug) {
-      return redirectToPreview(res, `/merchants/${pidObj.pid}`) 
+      return redirectToPreview(res, `/merchants/${pidded.pid}`) 
     }
     
     //check if slug exists
     const productQuery = `*[_type == "product" && slug.current == $slug][0]`
-    const product = await previewClient(pidObj.pid).fetch(productQuery, {
+    const product = await previewClient(pidded.pid).fetch(productQuery, {
       slug: req.query.slug
     })
 
@@ -42,5 +43,5 @@ export default async function preview(req, res) {
   
      // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, `/merchants/${pidObj.pid}/products/${req?.query?.slug}`)
+  redirectToPreview(res, `/merchants/${pidded.pid}/products/${req?.query?.slug}`)
 }
