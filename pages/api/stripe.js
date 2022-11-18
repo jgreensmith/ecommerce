@@ -52,7 +52,7 @@ export default async function handler(req, res) {
             }
 
       // Create Checkout Sessions from body params.
-      const session = await stripe.checkout.sessions.create(params, {stripeAccount: connectAccountObj.connected_account_id});
+      const session = await stripe.checkout.sessions.create(params, {stripeAccount: connectAccountObj.connectedAccount});
       res.status(200).json(session);
 
     } catch (err) {

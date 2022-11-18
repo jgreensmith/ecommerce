@@ -35,6 +35,8 @@ function Cart(props) {
         .then((data) => {
             if(data.error) {
                 console.log(data.error)
+            } else {
+                router.push(data.url)
             }
         })
 

@@ -26,7 +26,7 @@ export async function getConnectId(pid: string) {
      
     const connectId = await client.db('test').collection('users').findOne(
         {pid : { $eq: pid }},
-        {projection: {connected_account_id: 1, customerId: 1, _id: 0}}
+        {projection: {connectedAccount: 1, customerId: 1, _id: 0}}
       )       
 
     return JSON.parse(JSON.stringify(connectId))
