@@ -44,8 +44,8 @@ export default async function handler(req, res) {
                 }
               }),
               allow_promotion_codes: true,
-              success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-              cancel_url: `${req.headers.origin}/cancelled`,
+              success_url: `${req.headers.origin}/merchants/${pid}/success?session_id={CHECKOUT_SESSION_ID}`,
+              cancel_url: `${req.headers.origin}/merchants/${pid}/cancelled`,
               ...( !connectAccountObj.customerId && {payment_intent_data: {
                 application_fee_amount: 600,
               }})

@@ -7,10 +7,14 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import Layout from "../../../components/common/Layout";
 import { CenteredDiv } from '../../../utils/styles';
+import { getConnectId, getPidObj, getPids } from "../../../lib/mongoHelpers";
 import Order from '../../../components/shop/Order';
 import { useStateContext } from '../../../utils/context/StateContext';
+import filterDataToSingleItem from '../../../utils/functions';
+import { groq } from 'next-sanity';
+import { getClient } from '../../../lib/sanity.server';
 
-const Success = ({settings}) => {
+const Success = ({settings, connectId}) => {
     const [order, setOrder] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
@@ -22,9 +26,9 @@ const Success = ({settings}) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const getOrder = async (id) => {
+    const getOrder = async (id, x) => {
        if (id) {
-            const data = await fetch(`/api/success?session_id=${id}`, {
+            const data = await fetch(`/api/success?session_id=${id}&account_id=${x}`, {
                 method: 'GET'
             })
             .then((res) => res.json())
@@ -32,40 +36,40 @@ const Success = ({settings}) => {
 
             const newDataArr = [data];
             setOrder(newDataArr[0]);
-            updateInventory(newDataArr[0])
+            //updateInventory(newDataArr[0])
         } 
 
 
     }
 
     //update inventory with every item in cart
-    const updateInventory = async (order) => {
+    // const updateInventory = async (order) => {
 
-     const updated = await Promise.all(
-        order?.items?.data.map(async (item) => {
-          let id
-          let key
-          const fullId = item.price.product.metadata.product_id
-          if (fullId.includes("_")) {
-            const idArr = fullId.split('_')
-            id = idArr[0]
-            key = idArr[1]
-          } else {
-            id = fullId
-            key = ""
-          }
-          const quantity = item.quantity
-          await fetch('/api/manage-inventory', {
-            method: 'POST',
-            body: JSON.stringify({id, key, quantity})
-          })
+    //  const updated = await Promise.all(
+    //     order?.items?.data.map(async (item) => {
+    //       let id
+    //       let key
+    //       const fullId = item.price.product.metadata.product_id
+    //       if (fullId.includes("_")) {
+    //         const idArr = fullId.split('_')
+    //         id = idArr[0]
+    //         key = idArr[1]
+    //       } else {
+    //         id = fullId
+    //         key = ""
+    //       }
+    //       const quantity = item.quantity
+    //       await fetch('/api/manage-inventory', {
+    //         method: 'POST',
+    //         body: JSON.stringify({id, key, quantity})
+    //       })
           
-        }) 
-      )
+    //     }) 
+    //   )
       
-       return updated 
+    //    return updated 
       
-    }
+    // }
     
 
     useEffect(() => {
@@ -73,13 +77,13 @@ const Success = ({settings}) => {
       setCartItems([]);
       setTotalPrice(0);
       setTotalQuantities(0);
-      getOrder(sessionId);
-    }, [sessionId]);
+      getOrder(sessionId, connectId);
+    }, [sessionId, connectId]);
 
     
     
 
-    //console.log(order)
+    console.log(order)
   return (
     <Layout title="success" settings={settings}>
 
@@ -95,13 +99,11 @@ const Success = ({settings}) => {
           <Alert sx={{ display: 'flex', justifyContent: 'center', border: '1px solid green', p: {vs: '0 40px', sm: '0 70px'}}} icon={<CheckCircleOutlineIcon sx={{m: 'auto'}} />} severity='success'>
             <Typography variant='h2' align='center' sx={{width: '100%'}} >Payment Successful</Typography>
           </Alert>
-          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thankyou {order.customer.name} for your order! You will receive an email confirmation soon.</Typography>
+          <Typography sx={{mt: 2}} variant='body1' align='center' gutterBottom> Thankyou {order.session.shipping_details.name} for your order! You will receive an email confirmation soon.</Typography>
           <Button variant='contained' sx={{m:3}} onClick={() => setModalOpen(true)}>
               view order details
           </Button>
-          {/* <Button variant='contained' sx={{m:3}} onClick={handleInventory()}>
-              inventory
-          </Button> */}
+          
           
           
           <Link href="/products" passHref>
@@ -153,6 +155,8 @@ export const getStaticProps = async ({ params: { pid }, preview = false }) => {
   try {
    
     const currentPid = await getPidObj(pid)
+    const connectId = await getConnectId(pid)
+
 
     const query = groq`*[_type == "siteSettings"]`
     const data = await getClient(currentPid, preview).fetch(query)
@@ -164,7 +168,8 @@ export const getStaticProps = async ({ params: { pid }, preview = false }) => {
 
     return { 
       props: { 
-        settings
+        settings,
+        connectId: connectId.connectedAccount
       }
     }
   } catch (e) {

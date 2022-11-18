@@ -32,16 +32,16 @@ const Order = ({order, setModalOpen}) => {
                 <Typography variant='subtitle1' align='left' gutterBottom>Shipping Address</Typography>
             </FlexStart>
             <FlexStart>
-                <Typography variant='body1'>{order.session.shipping.address.line1},</Typography>
+                <Typography variant='body1'>{order.session.shipping_details.address.line1},</Typography>
             </FlexStart>
             <FlexStart>
-                <Typography variant='body1'>{order.session.shipping.address.city},</Typography>
+                <Typography variant='body1'>{order.session.shipping_details.address.city},</Typography>
             </FlexStart>
             <FlexStart>
-                <Typography variant='body1'>{order.session.shipping.address.state}</Typography>
+                <Typography variant='body1'>{order.session.shipping_details.address.state}</Typography>
             </FlexStart>     
             <FlexStart>
-                <Typography variant='body1'>{order.session.shipping.address.postal_code}</Typography>
+                <Typography variant='body1'>{order.session.shipping_details.address.postal_code}</Typography>
             </FlexStart>    
         </Div>
         <hr />

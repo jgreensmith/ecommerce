@@ -39,6 +39,7 @@ function Cart(props) {
                 router.push(data.url)
             }
         })
+        
 
         // if(response.statusCode === 500) return;
 
