@@ -16,6 +16,7 @@ export const StateContext = (props) => {
     const piddy = router.query.pid
 
     let foundProduct;
+    let index;
 
     useEffect(() => {
       if (localStorage.getItem("cart")) {
