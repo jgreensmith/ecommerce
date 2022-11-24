@@ -20,7 +20,7 @@ const Product = ({ currentPid, data, preview, settings  }) => {
   const slug = data?.product?.slug
   //const product = data?.product
 
-  const {data: previewProduct } = usePreviewSubscription(data?.query, {
+  const {data: previewProduct } = usePreviewSubscription(currentPid)(data?.query, {
     params: { slug },
     initialData: data?.product,
     enabled: preview && slug

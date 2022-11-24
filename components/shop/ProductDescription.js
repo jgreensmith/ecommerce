@@ -51,11 +51,11 @@ const ProductDescription = ({props}) => {
     }, [])
 
 
-    const handleOnAdd = (butt, qty) => {
-        const plop = setNewProduct({
-            ...butt,
+    const handleOnAdd = () => {
+        const plop = {
+            ...newProduct,
             pid: currentPid.pid
-        })
+        }
         onAdd(plop, qty)
     }
     
@@ -85,7 +85,7 @@ const ProductDescription = ({props}) => {
             border: 5px solid #28c3d1
         }
     `
-    console.log(newProduct)
+console.log(qty)
     
     
   return (
@@ -241,7 +241,7 @@ const ProductDescription = ({props}) => {
                                 fullWidth
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => handleOnAdd(newProduct, qty)}
+                                onClick={handleOnAdd}
                                 >
                                 Add to cart
                             </Button>
