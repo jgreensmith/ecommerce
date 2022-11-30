@@ -77,7 +77,7 @@ const ProductCard = ({pid, product}) => {
                 }}
                 >
                 <FlexSpace sx={{p: 1}}>                                      
-                    { product.price &&
+                    { product.inventory &&
                         <Tooltip title="Add to Basket">  
                             <IconButton color='secondary' onClick={() => addOne(product)}>
                                 <AddShoppingCartIcon />
