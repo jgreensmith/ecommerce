@@ -25,6 +25,8 @@ export const StateContext = (props) => {
         const arr = JSON.parse(localStorage.getItem("cart"))
         const filteredArr = arr.filter(x => x.pid === piddy)
         setCartItems(filteredArr);
+        setTotalPrice(0);
+        setTotalQuantities(0);
         filteredArr.map((item) => {
           setTotalQuantities(
             (prevTotalQuantities) => prevTotalQuantities + item.quantity
