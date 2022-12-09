@@ -14,11 +14,12 @@ import { groq } from 'next-sanity';
 import ProductCard from '../../../../components/shop/ProductCard';
 import filterDataToSingleItem from '../../../../utils/functions';
 import { getPidObj, getPids } from '../../../../lib/mongoHelpers';
+import Holiday from '../../../../components/shop/Holiday';
 
 const Products = ({currentPid, products, categories, settings}) => {
     const [productList, setProductList] = useState(products);
     const [catOpen, setCatOpen] = useState(false);
-    //const categories = null
+    const holidayMode = currentPid.holidayMode
     //add all option to products
     
     //if categories create allcategories array
@@ -48,9 +49,10 @@ const Products = ({currentPid, products, categories, settings}) => {
 
     // console.log(products)
     // console.log(categories)
+    if(holidayMode) return <Holiday settings={settings}/>
 
   return (
-    <Layout title='Products' settings={settings}>
+    <Layout title='shop' settings={settings}>
     {!categories && 
             <ContentContainer maxWidth='xl' sx={{overflow: 'hidden'}} disableGutters>
                 <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
