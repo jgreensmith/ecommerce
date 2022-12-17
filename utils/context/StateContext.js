@@ -7,7 +7,11 @@ import { inventoryHandler } from "../functions";
 export const Context = createContext();
 
 export const StateContext = (props) => {
-    //state
+
+    //review state
+    const [modalOpen, setModalOpen] = useState(false);
+    const [currentId, setCurrentId] = useState(null);
+    //cart state
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -148,7 +152,11 @@ export const StateContext = (props) => {
             onRemove,
             setCartItems,
             setTotalPrice,
-            setTotalQuantities 
+            setTotalQuantities,
+            setCurrentId,
+            currentId,
+            setModalOpen,
+            modalOpen
           }}
         >
           {props.children}

@@ -214,3 +214,14 @@ export const HeroSlide = styled('div')({
   width: '100%',
 });
 
+export const InputContainer = styled('div')({
+  paddingRight: '15px',
+  width: '100%'
+});
+
+export const FormBox = styled('div')({
+  padding: '10px',
+  paddingRight: '25px',
+
+});
+

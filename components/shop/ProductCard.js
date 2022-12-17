@@ -77,12 +77,19 @@ const ProductCard = ({pid, product}) => {
                 }}
                 >
                 <FlexSpace sx={{p: 1}}>                                      
-                    { product.inventory &&
+                    { product.inventory ?
+                    
+                        product.inventory > 0 ? 
                         <Tooltip title="Add to Basket">  
                             <IconButton color='secondary' onClick={() => addOne(product)}>
-                                <AddShoppingCartIcon />
+                            <AddShoppingCartIcon />
                             </IconButton>
-                        </Tooltip>
+                            </Tooltip>
+                        : 
+                        <Typography component='body1' color='red' >Sold out</Typography>
+                    
+                    : 
+                    null
                     }
                     
                     

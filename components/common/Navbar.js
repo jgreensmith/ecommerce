@@ -64,7 +64,7 @@ const Navbar = (props) => {
 
 
 
-    //console.log(totalQuantities);
+    //console.log(router.query);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);

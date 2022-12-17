@@ -47,7 +47,7 @@ const Products = ({currentPid, products, categories, settings}) => {
     };
 
 
-    // console.log(products)
+     console.log(products)
     // console.log(categories)
     if(holidayMode) return <Holiday settings={settings}/>
 
