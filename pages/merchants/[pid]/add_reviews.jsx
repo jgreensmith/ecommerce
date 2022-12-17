@@ -90,7 +90,12 @@ const AddReviews = ({settings, currentPid}) => {
         onClose={() => setModalOpen(false)}
        
         >
-          <ReviewForm  items={order.items.data} />
+          <ReviewForm  items={order.items.data} props={{
+            items: order.items.data,
+            sessionId,
+            connectId,
+            name: order.session.customer_details.name
+          }} />
         </Dialog>    
     </Layout>
   )

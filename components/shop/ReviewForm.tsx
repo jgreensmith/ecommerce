@@ -1,23 +1,27 @@
 import { useContext, useEffect, useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
-import { Button, DialogActions, DialogContent, DialogTitle, Divider, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, TextField, Toolbar, Typography } from "@mui/material";
+import { Button, DialogActions, DialogContent, DialogTitle, Divider, FormControl, IconButton, InputLabel, MenuItem, Paper, Rating, Select, TextField, Toolbar, Typography } from "@mui/material";
 
 import { useStateContext } from "../../utils/context/StateContext";
 import { FormBox, InputContainer } from "../../utils/styles";
 
 
-export default function ReviewForm ({ items}: any) {
-    const [error, setError] = useState(null);
+export default function ReviewForm ({props}: any) {
 
-    const [form, setForm] = useState({
-        rating: '',
-        review: ''
-    }); 
+    const { items, connectId, sessionId, name } = props
+    const [thankyou, setThankyou] = useState(false);
+    const [rating, setRating] = useState(2)
+    const [review, setReview] = useState('')
+
+    // const [form, setForm] = useState({
+    //     rating: 2,
+    //     review: ''
+    // }); 
     //update posts
     const { setModalOpen, currentId, setCurrentId } = useStateContext();
 
     //const currentReview = users.find((rev: any) => user._id === currentId)
-    const item = items. find((item: any) => item.price.product.metadata.product_id === currentId)
+    const item = items.find((item: any) => item.price.product.metadata.product_id === currentId)
 
     // useEffect(() => {
     //     setForm({
@@ -26,49 +30,38 @@ export default function ReviewForm ({ items}: any) {
     // }, [])
  
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value        
-        })
-    }
+    
 
     const clear = () => {
         setCurrentId(null);
-        setForm({
-            rating: '',
-            review: ''
-        })
         setModalOpen(false);
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // await fetch('/api/add-pid', {
-        //     method: 'POST',
-        //     headers: {
-        //       Accept: "application/json",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({id: currentId, pid: form.pid, inventory: form.manageInventory, preview: form.previewMode })
-        // })
-        // .then((res) => res.json())
-        // .then((data) => {
-        //     if(data.error) {
-        //         setError(data.error)
-        //     } else {
-        //         clear()
-        //     }
-        // })
+        await fetch('/api/add-review', {
+            method: 'POST',
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({connectId, sessionId, review, rating, name, prodId: item.price.product.metadata.product_id })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if(data.error) {
+                console.log(data.error)
+            } else {
+                setThankyou(true)
+            }
+        })
         
     }
-
 
     return(
         <Paper  sx={{minWidth: "373px"}}>
             <DialogTitle sx={{m: 0, p: 2, display: "flex", justifyContent: "space-between"}}>
-                <Typography variant="h6" align="center">{item?.name}</Typography>
+                <Typography variant="h6" align="center">{item?.price.product.name}</Typography>
                 <IconButton
                     aria-label="close"
                     onClick={clear}
@@ -78,39 +71,41 @@ export default function ReviewForm ({ items}: any) {
                 </IconButton>
             </DialogTitle>
 
+            {thankyou ? 
+            <Typography component='h6'>Thankyou for your feedback</Typography>
+            :
                 <form autoComplete="off" noValidate onSubmit={handleSubmit}>
             <DialogContent dividers>
                     <InputContainer>
-                        <TextField 
-                            name="pid"
-                            value={form.rating}
-                            variant="outlined"
-                            label="Pid"
-                            fullWidth
-                            sx={{m:2, pr:3}}
-                            onChange={handleChange}
-                            />
+                    <Rating
+                        name="rating"
+                        value={rating}
+                        onChange={(e, newValue) => {
+                            setRating(newValue)}
+                        }
+                    />
                     </InputContainer>
                     <InputContainer>
                         <TextField
-                            name="manageInventory"
-                            value={form.review}
+                            name="review"
+                            value={review}
                             variant="outlined"
-                            label="Manage Inventory"
+                            label="Review"
+                            multiline
                             fullWidth
                             sx={{m:2, pr:3}}
-                            onChange={handleChange}
+                            onChange={(e) => setReview(e.target.value)}
                             />
                     </InputContainer>
                     
                   
                 </DialogContent>
                 <DialogActions>
-                    {error && <Typography variant='body2' sx={{color: 'red'}}>Error: {error}</Typography>}
                     <Button  variant="contained" color="primary" size="large" type="submit" fullWidth sx={{p:2}}>Submit</Button>
                     <Button onClick={clear} variant="text" color="secondary" size="small"  fullWidth sx={{p:2}}>Clear</Button>
                 </DialogActions>
                 </form>
+            }
         </Paper>
     )
 }

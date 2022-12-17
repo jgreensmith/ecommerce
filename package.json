@@ -25,6 +25,7 @@
     "@stripe/stripe-js": "^1.25.0",
     "canvas-confetti": "^1.5.1",
     "mongodb": "^4.11.0",
+    "mongoose": "^6.8.0",
     "next": "^13.0.2",
     "next-sanity": "^0.6.0",
     "next-sanity-image": "^3.2.1",
