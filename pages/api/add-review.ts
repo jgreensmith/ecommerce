@@ -9,12 +9,11 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
             const {review, rating, connectId, sessionId, name, prodId } = req.body
 
             let id: string
-            const fullId = prodId
-            if (fullId.includes("_")) {
-                const idArr = fullId.split('_')
+            if (prodId.includes("_")) {
+                const idArr = prodId.split('_')
                 id = idArr[0]
             } else {
-                id = fullId
+                id = prodId
             }
            
             //save customer ID in database
@@ -28,7 +27,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
                     rating: rating,
                     sessionId: sessionId,
                     name: name,
-                    prodId: prodId
+                    prodId: id
                 }}})
             
             res.status(200).json({message: "review added"})
