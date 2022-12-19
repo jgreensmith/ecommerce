@@ -16,19 +16,21 @@ import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../../../u
 
 
 const Product = ({ currentPid, data, preview, settings  }) => {
-
+    
   const slug = data?.product?.slug
   //const product = data?.product
-
+  
   const {data: previewProduct } = usePreviewSubscription(currentPid)(data?.query, {
     params: { slug },
     initialData: data?.product,
     enabled: preview && slug
   })
   const product = filterDataToSingleItem(previewProduct, preview)
+  
+  //reviews array
+  const reviews = currentPid.reviews.filter((r) => r.prodId === product._id)
 
-
-  //console.log({product});
+  console.log({reviews});
   const { images, name, seoDescription, mainImage  } = product;
   const [newProduct, setNewProduct] = useState(product)
 

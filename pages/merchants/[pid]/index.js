@@ -19,6 +19,8 @@ const Home = ({ data, preview, currentPid }) => {
   })
   const settings = filterDataToSingleItem(previewSettings, preview)
 
+  const reviews = currentPid.reviews
+
   const seo = settings?.seoDescription
   const heroData = settings?.heroImages
   const heroFixed = settings?.heroFixed

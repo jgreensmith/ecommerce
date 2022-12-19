@@ -19,6 +19,9 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
             //save customer ID in database
             await dbConnect()
 
+            //check if sessionId exists
+            // @ts-ignore
+            await User.findOne({connectedAccount: { $eq: connectId}})
             // @ts-ignore
             await User.findOneAndUpdate(
                 {connectedAccount: { $eq: connectId}}, 

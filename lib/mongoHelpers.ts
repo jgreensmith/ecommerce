@@ -15,7 +15,7 @@ export async function getPidObj(pid: string) {
      
     const pidObj = await client.db('test').collection('users').findOne(
         {pid : { $eq: pid }},
-        {projection: {pid: 1, encrypted_manage_inventory: 1, iv: 1, auth_tag: 1, preview_mode: 1, holidayMode: 1, _id: 0}}
+        {projection: {pid: 1, encrypted_manage_inventory: 1, iv: 1, auth_tag: 1, preview_mode: 1, holidayMode: 1, reviews: 1,  _id: 0}}
       )       
 
     return JSON.parse(JSON.stringify(pidObj))
