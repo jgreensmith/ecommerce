@@ -1,23 +1,26 @@
 import React from 'react'
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 
-import { Button, IconButton, Slide, Tooltip, Typography } from '@mui/material'
+import { Button, IconButton, Rating, Slide, Tooltip, Typography } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import { CardBanner, FlexSpace, PortfolioCard, PortfolioCardBody, PortfolioImg } from '../../utils/styles'
+import { CardBanner, FlexStart, FlexSpace, PortfolioCard, PortfolioCardBody, PortfolioImg } from '../../utils/styles'
 import styles from '../../styles/Product.module.css';
 import { urlFor } from '../../lib/sanity';
 import { useStateContext } from '../../utils/context/StateContext';
 
 
-const ProductCard = ({pid, product}) => {
-    console.log(pid)
+const ProductCard = ({props}) => {
+    const {product, pid, allReviews} = props
     const { currencyConverter } = useCurrencyContext();
-    const { onAdd, setQty, qty } = useStateContext();
+    const { onAdd, setQty, qty, getReviewAverage } = useStateContext();
     const oneVarArr = !product?.variants ? [] : product.variants.map((x) =>  x.price)
     const twoThreeVarArr = !product?.variantComboList ? [] : product.variantComboList.map((x) => x.price)
     const oneVarLowest = Math.min(...oneVarArr)
     const twoThreeVarLowest = Math.min(...twoThreeVarArr)
+
+    const reviews = allReviews.filter((r) => r.prodId === product._id)
+
 
     const addOne = (x) => {
         const plop = {
@@ -43,6 +46,7 @@ const ProductCard = ({pid, product}) => {
                         >
                         {product.name}
                     </Typography>
+                    
                     {
                         product.price ? 
                             <Typography variant='subtitle1' align='right'sx={{color: 'primary.text',pt: '3px'}}>
@@ -71,11 +75,18 @@ const ProductCard = ({pid, product}) => {
                 className={styles.cardBanner}
                 sx={{
                     justifyContent: 'space-evenly',
+                    flexDirection: 'column',
                     bottom: '-10px',
                     transform: 'translateY(10px)',
                     p: '7px 13px'                                         
                 }}
                 >
+                { reviews.length > 0 &&
+                    <FlexStart>
+                        <Rating precision={0.5} value={getReviewAverage(reviews).average} readOnly />
+                        <Typography variant='body1'>{`(${getReviewAverage(reviews).total})`}</Typography>
+                    </FlexStart>
+                }
                 <FlexSpace sx={{p: 1}}>                                      
                     { product.inventory ?
                     

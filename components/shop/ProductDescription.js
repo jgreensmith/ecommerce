@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { PortableText } from '@portabletext/react';
 
-import { Alert, Button, FormControl, Grid, InputLabel, Menu, MenuItem, MenuList, Paper, Select, TextField, Typography } from '@mui/material';
+import { Alert, Button, FormControl, Grid, InputLabel, Menu, MenuItem, MenuList, Paper, Rating, Select, TextField, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { useStateContext } from '../../utils/context/StateContext';
 import { useCurrencyContext } from '../../utils/context/CurrencyContext';
 import styled, { css } from 'styled-components'
-import { Div, FlexEven, StyledList, StyledUnList } from '../../utils/styles';
+import { Div, FlexEven, FlexSpace, FlexEnd, StyledList, StyledUnList } from '../../utils/styles';
 import { useTheme } from '@mui/material/styles';
 import { ConstructionOutlined } from '@mui/icons-material';
 import { useEffect } from 'react';
@@ -26,9 +26,10 @@ const ProductDescription = ({props}) => {
         secondaryValue,
         tertiaryValue,
         setNewProduct,
-        currentPid
+        currentPid,
+        reviews
     } = props
-    const { onAdd, qty, setQty } = useStateContext();
+    const { onAdd, qty, setQty, getReviewAverage } = useStateContext();
     const { currencyConverter } = useCurrencyContext();
     //const inventory = 13
     const variants = product?.variants ? product.variants : []
@@ -39,6 +40,8 @@ const ProductDescription = ({props}) => {
     const primaryVariants = product?.primaryVariants ? product.primaryVariants : []
     const theme = useTheme()
     const [isVariants, setIsVariants] = useState(false)
+
+    console.log(getReviewAverage(reviews));
     
     useEffect(() => {
         if(product.variants) {
@@ -90,7 +93,7 @@ console.log(qty)
     
   return (
     <Paper elevation={3} sx={{ p: 1 }}>
-        <Div sx={{ p: 1}}>
+        <FlexSpace sx={{ p: 1}}>
             <Typography
                 gutterBottom
                 variant='h6'
@@ -98,7 +101,12 @@ console.log(qty)
             >
                 {product.name}
             </Typography>
-        </Div>
+            <FlexEnd>
+                <Rating precision={0.5} value={getReviewAverage(reviews).average} readOnly />
+                <Typography variant='body1'>{`(${getReviewAverage(reviews).total})`}</Typography>
+            </FlexEnd>
+
+        </FlexSpace>
         <Div sx={{ p: 1}}>
             <Grid container>
                 <Grid item xs={6}>

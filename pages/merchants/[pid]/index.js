@@ -19,13 +19,22 @@ const Home = ({ data, preview, currentPid }) => {
   })
   const settings = filterDataToSingleItem(previewSettings, preview)
 
-  const reviews = currentPid.reviews
+  //might remove this
+  const reviews = currentPid.reviews.sort((a,b) => {
+    if (a.rating > b.rating) {
+      return -1
+    }
+    if(a.rating < b.rating) {
+      return 1
+    }
+    return 0
+  })
 
   const seo = settings?.seoDescription
   const heroData = settings?.heroImages
   const heroFixed = settings?.heroFixed
 
-  console.log(currentPid)
+  console.log(reviews)
 
   return (
       <Layout title="Home" seo={seo} settings={settings}>

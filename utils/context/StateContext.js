@@ -24,6 +24,19 @@ export const StateContext = (props) => {
     let index;
     let change;
 
+    const getReviewAverage = (arr) => {
+      
+        const total = arr.length
+        let average
+        if(total > 1) {
+          average = arr.reduce((a, b) => (a.rating + b.rating)/total)
+        } else if(total <= 1) {
+          average = arr[0].rating
+        }
+        return {total, average}
+      
+    }
+
     useEffect(() => {
       if (localStorage.getItem("cart")) {
         const arr = JSON.parse(localStorage.getItem("cart"))
@@ -156,7 +169,8 @@ export const StateContext = (props) => {
             setCurrentId,
             currentId,
             setModalOpen,
-            modalOpen
+            modalOpen,
+            getReviewAverage
           }}
         >
           {props.children}

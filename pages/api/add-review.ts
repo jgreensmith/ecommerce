@@ -21,10 +21,16 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
 
             //check if sessionId exists
             // @ts-ignore
-            await User.findOne({connectedAccount: { $eq: connectId}})
+            await User.findOneAndUpdate(
+                {connectedAccount: connectId},
+                {$pull: {reviews: {
+                    prodId: id,
+                    sessionId: sessionId
+                }}}
+            )
             // @ts-ignore
             await User.findOneAndUpdate(
-                {connectedAccount: { $eq: connectId}}, 
+                {connectedAccount:  connectId}, 
                 {$push: {reviews: {
                     review: review,
                     rating: rating,

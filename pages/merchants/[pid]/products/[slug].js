@@ -1,4 +1,4 @@
-import { Container, Grid, Grow, Toolbar } from '@mui/material';
+import { Paper, Container, Grid, Grow, Rating, Table, TableBody, TableCell, TableContainer, TableRow, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { groq } from 'next-sanity';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import { getPidObj, getPids } from '../../../../lib/mongoHelpers';
 import { urlFor, usePreviewSubscription } from '../../../../lib/sanity';
 import { getClient, sanityClient } from '../../../../lib/sanity.server';
 import filterDataToSingleItem from '../../../../utils/functions';
-import { ContentContainer, Div, StyledImg, ThumbnailButton } from '../../../../utils/styles';
+import { CenteredDiv, ContentContainer, Div, StyledImg, ThumbnailButton } from '../../../../utils/styles';
 
 
 
@@ -27,11 +27,11 @@ const Product = ({ currentPid, data, preview, settings  }) => {
   })
   const product = filterDataToSingleItem(previewProduct, preview)
   
-  //reviews array
-  const reviews = currentPid.reviews.filter((r) => r.prodId === product._id)
-
-  console.log({reviews});
+   //reviews array
+   const reviews = currentPid.reviews.filter((r) => r.prodId === product._id)
+ 
   const { images, name, seoDescription, mainImage  } = product;
+
   const [newProduct, setNewProduct] = useState(product)
 
  //create new variants array that parses the varSelect and includes inventory, key and price
@@ -215,7 +215,8 @@ const Product = ({ currentPid, data, preview, settings  }) => {
                 primaryValue,
                 secondaryValue,
                 tertiaryValue,
-                currentPid
+                currentPid,
+                reviews
                 
               }}
                 
@@ -223,6 +224,40 @@ const Product = ({ currentPid, data, preview, settings  }) => {
             </Div>
           </Grid>
         </Grid>
+        <CenteredDiv sx={{flexDirection: 'column'}}>
+        <TableContainer component={Paper} elevation={0} square sx={{ maxWidth: '800px', width: '80%' }}>
+          <Table >
+              <TableBody >
+                  {reviews.map((review, i) => {
+                    return (
+                      <TableRow  key={i}>
+                          
+                          <TableCell>
+                              <Grid container>
+                                  <Grid item xs={6}>
+                                      <Typography variant='subtitle1' gutterBottom>{review.name}</Typography>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                      <Typography align='right'>
+                                      <Rating value={review.rating} readOnly />
+
+                                      </Typography>
+                                  </Grid>
+                              </Grid>
+                          </TableCell>
+                          <TableCell 
+                              align='left' 
+                              sx={{ width: '80px', padding: '5px' }} 
+                          >
+                            {review.review}
+                          </TableCell>
+                      </TableRow>
+                  )})}
+                  
+              </TableBody>
+          </Table>
+      </TableContainer>
+      </CenteredDiv>
       </ContentContainer>
     </Layout>
   )

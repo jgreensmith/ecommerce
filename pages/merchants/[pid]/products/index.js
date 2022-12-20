@@ -94,7 +94,12 @@ const Products = ({currentPid, products, categories, settings}) => {
         <CenteredGrid container spacing={1} sx={{pt: 6, ml: {sm: 4, md: 0}}}  >
                     {productList.map((product) => (
                         <CenteredGrid item key={product._id}  >
-                            <ProductCard pid={currentPid.pid} product={product} />
+                            <ProductCard props={{
+                                    pid: currentPid.pid,
+                                    product,
+                                    allReviews: currentPid.reviews 
+                                }} 
+                            />
                                           
                         </CenteredGrid>    
                     ))}
