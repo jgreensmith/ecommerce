@@ -24,15 +24,12 @@ export const StateContext = (props) => {
     let index;
     let change;
 
-    const getReviewAverage = (arr) => {
+    const getReviewAverage = (ObjArr) => {
       
-        const total = arr.length
-        let average
-        if(total > 1) {
-          average = arr.reduce((a, b) => (a.rating + b.rating)/total)
-        } else if(total <= 1) {
-          average = arr[0].rating
-        }
+        const total = ObjArr.length
+        const arr = ObjArr.map((x) => x.rating)
+        const average = arr.reduce((a, b) => a + b, 0)/total
+        
         return {total, average}
       
     }
