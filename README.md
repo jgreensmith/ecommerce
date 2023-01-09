@@ -1,11 +1,13 @@
-## Nextjs e-ccommerce website builder (storefronts)
+## Nextjs e-ccommerce website builder (Shop)
 
-This project uses nested dynamic routing to provide SSG storefronts for small buisness owners.
+This project uses nested dynamic routing to provide SSG e-ccomerce websites for small buisness owners.
 you can view the project [here](https://ecommerce-eta-seven.vercel.app/)
 
 and then follow the link to the example merchant!
 
 the project IDs are stored in the Mongodb Database and used with `getStaticPaths` and `getStaticProps` to provide the data for each storefront.
+
+The shop has default site settings incase the user doesn't wish to build their own custom website
 
 ## Repositories that make up the website builder
 
