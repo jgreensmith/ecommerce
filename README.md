@@ -10,6 +10,7 @@ and then follow the link to the example merchant!
 Elegent hover card banners are used on the products to reduce clutter on the Products page.
 
 <img width="352" alt="Screenshot 2023-01-09 at 23 30 34" src="https://user-images.githubusercontent.com/71337767/211428904-b2cf9572-937b-414d-a6a8-c845f444576e.png">
+<img width="621" alt="Screenshot 2023-01-09 at 23 39 18" src="https://user-images.githubusercontent.com/71337767/211429800-bc493fa2-0d0d-4ae2-baa1-9141bf983f3d.png">
 
 the project IDs are stored in the Mongodb Database and used with `getStaticPaths` and `getStaticProps` to provide the data for each storefront.
 
