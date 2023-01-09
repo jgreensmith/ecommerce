@@ -5,6 +5,8 @@ you can view the project [here](https://ecommerce-eta-seven.vercel.app/)
 
 and then follow the link to the example merchant!
 
+<img width="1438" alt="Screenshot 2023-01-09 at 21 53 58" src="https://user-images.githubusercontent.com/71337767/211422957-dccba9ae-64ad-40fc-a9c4-b230296d51ca.png">
+
 the project IDs are stored in the Mongodb Database and used with `getStaticPaths` and `getStaticProps` to provide the data for each storefront.
 
 The shop has default site settings incase the user doesn't wish to build their own custom website
