@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useEffect } from 'react'
 import clientPromise from "../lib/mongodb"; 
 import { CenteredDiv } from '../utils/styles'
@@ -7,7 +8,8 @@ const Home = ({projects, plopped}) => {
     console.log(projects)
   return (
     <CenteredDiv>
-projects in Console
+<Link href='merchants/smq0a814'>test merchant</Link>
+
     </CenteredDiv>
   )
 }
