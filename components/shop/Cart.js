@@ -3,7 +3,6 @@ import { Button, Container, Divider, Grid, IconButton, Paper, Table, TableBody, 
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import dynamic from 'next/dynamic';
 import { CartImg, CenteredDiv, FlexStart } from '../../utils/styles';
 import Link from 'next/link';
 import { Box } from '@mui/system';
@@ -11,7 +10,6 @@ import Router, { useRouter } from 'next/router';
 
 import { useStateContext } from '../../utils/context/StateContext';
 import { urlFor } from '../../lib/sanity';
-import getStripe from '../../lib/getStripe';
 import toast from 'react-hot-toast';
 
 
