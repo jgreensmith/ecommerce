@@ -1,7 +1,11 @@
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { groq } from 'next-sanity';
 import Link from 'next/link';
 import React from 'react';
 import Layout from '../../../components/common/Layout';
+import { getPidObj, getPids } from '../../../lib/mongoHelpers';
+import { getClient } from '../../../lib/sanity.server';
+import filterDataToSingleItem from '../../../utils/functions';
 import { CenteredDiv, ShrekImg } from '../../../utils/styles';
 
 const Custom404 = ({settings}) => {
