@@ -12,7 +12,7 @@ import { getPidObj, getPids } from "../../../lib/mongoHelpers";
 
 const About = ({preview, data, currentPid}) => {
     
-    const { data: previewSettings } = usePreviewSubscription(data?.query, {
+    const { data: previewSettings } = usePreviewSubscription(currentPid)(data?.query, {
         initialData: data?.settings,
         enabled: preview
     })
@@ -21,7 +21,7 @@ const About = ({preview, data, currentPid}) => {
 
     // const router = useRouter()
     // const settings = router.query.about
-    console.log(currentPid)
+    console.log({currentPid, settings})
     return(
     <Layout title="About" settings={settings} >
 
