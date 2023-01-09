@@ -7,7 +7,14 @@ and then follow the link to the example merchant!
 
 <img width="1438" alt="Screenshot 2023-01-09 at 21 53 58" src="https://user-images.githubusercontent.com/71337767/211422957-dccba9ae-64ad-40fc-a9c4-b230296d51ca.png">
 
+Elegent hover card banners are used on the products to reduce clutter on the Products page.
+
+<img width="352" alt="Screenshot 2023-01-09 at 23 30 34" src="https://user-images.githubusercontent.com/71337767/211428904-b2cf9572-937b-414d-a6a8-c845f444576e.png">
+
 the project IDs are stored in the Mongodb Database and used with `getStaticPaths` and `getStaticProps` to provide the data for each storefront.
+
+<img width="371" alt="Screenshot 2023-01-09 at 23 34 15" src="https://user-images.githubusercontent.com/71337767/211429274-c11e3a4f-e940-48ef-9438-ef7879a84a96.png">
+<img width="552" alt="Screenshot 2023-01-09 at 23 35 55" src="https://user-images.githubusercontent.com/71337767/211429418-352d474f-482e-4228-9a1e-3f7ff88152e1.png">
 
 The shop has default site settings incase the user doesn't wish to build their own custom website
 
