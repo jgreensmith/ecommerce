@@ -1,34 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Nextjs e-ccommerce website builder (storefronts)
 
-## Getting Started
+This project uses nested dynamic routing to provide SSG storefronts for small buisness owners.
+you can view the project [here](https://ecommerce-eta-seven.vercel.app/)
 
-First, run the development server:
+and then follow the link to the example merchant!
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+the project IDs are stored in the Mongodb Database and used with `getStaticPaths` and `getStaticProps` to provide the data for each storefront.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Repositories that make up the website builder
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- [Sanity - Content Management System](https://github.com/jgreensmith/sanity-eccomerce-template) - Sanity is used to create schemas to provide content and site settings for each merchant. This repo will be cloned for each merchant, then by running `sanity init`, a new CMS project will be created with the same schemas. The project ID, and API keys will then be added to the database with the Control Panel
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- [Control Panel](https://github.com/jgreensmith/company_control_panel) - The Control Panel is used to encrypt API keys and then add them along with the Sanity Project Id to the mongodb database.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Company Website - Authenticated Dashboard](https://github.com/jgreensmith/company) - an account can be created by signing up with credentials or google auth, after sending a nodemailer email verification link, the user data and hashed password is added to the database providing authentication. This creates a connected [Stripe](https://stripe.com/docs/connect) account, which enables the user to accept payments from their store!
