@@ -20,16 +20,16 @@ const Links = ({settings}) => {
   return (
     <React.Fragment>
 
-        <NextLink href="/about">
+        {/* <NextLink href="/about">
             <SvgButton sx={{mr: '9px', mb: 3}} >
                     About Merchant X
             </SvgButton>
-        </NextLink>
-        <NextLink href="/products">
+        </NextLink> */}
+        {/* <NextLink href="/products">
             <SvgButton sx={{mr: '9px', mb: 3}} >
                     Shop
             </SvgButton>
-        </NextLink>
+        </NextLink> */}
         { insta && 
         <Link href={insta} target="_blank" rel="noreferrer" >
             <SvgButton sx={{mr: '9px', mb: 3}}  >
