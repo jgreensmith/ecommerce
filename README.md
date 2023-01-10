@@ -12,6 +12,10 @@ Elegent hover card banners are used on the products to reduce clutter on the Pro
 <img width="352" alt="Screenshot 2023-01-09 at 23 30 34" src="https://user-images.githubusercontent.com/71337767/211428904-b2cf9572-937b-414d-a6a8-c845f444576e.png">
 <img width="621" alt="Screenshot 2023-01-09 at 23 39 18" src="https://user-images.githubusercontent.com/71337767/211429800-bc493fa2-0d0d-4ae2-baa1-9141bf983f3d.png">
 
+To improve user experience, the customer can see the available variants of the product, they can easily filter through the variants and then the available quantity will match the inventory of that specific variant. This is much better for UX than dropdown menus.
+
+<img width="439" alt="Screenshot 2023-01-10 at 12 39 20" src="https://user-images.githubusercontent.com/71337767/211554523-c10c154f-07f0-47b8-ade5-c2804fd45b43.png">
+
 the project IDs are stored in the Mongodb Database and used with `getStaticPaths` and `getStaticProps` to provide the data for each storefront.
 
 <img width="371" alt="Screenshot 2023-01-09 at 23 34 15" src="https://user-images.githubusercontent.com/71337767/211429274-c11e3a4f-e940-48ef-9438-ef7879a84a96.png">
