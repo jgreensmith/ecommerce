@@ -1,4 +1,4 @@
-## Nextjs e-ccommerce website builder (Shop)
+## Nextjs e-commerce website builder (Shop)
 
 This project uses nested dynamic routing to provide SSG e-ccomerce websites for small buisness owners.
 you can view the project [here](https://ecommerce-eta-seven.vercel.app/)
