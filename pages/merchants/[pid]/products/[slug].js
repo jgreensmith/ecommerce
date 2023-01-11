@@ -165,7 +165,7 @@ const Product = ({ currentPid, data, preview, settings  }) => {
     <Layout title={name} seo={seoDescription} settings={settings}>
       <Toolbar />
       <ContentContainer maxWidth="xl">
-        <Grid container spacing={3}>
+        <Grid sx={{pb: 2}} container spacing={3}>
           <Grid item xs={12} vs={2} md={1} >
             {allImages?.map((item, i) => (
               <ThumbnailButton 
@@ -224,8 +224,9 @@ const Product = ({ currentPid, data, preview, settings  }) => {
             </Div>
           </Grid>
         </Grid>
+          <hr />
         <CenteredDiv sx={{flexDirection: 'column'}}>
-        <TableContainer component={Paper} elevation={0} square sx={{ maxWidth: '800px', width: '80%' }}>
+        <TableContainer elevation={0} square sx={{ maxWidth: '800px', width: '80%' }}>
           <Table >
               <TableBody >
                   {reviews.map((review, i) => {
@@ -243,14 +244,15 @@ const Product = ({ currentPid, data, preview, settings  }) => {
 
                                       </Typography>
                                   </Grid>
+                                  <Grid item xs={12}>
+                                    <Typography variant='body2' gutterBottom>
+
+                                      {review.review}
+                                    </Typography>
+                                  </Grid>
                               </Grid>
                           </TableCell>
-                          <TableCell 
-                              align='left' 
-                              sx={{ width: '80px', padding: '5px' }} 
-                          >
-                            {review.review}
-                          </TableCell>
+                         
                       </TableRow>
                   )})}
                   
