@@ -82,7 +82,7 @@ const ProductCard = ({props}) => {
                 }}
                 >
                 { reviews.length > 0 &&
-                    <FlexStart>
+                    <FlexStart sx={{width: '100%', pl: 1, pb: 1}}>
                         <Rating precision={0.5} value={getReviewAverage(reviews).average} readOnly />
                         <Typography variant='body1'>{`(${getReviewAverage(reviews).total})`}</Typography>
                     </FlexStart>
